@@ -1,0 +1,49 @@
+{
+    "experiences": [
+        {
+            "title": "Title A",
+            "occupationType": "Full-time",
+            "organizationName": "Tech Company Inc.",
+            "startDate": "2022-01-15",
+            "endDate": "Current",
+            "location": "Singapore",
+            "descPoints": [
+                "Point 1",
+                "Point 2",
+                "Point 3"
+            ],
+            "achievements": [
+                "Point 1",
+                "Point 2"
+            ]
+        },
+        {
+            "title": "Title B",
+            "occupationType": "Full-time",
+            "organizationName": "StartUp Labs",
+            "startDate": "2020-06-01",
+            "endDate": "2021-12-31",
+            "location": "Remote",
+            "descPoints": [
+                "Point 1",
+                "Point 2",
+                "Point 3"
+            ],
+            "achievements": [
+                "Point 1",
+                "Point 2"
+            ]
+        },
+        {
+            "title": "Title C",
+            "occupationType": "Internship",
+            "organizationName": "Web Solutions Co.",
+            "startDate": "2019-06-01",
+            "endDate": "2019-08-31",
+            "location": "Singapore",
+            "descPoints": [
+                "Point 1"
+            ]
+        }
+    ]
+}
