@@ -1,0 +1,44 @@
+{
+    "profile": {
+        "name": "Player One",
+        "title": "Full Stack Developer",
+        "tagline": "Building digital experiences with code",
+        "avatar": "👨‍💻",
+        "bio": "A passionate developer with expertise in building scalable web applications and interactive user experiences. Always eager to learn new technologies and tackle challenging problems.",
+        "location": "Singapore",
+        "available": true
+    },
+    "contact": {
+        "email": "player@example.com",
+        "phone": "+65 1234 5678",
+        "website": "https://playerone.dev"
+    },
+    "social": [
+        {
+            "platform": "GitHub",
+            "url": "https://github.com/username",
+            "icon": "🐙"
+        },
+        {
+            "platform": "LinkedIn",
+            "url": "https://linkedin.com/in/username",
+            "icon": "💼"
+        },
+        {
+            "platform": "Twitter",
+            "url": "https://twitter.com/username",
+            "icon": "🐦"
+        },
+        {
+            "platform": "Discord",
+            "url": "https://discord.gg/username",
+            "icon": "💬"
+        }
+    ],
+    "stats": {
+        "yearsExperience": 5,
+        "projectsCompleted": 20,
+        "coffeeConsumed": 1000,
+        "linesOfCode": 50000
+    }
+}
