@@ -49,7 +49,7 @@ const ProjectPage: React.FC = () => {
     const trail = useTrail(projects.length, {
         from: { opacity: 0, y: 30 },
         to: { opacity: 1, y: 0 },
-        delay: 200,
+        delay: 0,
         config: config.gentle,
     });
 
@@ -81,10 +81,7 @@ const ProjectPage: React.FC = () => {
                             project={projects[index]}
                             index={index}
                             onClick={setSelectedProject}
-                            style={{
-                                opacity: style.opacity.get(),
-                                y: style.y.get(),
-                            }}
+                            style={style}
                         />
                     ))}
                 </div>

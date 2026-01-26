@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import { useSpring, animated, to } from '@react-spring/web';
 import { difficultyColors, statusColors } from './ProjectPage';
 import type { Project } from './ProjectPage';
+import type { SpringValue } from '@react-spring/web';
 
 interface ProjectCardProps {
     project: Project;
     index: number;
     onClick: (project: Project) => void;
-    style: { opacity: number; y: number };
+    style: { opacity: SpringValue<number>; y: SpringValue<number> };
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -29,9 +30,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <animated.div
             style={{
                 opacity: style.opacity,
-                transform: hoverSpring.scale.to(
-                    (s) =>
-                        `scale(${s}) translateY(${style.y + hoverSpring.y.get()}px)`
+                transform: to(
+                    [style.y, hoverSpring.scale, hoverSpring.y],
+                    (trailY, scale, hoverY) =>
+                        `translateY(${trailY + hoverY}px) scale(${scale})`
                 ),
             }}
             className="game-card p-6 cursor-pointer hover:border-game-primary relative overflow-hidden group"
@@ -67,7 +69,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <p
                 className={`text-center text-sm mb-3 ${difficultyColors[project.difficulty]}`}
             >
-                ��?{project.difficulty}
+                {project.difficulty}
             </p>
 
             {/* Description */}
@@ -92,5 +94,4 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </animated.div>
     );
 };
-
 export default ProjectCard;

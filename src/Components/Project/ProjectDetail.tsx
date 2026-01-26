@@ -121,7 +121,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                             rel="noopener noreferrer"
                             className="game-button hover:game-button-hover rounded-lg"
                         >
-                            GitHub â†?{' '}
+                            GitHub{' '}
                         </a>
                     )}
                     {project.liveUrl && (
@@ -131,7 +131,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                             rel="noopener noreferrer"
                             className="game-button hover:game-button-hover rounded-lg bg-game-secondary/20 border-game-secondary text-game-secondary"
                         >
-                            Live Demo â†?{' '}
+                            Demo{' '}
                         </a>
                     )}
                 </div>
