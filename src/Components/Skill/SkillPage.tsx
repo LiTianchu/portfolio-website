@@ -1,221 +1,26 @@
 import React, { useState, useCallback } from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import Tree from 'react-d3-tree';
-import type { RawNodeDatum, CustomNodeElementProps } from 'react-d3-tree';
+import type { RawNodeDatum } from 'react-d3-tree';
 import skillsJSON from '@assets/skills.json';
 import BackButton from '@comp/Common/BackButton';
+import CustomNode from './CustomNode';
+import SkillDetail from './SkillDetail';
 
-type SkillAttributes = Record<string, string | number | boolean>;
+export type SkillAttributes = Record<string, string | number | boolean>;
 
-interface SkillNode extends RawNodeDatum {
+export interface SkillNode extends RawNodeDatum {
     name: string;
     attributes?: SkillAttributes;
     children?: SkillNode[];
 }
 
-const levelColors: Record<string, string> = {
+export const levelColors: Record<string, string> = {
     Master: '#00d4ff',
     Expert: '#00ff88',
     Advanced: '#ffb800',
     Intermediate: '#ff6b35',
     Beginner: '#ff3366',
-};
-
-const getSkillIcon = (attributes?: SkillAttributes) => {
-    const icon = attributes?.icon;
-    return typeof icon === 'string' ? icon : undefined;
-};
-
-type CustomNodeProps = CustomNodeElementProps & {
-    onSkillClick?: (node: SkillNode) => void;
-};
-
-const CustomNode: React.FC<CustomNodeProps> = ({
-    nodeDatum,
-    toggleNode,
-    onSkillClick,
-}) => {
-    const attributes = nodeDatum.attributes as SkillAttributes | undefined;
-    const level = (attributes?.level as string) || 'Intermediate';
-    const icon = (attributes?.icon as string) || '📦';
-    const hasChildren = nodeDatum.children && nodeDatum.children.length > 0;
-
-    const handleClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onSkillClick?.(nodeDatum as SkillNode);
-    };
-
-    return (
-        <g onClick={toggleNode}>
-            {/* Connection line glow */}
-            <defs>
-                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                    <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-
-            {/* Node background */}
-            <rect
-                x="-60"
-                y="-30"
-                width="120"
-                height="60"
-                rx="8"
-                fill="rgba(20, 20, 35, 0.9)"
-                stroke={levelColors[level]}
-                strokeWidth="2"
-                filter="url(#glow)"
-                style={{ cursor: 'pointer' }}
-                onClick={handleClick}
-            />
-
-            {/* Icon */}
-            <text
-                x="-45"
-                y="5"
-                fontSize="20"
-                textAnchor="middle"
-                style={{ pointerEvents: 'none' }}
-            >
-                {icon}
-            </text>
-
-            {/* Name */}
-            <text
-                x="10"
-                y="-5"
-                fill="white"
-                fontSize="12"
-                fontWeight="bold"
-                textAnchor="middle"
-                style={{ pointerEvents: 'none' }}
-            >
-                {nodeDatum.name}
-            </text>
-
-            {/* Level badge */}
-            <text
-                x="10"
-                y="12"
-                fill={levelColors[level]}
-                fontSize="9"
-                textAnchor="middle"
-                style={{ pointerEvents: 'none' }}
-            >
-                {level}
-            </text>
-
-            {/* Expand indicator */}
-            {hasChildren && (
-                <circle
-                    cx="50"
-                    cy="0"
-                    r="8"
-                    fill="rgba(0, 212, 255, 0.3)"
-                    stroke="#00d4ff"
-                    strokeWidth="1"
-                />
-            )}
-            {hasChildren && (
-                <text
-                    x="50"
-                    y="4"
-                    fill="#00d4ff"
-                    fontSize="10"
-                    textAnchor="middle"
-                    style={{ pointerEvents: 'none' }}
-                >
-                    {nodeDatum.__rd3t?.collapsed ? '+' : '−'}
-                </text>
-            )}
-        </g>
-    );
-};
-
-interface SkillDetailProps {
-    skill: SkillNode | null;
-    onClose: () => void;
-}
-
-const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onClose }) => {
-    const modalSpring = useSpring({
-        from: { opacity: 0, scale: 0.9 },
-        to: { opacity: skill ? 1 : 0, scale: skill ? 1 : 0.9 },
-        config: config.gentle,
-    });
-
-    if (!skill) return null;
-
-    const attributes = (skill.attributes || {}) as SkillAttributes;
-    const level = (attributes.level as string) || 'Intermediate';
-
-    return (
-        <animated.div
-            style={modalSpring}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 glass-panel-dark p-6 min-w-75 z-20"
-        >
-            <button
-                onClick={onClose}
-                className="absolute top-2 right-2 text-game-text-muted hover:text-game-primary"
-            >
-                ✕
-            </button>
-            <div className="flex items-center gap-4 mb-4">
-                <span className="text-4xl">
-                    {(attributes.icon as string) || '📦'}
-                </span>
-                <div>
-                    <h3 className="text-xl font-bold text-game-text-primary">
-                        {skill.name}
-                    </h3>
-                    <span
-                        className="text-sm font-semibold"
-                        style={{ color: levelColors[level] }}
-                    >
-                        {level}
-                    </span>
-                </div>
-            </div>
-            {attributes.description && (
-                <p className="text-game-text-secondary text-sm mb-3">
-                    {attributes.description as string}
-                </p>
-            )}
-            {attributes.years && (
-                <div className="flex items-center gap-2 text-game-text-muted text-sm">
-                    <span>⏱️</span>
-                    <span>{attributes.years as number} years experience</span>
-                </div>
-            )}
-            {skill.children && skill.children.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-game-glass-border">
-                    <p className="text-game-text-muted text-xs mb-2">
-                        SUB-SKILLS
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                        {skill.children.map((child) => {
-                            const childIcon = getSkillIcon(
-                                child.attributes as SkillAttributes | undefined
-                            );
-                            return (
-                                <span
-                                    key={child.name}
-                                    className="px-2 py-1 bg-game-bg-light rounded text-xs text-game-text-secondary"
-                                >
-                                    {childIcon ? `${childIcon} ` : ''}
-                                    {child.name}
-                                </span>
-                            );
-                        })}
-                    </div>
-                </div>
-            )}
-        </animated.div>
-    );
 };
 
 const SkillPage: React.FC = () => {
