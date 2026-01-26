@@ -2,6 +2,7 @@ import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import type { Project } from './ProjectPage';
 import { difficultyColors, statusColors } from './ProjectPage';
+import SlideShow from './SlideShow';
 
 interface ProjectDetailProps {
     project: Project;
@@ -57,6 +58,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                         âœ?{' '}
                     </button>
                 </div>
+                {project.images && project.images.length > 0 && (
+                    <SlideShow images={project.images} />
+                )}
 
                 {/* Status */}
                 <div className="mb-6">

@@ -22,6 +22,7 @@ export interface Project {
     id: string;
     title: string;
     description: string;
+    images?: string[];
     longDescription: string;
     thumbnail: string;
     technologies: string[];

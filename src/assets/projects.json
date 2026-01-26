@@ -6,11 +6,21 @@
             "description": "A full-stack web application with real-time features",
             "longDescription": "An innovative web platform built with modern technologies featuring real-time collaboration, responsive design, and scalable architecture.",
             "thumbnail": "🎮",
-            "technologies": ["React", "TypeScript", "Node.js", "WebSocket"],
+            "technologies": [
+                "React",
+                "TypeScript",
+                "Node.js",
+                "WebSocket"
+            ],
             "difficulty": "Advanced",
             "status": "Completed",
             "githubUrl": "https://github.com/username/project1",
             "liveUrl": "https://project1.demo.com",
+            "images": [
+                "test_image_1.png",
+                "test_image_2.jpg",
+                "test_image_3.jpg"
+            ],
             "features": [
                 "Real-time multiplayer support",
                 "Cloud-based save system",
@@ -23,10 +33,18 @@
             "description": "Machine learning pipeline for data analysis",
             "longDescription": "A comprehensive ML pipeline that processes large datasets and provides actionable insights through interactive visualizations.",
             "thumbnail": "📊",
-            "technologies": ["Python", "TensorFlow", "FastAPI", "Docker"],
+            "technologies": [
+                "Python",
+                "TensorFlow",
+                "FastAPI",
+                "Docker"
+            ],
             "difficulty": "Expert",
             "status": "Completed",
             "githubUrl": "https://github.com/username/project2",
+            "images": [
+                "test_image_3.jpg"
+            ],
             "features": [
                 "Automated data preprocessing",
                 "Custom ML model training",
@@ -39,10 +57,16 @@
             "description": "Creative design tool for game assets",
             "longDescription": "A browser-based design tool for creating and exporting game assets with layer support and animation capabilities.",
             "thumbnail": "🎨",
-            "technologies": ["Canvas API", "WebGL", "React", "IndexedDB"],
+            "technologies": [
+                "Canvas API",
+                "WebGL",
+                "React",
+                "IndexedDB"
+            ],
             "difficulty": "Intermediate",
             "status": "In Progress",
             "githubUrl": "https://github.com/username/project3",
+            "images": [],
             "features": [
                 "Layer-based editing",
                 "Animation timeline",
@@ -55,11 +79,17 @@
             "description": "Serverless deployment automation platform",
             "longDescription": "An automation platform for deploying and managing serverless applications across multiple cloud providers.",
             "thumbnail": "☁️",
-            "technologies": ["AWS Lambda", "Terraform", "Go", "React"],
+            "technologies": [
+                "AWS Lambda",
+                "Terraform",
+                "Go",
+                "React"
+            ],
             "difficulty": "Advanced",
             "status": "Completed",
             "githubUrl": "https://github.com/username/project4",
             "liveUrl": "https://project4.demo.com",
+            "images": [],
             "features": [
                 "Multi-cloud support",
                 "One-click deployments",
@@ -72,10 +102,18 @@
             "description": "Audio visualization and processing library",
             "longDescription": "A JavaScript library for audio visualization with support for various visual effects and real-time audio processing.",
             "thumbnail": "🎵",
-            "technologies": ["Web Audio API", "Three.js", "TypeScript"],
+            "technologies": [
+                "Web Audio API",
+                "Three.js",
+                "TypeScript"
+            ],
             "difficulty": "Intermediate",
             "status": "Completed",
             "githubUrl": "https://github.com/username/project5",
+            "images": [
+                "test_image_1.png",
+                "test_image_2.jpg"
+            ],
             "features": [
                 "Real-time audio analysis",
                 "Customizable visualizations",
@@ -88,10 +126,16 @@
             "description": "AI-powered code assistant",
             "longDescription": "An intelligent code assistant that provides suggestions, refactoring options, and bug detection using machine learning.",
             "thumbnail": "🤖",
-            "technologies": ["Python", "GPT-4", "VS Code API", "TypeScript"],
+            "technologies": [
+                "Python",
+                "GPT-4",
+                "VS Code API",
+                "TypeScript"
+            ],
             "difficulty": "Expert",
             "status": "In Progress",
             "githubUrl": "https://github.com/username/project6",
+            "images": [],
             "features": [
                 "Context-aware suggestions",
                 "Multi-language support",
