@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { Calendar, MapPin, Award, CheckCircle } from 'react-feather';
 
 export interface ExperienceItemProps {
     title: string;
@@ -87,9 +88,11 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
             </div>
 
             {/* Meta info */}
-            <div className="flex flex-wrap gap-4 text-sm mb-4">
+            <div className="flex gap-4 text-sm mb-4">
                 <div className="flex items-center gap-2 text-game-text-secondary">
-                    <span>📅</span>
+                    <span className="flex items-center">
+                        <Calendar size={18} />
+                    </span>
                     <span>
                         {formatDate(startDate)} -{' '}
                         {isActive ? (
@@ -100,7 +103,9 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
                     </span>
                 </div>
                 <div className="flex items-center gap-2 text-game-text-secondary">
-                    <span>📍</span>
+                    <span className="flex items-center">
+                        <MapPin size={18} />
+                    </span>
                     <span>{location}</span>
                 </div>
             </div>
@@ -124,7 +129,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
                                     className="flex items-start gap-2 text-game-text-secondary text-sm"
                                 >
                                     <span className="text-game-primary mt-1">
-                                        ▸
+                                        <CheckCircle size={12} />
                                     </span>
                                     {point}
                                 </li>
@@ -145,7 +150,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
                                     className="flex items-start gap-2 text-game-text-secondary text-sm"
                                 >
                                     <span className="text-game-warning">
-                                        🏆
+                                        <Award size={12} />
                                     </span>
                                     {achievement}
                                 </li>
