@@ -31,12 +31,12 @@ body {
 @theme {
     /* Primary Colors */
     --color-game-primary: #7ed7d9;
-    --color-game-secondary: #7b2cbf;
-    --color-game-accent: #ff6b35;
-    --color-game-success: #00ff88;
-    --color-game-warning: #ffb800;
-    --color-game-danger: #ff3366;
-    --color-game-info: #3399ff;
+    --color-game-secondary: #8043b5;
+    --color-game-accent: #c96e4d;
+    --color-game-success: #3fba81;
+    --color-game-warning: #c7a142;
+    --color-game-danger: #c7506d;
+    --color-game-info: #5388bd;
     --color-game-neutral: #8888aa;
 
     /* Background Colors */
@@ -48,6 +48,9 @@ body {
     --color-game-text-primary: ##fcfcf7;
     --color-game-text-secondary: #a0a0b0;
     --color-game-text-muted: #606070;
+
+    --color-light-ink: #faf7f5;
+    --color-dark-ink: #1e1e1f;
 
     /* Glass Colors */
     --color-glass-bg: rgba(20, 20, 35, 0.7);

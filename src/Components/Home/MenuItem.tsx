@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import type { Icon } from 'react-feather';
+import { ArrowRight } from 'react-feather';
 
 interface MenuItemProps {
     label: string;
@@ -61,7 +62,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
                     {label}
                 </span>
                 <span className="ml-auto text-game-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                    �?{' '}
+                    <ArrowRight size={20} />
                 </span>
             </div>
         </animated.button>

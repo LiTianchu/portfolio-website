@@ -1,5 +1,20 @@
 import React, { useState } from 'react';
 import { useSpring, animated, useTrail, config } from '@react-spring/web';
+import {
+    MapPin,
+    Copy,
+    Send,
+    AtSign,
+    PhoneCall,
+    Clock,
+    Codesandbox,
+    Code,
+    Coffee,
+    Link,
+    Linkedin,
+    GitHub,
+    Twitter,
+} from 'react-feather';
 import aboutJSON from '@assets/about.json';
 import BackButton from '@comp/Common/BackButton';
 
@@ -22,7 +37,7 @@ interface AboutData {
     contact: {
         email: string;
         phone: string;
-        website: string;
+        telegram: string;
     };
     social: SocialLink[];
     stats: {
@@ -36,6 +51,7 @@ interface AboutData {
 const AboutPage: React.FC = () => {
     const [aboutData] = useState<AboutData>(aboutJSON as AboutData);
     const [copiedEmail, setCopiedEmail] = useState(false);
+    const [copiedTelegram, setCopiedTelegram] = useState(false);
 
     const headerSpring = useSpring({
         from: { opacity: 0, y: -20 },
@@ -70,26 +86,32 @@ const AboutPage: React.FC = () => {
         setTimeout(() => setCopiedEmail(false), 2000);
     };
 
+    const handleCopyTelegram = () => {
+        navigator.clipboard.writeText(aboutData.contact.telegram);
+        setCopiedTelegram(true);
+        setTimeout(() => setCopiedTelegram(false), 2000);
+    };
+
     const stats = [
         {
             value: aboutData.stats.yearsExperience,
             label: 'Years XP',
-            icon: '⏱️',
+            icon: Clock,
         },
         {
             value: aboutData.stats.projectsCompleted,
             label: 'Quests Done',
-            icon: '🎯',
+            icon: Codesandbox,
         },
         {
             value: `${(aboutData.stats.linesOfCode / 1000).toFixed(0)}K`,
             label: 'Lines Written',
-            icon: '💻',
+            icon: Code,
         },
         {
             value: aboutData.stats.coffeeConsumed,
-            label: 'Coffee ☕',
-            icon: '⚡',
+            label: 'Coffee Consumed',
+            icon: Coffee,
         },
     ];
 
@@ -103,12 +125,12 @@ const AboutPage: React.FC = () => {
                 <animated.div style={headerSpring} className="text-center mb-8">
                     <h1 className="text-4xl font-bold mb-2">
                         <span className="text-game-primary glow-text">
-                            PLAYER
+                            CHARACTER{' '}
                         </span>
-                        <span className="text-game-text-primary"> PROFILE</span>
+                        <span className="text-game-text-primary">INFO</span>
                     </h1>
                     <p className="text-game-text-secondary tracking-wider">
-                        CHARACTER INFO & CONTACT
+                        PROFILE & CONTACT DETAILS
                     </p>
                     <div className="mt-4 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-game-primary to-transparent" />
                 </animated.div>
@@ -144,7 +166,8 @@ const AboutPage: React.FC = () => {
                             </p>
                             <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm">
                                 <span className="flex items-center gap-2 text-game-text-secondary">
-                                    📍 {aboutData.profile.location}
+                                    <MapPin size={16} />{' '}
+                                    {aboutData.profile.location}
                                 </span>
                             </div>
                         </div>
@@ -163,30 +186,36 @@ const AboutPage: React.FC = () => {
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    {statsTrail.map((style, index) => (
-                        <animated.div
-                            key={stats[index].label}
-                            style={style}
-                            className="game-card p-4 text-center"
-                        >
-                            <span className="text-2xl mb-2 block">
-                                {stats[index].icon}
-                            </span>
-                            <p className="text-2xl font-bold text-game-primary">
-                                {stats[index].value}
-                            </p>
-                            <p className="text-game-text-muted text-sm">
-                                {stats[index].label}
-                            </p>
-                        </animated.div>
-                    ))}
+                    {statsTrail.map((style, index) => {
+                        const StatIcon = stats[index].icon;
+                        return (
+                            <animated.div
+                                key={stats[index].label}
+                                style={style}
+                                className="game-card p-4 text-center flex flex-col items-center gap-2"
+                            >
+                                <div className="flex items-center gap-2">
+                                    <StatIcon size={24} />
+                                    <p className="text-2xl font-bold text-game-primary">
+                                        {stats[index].value}
+                                    </p>
+                                </div>
+                                <p className="text-game-text-muted text-sm">
+                                    {stats[index].label}
+                                </p>
+                            </animated.div>
+                        );
+                    })}
                 </div>
 
                 {/* Contact Section */}
                 <div className="game-card p-6 mb-8">
-                    <h3 className="text-lg font-semibold text-game-text-primary mb-4 tracking-wider">
-                        📡 COMMUNICATION CHANNELS
-                    </h3>
+                    <div className="flex items-center gap-4 mb-6">
+                        <PhoneCall size={32} />
+                        <h3 className="flex items-center text-lg font-semibold text-game-text-primary tracking-wide h-4">
+                            COMMUNICATION CHANNELS
+                        </h3>
+                    </div>
                     <div className="space-y-4">
                         {/* Email */}
                         <div
@@ -194,7 +223,9 @@ const AboutPage: React.FC = () => {
                             onClick={handleCopyEmail}
                         >
                             <div className="flex items-center gap-3">
-                                <span className="text-xl">📧</span>
+                                <span className="text-xl">
+                                    <AtSign size={24} />
+                                </span>
                                 <div>
                                     <p className="text-game-text-muted text-xs">
                                         EMAIL
@@ -205,38 +236,41 @@ const AboutPage: React.FC = () => {
                                 </div>
                             </div>
                             <span className="text-game-primary text-sm">
-                                {copiedEmail ? '✓ Copied!' : 'Click to copy'}
+                                {copiedEmail ? '✓ Copied!' : <Copy size={20} />}
                             </span>
                         </div>
 
                         {/* Website */}
-                        <a
-                            href={aboutData.contact.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <div
+                            onClick={handleCopyTelegram}
                             className="flex items-center justify-between p-3 bg-game-bg-light rounded-lg hover:bg-game-bg-medium transition-colors"
                         >
                             <div className="flex items-center gap-3">
-                                <span className="text-xl">🌐</span>
+                                <span className="text-xl">
+                                    <Send size={24} />
+                                </span>
                                 <div>
                                     <p className="text-game-text-muted text-xs">
-                                        WEBSITE
+                                        TELEGRAM
                                     </p>
                                     <p className="text-game-text-primary">
-                                        {aboutData.contact.website}
+                                        {aboutData.contact.telegram}
                                     </p>
                                 </div>
                             </div>
-                            <span className="text-game-primary">↗</span>
-                        </a>
+                            <span className="text-game-primary text-sm">
+                                {copiedTelegram ? (
+                                    '✓ Copied!'
+                                ) : (
+                                    <Copy size={20} />
+                                )}
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 {/* Social Links */}
                 <div>
-                    <h3 className="text-lg font-semibold text-game-text-primary mb-4 tracking-wider text-center">
-                        🎮 CONNECT
-                    </h3>
                     <div className="flex flex-wrap justify-center gap-4">
                         {socialTrail.map((style, index) => (
                             <animated.a
@@ -248,10 +282,18 @@ const AboutPage: React.FC = () => {
                                 className="game-card p-4 flex flex-col items-center gap-2 min-w-[100px] hover:border-game-primary transition-colors"
                             >
                                 <span className="text-3xl">
-                                    {aboutData.social[index].icon}
-                                </span>
-                                <span className="text-game-text-secondary text-sm">
-                                    {aboutData.social[index].platform}
+                                    {aboutData.social[index].platform ===
+                                    'LinkedIn' ? (
+                                        <Linkedin />
+                                    ) : aboutData.social[index].platform ===
+                                      'GitHub' ? (
+                                        <GitHub />
+                                    ) : aboutData.social[index].platform ===
+                                      'X' ? (
+                                        <Twitter />
+                                    ) : (
+                                        <Link />
+                                    )}
                                 </span>
                             </animated.a>
                         ))}
