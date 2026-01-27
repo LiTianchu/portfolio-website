@@ -42,7 +42,10 @@ const SlideShow: React.FC<SlideShowProps> = ({ images }) => {
     return (
         <div>
             {/* Slides container */}
-            <animated.div style={fadeSpring}>
+            <animated.div
+                style={fadeSpring}
+                className="flex justify-center flex-col relative w-full h-100 overflow-hidden"
+            >
                 {images.map((img, index) => {
                     const isActive = index === currentIndex;
                     return (
@@ -50,27 +53,52 @@ const SlideShow: React.FC<SlideShowProps> = ({ images }) => {
                             key={index}
                             src={getImageUrl(img)}
                             style={{
-                                scale: isActive ? 1 : 0.8,
+                                display: isActive ? 'block' : 'none',
                             }}
+                            className="fade-lr-edge absolute inset-0 w-full h-full object-cover"
                         />
                     );
                 })}
-            </animated.div>
 
-            {/* Navigation buttons */}
-            <div className="flex absolute justify-center mt-4 gap-4">
-                <animated.div
-                    style={fadeSpring}
-                    className="flex absolute justify-between top-1/2 w-full px-4"
-                >
-                    <button onClick={prevSlide}>
-                        <ChevronLeft size={20} />
-                    </button>
-                    <button onClick={nextSlide}>
-                        <ChevronRight size={20} />
-                    </button>
-                </animated.div>
-            </div>
+                {/* Navigation buttons */}
+                <div className="flex flex-col absolute m-auto top-1/2 transform -translate-y-1/2 left-0 justify-center w-full h-10">
+                    <animated.div
+                        style={fadeSpring}
+                        className="flex absolute justify-between top-0 w-full px-4 h-full"
+                    >
+                        <button
+                            onClick={prevSlide}
+                            className="filter drop-shadow-lg text-game-text-primary"
+                            style={{
+                                textShadow: '2px 5px 2px rgba(0,0,0,0.8)',
+                            }}
+                        >
+                            <ChevronLeft
+                                size={30}
+                                strokeWidth={3}
+                                style={{
+                                    textShadow: ` 1px 2px 0 rgba(0,0,0,0.9), 2px 4px 0 rgba(0,0,0,0.6) `,
+                                }}
+                            />
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            className="filter drop-shadow-lg text-game-text-primary "
+                            style={{
+                                textShadow: '2px 5px 2px rgba(0,0,0,0.8)',
+                            }}
+                        >
+                            <ChevronRight
+                                size={30}
+                                strokeWidth={3}
+                                style={{
+                                    textShadow: ` 1px 2px 0 rgba(0,0,0,0.9), 2px 4px 0 rgba(0,0,0,0.6) `,
+                                }}
+                            />
+                        </button>
+                    </animated.div>
+                </div>
+            </animated.div>
         </div>
     );
 };

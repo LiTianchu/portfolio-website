@@ -58,8 +58,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                         âœ?{' '}
                     </button>
                 </div>
+
                 {project.images && project.images.length > 0 && (
-                    <SlideShow images={project.images} />
+                    <div className="mb-6">
+                        <SlideShow images={project.images} />
+                    </div>
                 )}
 
                 {/* Status */}

@@ -43,7 +43,7 @@ body {
     --color-game-bg-light: #1a1a2e;
 
     /* Text Colors */
-    --color-game-text-primary: #ffffff;
+    --color-game-text-primary: ##fcfcf7;
     --color-game-text-secondary: #a0a0b0;
     --color-game-text-muted: #606070;
 
@@ -101,11 +101,9 @@ body {
 }
 
 @utility game-button {
-    background: linear-gradient(
-        135deg,
-        var(--color-glass-bg),
-        rgba(0, 212, 255, 0.1)
-    );
+    background: linear-gradient(135deg,
+            var(--color-glass-bg),
+            rgba(0, 212, 255, 0.1));
     border: 2px solid var(--color-game-primary);
     color: var(--color-game-primary);
     padding: 12px 32px;
@@ -120,11 +118,9 @@ body {
 }
 
 @utility game-button-hover {
-    background: linear-gradient(
-        135deg,
-        rgba(0, 212, 255, 0.2),
-        rgba(0, 212, 255, 0.1)
-    );
+    background: linear-gradient(135deg,
+            rgba(0, 212, 255, 0.2),
+            rgba(0, 212, 255, 0.1));
     box-shadow:
         0 0 25px var(--color-game-primary),
         inset 0 0 25px rgba(0, 212, 255, 0.2);
@@ -132,11 +128,9 @@ body {
 }
 
 @utility game-card {
-    background: linear-gradient(
-        145deg,
-        var(--color-glass-bg),
-        rgba(0, 0, 0, 0.5)
-    );
+    background: linear-gradient(145deg,
+            var(--color-glass-bg),
+            rgba(0, 0, 0, 0.5));
     border: 1px solid var(--color-glass-border);
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -179,8 +173,36 @@ body {
     scrollbar-color: var(--color-game-primary) var(--color-game-bg-medium);
 }
 
+@utility fade-edge {
+    -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
+    mask-image: radial-gradient(circle, black 60%, transparent 100%);
+}
+
+@utility fade-lr-edge {
+    -webkit-mask-image: linear-gradient(to right,
+            transparent,
+            black 15%,
+            black 85%,
+            transparent);
+    mask-image: linear-gradient(to right,
+            transparent,
+            black 15%,
+            black 85%,
+            transparent);
+}
+
+@utility fade-bottom {
+    .fade-bottom {
+        -webkit-mask-image: linear-gradient(to bottom,
+                black 70%,
+                transparent 100%);
+        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    }
+}
+
 /* Animation keyframes */
 @keyframes pulse-glow {
+
     0%,
     100% {
         opacity: 1;
@@ -192,6 +214,7 @@ body {
 }
 
 @keyframes float {
+
     0%,
     100% {
         transform: translateY(0px);
