@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import type { Project } from './ProjectPage';
-import { difficultyColors, statusColors } from './ProjectPage';
+import { X } from 'react-feather';
+import { typeColors, statusColors } from './ProjectPage';
 import SlideShow from './SlideShow';
 
 interface ProjectDetailProps {
@@ -44,9 +45,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                                     {project.title}
                                 </h2>
                                 <span
-                                    className={`text-sm ${difficultyColors[project.difficulty]}`}
+                                    className={`text-sm ${typeColors[project.type]}`}
                                 >
-                                    â˜?{project.difficulty}
+                                    {project.type}
                                 </span>
                             </div>
                         </div>
@@ -55,7 +56,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                         onClick={onClose}
                         className="text-game-text-muted hover:text-game-primary text-2xl transition-colors"
                     >
-                        âœ?{' '}
+                        <X size={30} />
                     </button>
                 </div>
 
@@ -77,7 +78,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                 {/* Description */}
                 <div className="mb-6">
                     <h3 className="text-lg font-semibold text-game-text-primary mb-2">
-                        MISSION BRIEFING
+                        Overview
                     </h3>
                     <p className="text-game-text-secondary leading-relaxed">
                         {project.longDescription}
@@ -87,15 +88,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                 {/* Features */}
                 <div className="mb-6">
                     <h3 className="text-lg font-semibold text-game-text-primary mb-2">
-                        OBJECTIVES
+                        Feature Highlights
                     </h3>
-                    <ul className="space-y-2">
+                    <ul className="list-disc list-inside space-y-2 text-game-text-secondary">
                         {project.features.map((feature, index) => (
-                            <li
-                                key={index}
-                                className="flex items-center gap-2 text-game-text-secondary"
-                            >
-                                <span className="text-game-success">âœ?</span>
+                            <li key={index} className="leading-relaxed">
                                 {feature}
                             </li>
                         ))}

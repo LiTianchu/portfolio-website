@@ -1,20 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 import { useSpring, animated, to } from '@react-spring/web';
-import { difficultyColors, statusColors } from './ProjectPage';
+import { typeColors, statusColors } from './ProjectPage';
 import type { Project } from './ProjectPage';
 import type { SpringValue } from '@react-spring/web';
+import { Monitor, Package, Calendar } from 'react-feather';
 
 interface ProjectCardProps {
     project: Project;
-    index: number;
     onClick: (project: Project) => void;
     style: { opacity: SpringValue<number>; y: SpringValue<number> };
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
     project,
-    index,
     onClick,
     style,
 }) => {
@@ -41,20 +40,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             onMouseLeave={() => setHovered(false)}
             onClick={() => onClick(project)}
         >
-            {/* Level number badge */}
-            <div className="absolute top-3 left-3 w-8 h-8 rounded-full bg-game-primary/20 border border-game-primary flex items-center justify-center">
-                <span className="text-game-primary text-sm font-bold">
-                    {String(index + 1).padStart(2, '0')}
-                </span>
-            </div>
-
             {/* Status badge */}
             <div className="absolute top-3 right-3">
-                <span
-                    className={`px-2 py-1 rounded text-xs font-semibold ${statusColors[project.status]}`}
+                <div
+                    className={`flex gap-2 px-2 py-1 rounded text-xs font-semibold ${statusColors[project.status]}`}
                 >
+                    {project.status === 'In Progress' ? (
+                        <Monitor size={12} className="self-center" />
+                    ) : project.status === 'Completed' ? (
+                        <Package size={12} className="self-center" />
+                    ) : (
+                        <Calendar size={12} className="self-center" />
+                    )}
                     {project.status}
-                </span>
+                </div>
             </div>
 
             {/* Thumbnail */}
@@ -65,11 +64,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 {project.title}
             </h3>
 
-            {/* Difficulty */}
+            {/* type */}
             <p
-                className={`text-center text-sm mb-3 ${difficultyColors[project.difficulty]}`}
+                className={`text-center text-sm mb-3 ${typeColors[project.type]}`}
             >
-                {project.difficulty}
+                {project.type}
             </p>
 
             {/* Description */}

@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
+import type { Icon } from 'react-feather';
 
 interface MenuItemProps {
     label: string;
     pageIndex: number;
     onClick: (index: number) => void;
     delay: number;
-    icon: string;
+    icon: Icon;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
@@ -14,7 +15,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
     pageIndex,
     onClick,
     delay,
-    icon,
+    icon: Icon, // rename icon to Icon
 }) => {
     const [hovered, setHovered] = React.useState(false);
 
@@ -41,7 +42,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
                 ),
             }}
             className="relative w-full max-w-md py-4 px-8 text-left cursor-pointer
-                       glass-panel border-2 border-transparent
+                       bg-game-bg-light/50 backdrop-blur-md border rounded-xl
                        hover:border-game-primary transition-colors duration-300
                        group"
             onMouseEnter={() => setHovered(true)}
@@ -55,7 +56,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
             />
 
             <div className="flex items-center gap-4 relative z-10">
-                <span className="text-2xl">{icon}</span>
+                <Icon className="text-2xl" size={24} />
                 <span className="text-xl font-semibold tracking-wider text-game-text-primary group-hover:text-game-primary transition-colors">
                     {label}
                 </span>

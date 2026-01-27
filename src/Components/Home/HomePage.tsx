@@ -2,6 +2,7 @@ import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import { useAppDispatch } from '@states/hook';
 import { changePage } from '@states/currentPageSlice';
+import { Code, Save, Zap, Coffee } from 'react-feather';
 import MenuItem from './MenuItem';
 
 const HomePage: React.FC = () => {
@@ -25,15 +26,15 @@ const HomePage: React.FC = () => {
     };
 
     const menuItems = [
-        { label: 'PROJECTS', pageIndex: 3, icon: '🎮' },
-        { label: 'EXPERIENCE', pageIndex: 2, icon: '💾' },
-        { label: 'SKILLS', pageIndex: 4, icon: '⚡' },
-        { label: 'ABOUT', pageIndex: 1, icon: '👤' },
+        { label: 'PROJECTS', pageIndex: 3, icon: Code },
+        { label: 'EXPERIENCE', pageIndex: 2, icon: Save },
+        { label: 'SKILLS', pageIndex: 4, icon: Zap },
+        { label: 'ABOUT', pageIndex: 1, icon: Coffee },
     ];
 
     return (
         <div className="page-container">
-            <div className="glass-panel-dark p-12 max-w-2xl w-full">
+            <div className="p-12 max-w-2xl w-full h-64 flex flex-col justify-center">
                 {/* Title Section */}
                 <div className="text-center mb-12">
                     <animated.h1
@@ -41,15 +42,18 @@ const HomePage: React.FC = () => {
                         className="text-5xl md:text-6xl font-bold mb-4 tracking-wider"
                     >
                         <span className="text-game-primary glow-text">
-                            PLAYER
+                            Rain&apos;s
                         </span>
-                        <span className="text-game-text-primary"> ONE</span>
+                        <span className="text-game-text-primary">
+                            {' '}
+                            Portfolio
+                        </span>
                     </animated.h1>
                     <animated.p
                         style={subtitleSpring}
                         className="text-game-text-secondary text-lg tracking-widest"
                     >
-                        PORTFOLIO • DEVELOPER • CREATOR
+                        PROGRAMMER • ARTIST • CREATOR
                     </animated.p>
                     <animated.div
                         style={subtitleSpring}

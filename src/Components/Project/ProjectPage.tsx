@@ -5,11 +5,14 @@ import BackButton from '@comp/Common/BackButton';
 import ProjectCard from './ProjectCard';
 import ProjectDetail from './ProjectDetail';
 
-export const difficultyColors: Record<string, string> = {
-    Beginner: 'text-game-success',
-    Intermediate: 'text-game-warning',
-    Advanced: 'text-game-accent',
-    Expert: 'text-game-danger',
+export const typeColors: Record<string, string> = {
+    Game: 'text-game-success',
+    Web: 'text-game-warning',
+    Graphics: 'text-game-accent',
+    Application: 'text-game-danger',
+    Art: 'text-game-primary',
+    Library: 'text-game-info',
+    Misc: 'text-game-text-muted',
 };
 
 export const statusColors: Record<string, string> = {
@@ -26,7 +29,14 @@ export interface Project {
     longDescription: string;
     thumbnail: string;
     technologies: string[];
-    difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+    type:
+        | 'Game'
+        | 'Web'
+        | 'Graphics'
+        | 'Application'
+        | 'Art'
+        | 'Library'
+        | 'Misc';
     status: 'Completed' | 'In Progress' | 'Planned';
     githubUrl?: string;
     liveUrl?: string;
@@ -80,7 +90,6 @@ const ProjectPage: React.FC = () => {
                         <ProjectCard
                             key={projects[index].id}
                             project={projects[index]}
-                            index={index}
                             onClick={setSelectedProject}
                             style={style}
                         />

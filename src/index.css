@@ -30,12 +30,14 @@ body {
 /* Game Theme Variables */
 @theme {
     /* Primary Colors */
-    --color-game-primary: #00d4ff;
+    --color-game-primary: #7ed7d9;
     --color-game-secondary: #7b2cbf;
     --color-game-accent: #ff6b35;
     --color-game-success: #00ff88;
     --color-game-warning: #ffb800;
     --color-game-danger: #ff3366;
+    --color-game-info: #3399ff;
+    --color-game-neutral: #8888aa;
 
     /* Background Colors */
     --color-game-bg-dark: #0a0a0f;
@@ -58,21 +60,8 @@ body {
     --shadow-glow-accent: 0 0 20px rgba(255, 107, 53, 0.5);
 }
 
-/* Custom Utilities */
-@utility glass-panel {
-    background: var(--color-glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--color-glass-border);
-    border-radius: 12px;
-}
-
 @utility glass-panel-dark {
-    background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    @apply bg-glass-bg backdrop-blur-md border border-glass-border rounded-lg;
 }
 
 @utility glow-text {
