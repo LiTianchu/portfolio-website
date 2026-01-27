@@ -16,11 +16,11 @@ export interface SkillNode extends RawNodeDatum {
 }
 
 export const levelColors: Record<string, string> = {
-    Master: '#00d4ff',
-    Expert: '#00ff88',
-    Advanced: '#ffb800',
-    Intermediate: '#ff6b35',
-    Beginner: '#ff3366',
+    Master: '#b09a2e',
+    Expert: '#8435a6',
+    Advanced: '#3d39ad',
+    Intermediate: '#3eacad',
+    Beginner: '#3fb04e',
 };
 
 const SkillPage: React.FC = () => {

@@ -16,9 +16,9 @@ export const typeColors: Record<string, string> = {
 };
 
 export const statusColors: Record<string, string> = {
-    Completed: 'bg-game-success/20 text-game-success',
-    'In Progress': 'bg-game-warning/20 text-game-warning',
-    Planned: 'bg-game-text-muted/20 text-game-text-muted',
+    Completed: 'text-game-success',
+    'In Progress': 'text-game-warning',
+    Planned: 'text-game-text-muted',
 };
 
 export interface Project {

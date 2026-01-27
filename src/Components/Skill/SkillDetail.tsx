@@ -2,6 +2,8 @@ import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import type { SkillNode, SkillAttributes } from './SkillPage';
 import { levelColors } from './SkillPage';
+import { BookOpen, Clock, X } from 'react-feather';
+
 interface SkillDetailProps {
     skill: SkillNode | null;
     onClose: () => void;
@@ -32,11 +34,11 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onClose }) => {
                 onClick={onClose}
                 className="absolute top-2 right-2 text-game-text-muted hover:text-game-primary"
             >
-                �?{' '}
+                <X size={24} />
             </button>
             <div className="flex items-center gap-4 mb-4">
                 <span className="text-4xl">
-                    {(attributes.icon as string) || '📦'}
+                    <BookOpen size={32} />
                 </span>
                 <div>
                     <h3 className="text-xl font-bold text-game-text-primary">
@@ -57,7 +59,9 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onClose }) => {
             )}
             {attributes.years && (
                 <div className="flex items-center gap-2 text-game-text-muted text-sm">
-                    <span>⏱️</span>
+                    <span>
+                        <Clock size={12} />
+                    </span>
                     <span>{attributes.years as number} years experience</span>
                 </div>
             )}

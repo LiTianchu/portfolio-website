@@ -73,10 +73,17 @@ const AboutPage: React.FC = () => {
         config: config.gentle,
     });
 
+    const contactSpring = useSpring({
+        from: { opacity: 0, x: -30 },
+        to: { opacity: 1, x: 0 },
+        delay: 600,
+        config: config.gentle,
+    });
+
     const socialTrail = useTrail(aboutData.social.length, {
         from: { opacity: 0, scale: 0.8 },
         to: { opacity: 1, scale: 1 },
-        delay: 600,
+        delay: 700,
         config: config.gentle,
     });
 
@@ -142,19 +149,19 @@ const AboutPage: React.FC = () => {
                 >
                     <div className="flex flex-col md:flex-row items-center gap-6">
                         {/* Avatar */}
-                        <div className="relative">
-                            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-game-primary to-game-secondary flex items-center justify-center text-6xl">
-                                {aboutData.profile.avatar}
-                            </div>
-                            {aboutData.profile.available && (
-                                <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-game-bg-dark px-2 py-1 rounded-full">
-                                    <span className="w-2 h-2 rounded-full bg-game-success animate-pulse" />
-                                    <span className="text-game-success text-xs">
-                                        ONLINE
-                                    </span>
-                                </div>
-                            )}
-                        </div>
+                        {/* <div className="relative"> */}
+                        {/*     <div className="w-32 h-32 rounded-full bg-gradient-to-br from-game-primary to-game-secondary flex items-center justify-center text-6xl"> */}
+                        {/*         {aboutData.profile.avatar} */}
+                        {/*     </div> */}
+                        {/*     {aboutData.profile.available && ( */}
+                        {/*         <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-game-bg-dark px-2 py-1 rounded-full"> */}
+                        {/*             <span className="w-2 h-2 rounded-full bg-game-success animate-pulse" /> */}
+                        {/*             <span className="text-game-success text-xs"> */}
+                        {/*                 ONLINE */}
+                        {/*             </span> */}
+                        {/*         </div> */}
+                        {/*     )} */}
+                        {/* </div> */}
 
                         {/* Info */}
                         <div className="text-center md:text-left flex-1">
@@ -209,7 +216,10 @@ const AboutPage: React.FC = () => {
                 </div>
 
                 {/* Contact Section */}
-                <div className="game-card p-6 mb-8">
+                <animated.div
+                    style={contactSpring}
+                    className="game-card p-6 mb-8"
+                >
                     <div className="flex items-center gap-4 mb-6">
                         <PhoneCall size={32} />
                         <h3 className="flex items-center text-lg font-semibold text-game-text-primary tracking-wide h-4">
@@ -267,7 +277,7 @@ const AboutPage: React.FC = () => {
                             </span>
                         </div>
                     </div>
-                </div>
+                </animated.div>
 
                 {/* Social Links */}
                 <div>

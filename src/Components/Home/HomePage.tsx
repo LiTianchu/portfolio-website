@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
 
     const menuItems = [
         { label: 'PROJECTS', pageIndex: 3, icon: Code },
-        { label: 'EXPERIENCE', pageIndex: 2, icon: Save },
+        { label: 'EXPERIENCES', pageIndex: 2, icon: Save },
         { label: 'SKILLS', pageIndex: 4, icon: Zap },
         { label: 'ABOUT', pageIndex: 1, icon: Coffee },
     ];

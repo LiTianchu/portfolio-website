@@ -2,15 +2,13 @@
     "skillTree": {
         "name": "Skills",
         "attributes": {
-            "level": "Master",
-            "icon": "🎯"
+            "level": "Master"
         },
         "children": [
             {
                 "name": "Frontend",
                 "attributes": {
                     "level": "Expert",
-                    "icon": "🎨",
                     "description": "Building beautiful user interfaces"
                 },
                 "children": [
@@ -18,21 +16,26 @@
                         "name": "React",
                         "attributes": {
                             "level": "Expert",
-                            "icon": "⚛️",
                             "years": 4
                         },
                         "children": [
                             {
                                 "name": "Redux",
-                                "attributes": { "level": "Advanced", "icon": "🔄" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             },
                             {
                                 "name": "React Query",
-                                "attributes": { "level": "Advanced", "icon": "📊" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             },
                             {
                                 "name": "React Spring",
-                                "attributes": { "level": "Intermediate", "icon": "🌊" }
+                                "attributes": {
+                                    "level": "Intermediate"
+                                }
                             }
                         ]
                     },
@@ -40,7 +43,6 @@
                         "name": "TypeScript",
                         "attributes": {
                             "level": "Expert",
-                            "icon": "📘",
                             "years": 3
                         }
                     },
@@ -48,17 +50,20 @@
                         "name": "CSS",
                         "attributes": {
                             "level": "Expert",
-                            "icon": "🎨",
                             "years": 5
                         },
                         "children": [
                             {
                                 "name": "Tailwind",
-                                "attributes": { "level": "Expert", "icon": "💨" }
+                                "attributes": {
+                                    "level": "Expert"
+                                }
                             },
                             {
                                 "name": "Sass",
-                                "attributes": { "level": "Advanced", "icon": "💅" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             }
                         ]
                     }
@@ -68,7 +73,6 @@
                 "name": "Backend",
                 "attributes": {
                     "level": "Advanced",
-                    "icon": "⚙️",
                     "description": "Server-side development"
                 },
                 "children": [
@@ -76,17 +80,20 @@
                         "name": "Node.js",
                         "attributes": {
                             "level": "Advanced",
-                            "icon": "🟢",
                             "years": 3
                         },
                         "children": [
                             {
                                 "name": "Express",
-                                "attributes": { "level": "Advanced", "icon": "🚂" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             },
                             {
                                 "name": "NestJS",
-                                "attributes": { "level": "Intermediate", "icon": "🐱" }
+                                "attributes": {
+                                    "level": "Intermediate"
+                                }
                             }
                         ]
                     },
@@ -94,38 +101,46 @@
                         "name": "Python",
                         "attributes": {
                             "level": "Advanced",
-                            "icon": "🐍",
                             "years": 4
                         },
                         "children": [
                             {
                                 "name": "FastAPI",
-                                "attributes": { "level": "Advanced", "icon": "⚡" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             },
                             {
                                 "name": "Django",
-                                "attributes": { "level": "Intermediate", "icon": "🎸" }
+                                "attributes": {
+                                    "level": "Intermediate"
+                                }
                             }
                         ]
                     },
                     {
                         "name": "Databases",
                         "attributes": {
-                            "level": "Advanced",
-                            "icon": "🗄️"
+                            "level": "Advanced"
                         },
                         "children": [
                             {
                                 "name": "PostgreSQL",
-                                "attributes": { "level": "Advanced", "icon": "🐘" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             },
                             {
                                 "name": "MongoDB",
-                                "attributes": { "level": "Advanced", "icon": "🍃" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             },
                             {
                                 "name": "Redis",
-                                "attributes": { "level": "Intermediate", "icon": "🔴" }
+                                "attributes": {
+                                    "level": "Intermediate"
+                                }
                             }
                         ]
                     }
@@ -135,7 +150,6 @@
                 "name": "DevOps",
                 "attributes": {
                     "level": "Intermediate",
-                    "icon": "🚀",
                     "description": "Infrastructure & deployment"
                 },
                 "children": [
@@ -143,7 +157,6 @@
                         "name": "Docker",
                         "attributes": {
                             "level": "Advanced",
-                            "icon": "🐳",
                             "years": 2
                         }
                     },
@@ -151,20 +164,20 @@
                         "name": "AWS",
                         "attributes": {
                             "level": "Intermediate",
-                            "icon": "☁️",
                             "years": 2
                         }
                     },
                     {
                         "name": "CI/CD",
                         "attributes": {
-                            "level": "Advanced",
-                            "icon": "🔄"
+                            "level": "Advanced"
                         },
                         "children": [
                             {
                                 "name": "GitHub Actions",
-                                "attributes": { "level": "Advanced", "icon": "⚡" }
+                                "attributes": {
+                                    "level": "Advanced"
+                                }
                             }
                         ]
                     }
@@ -174,7 +187,6 @@
                 "name": "Tools",
                 "attributes": {
                     "level": "Expert",
-                    "icon": "🛠️",
                     "description": "Development tools"
                 },
                 "children": [
@@ -182,7 +194,6 @@
                         "name": "Git",
                         "attributes": {
                             "level": "Expert",
-                            "icon": "📦",
                             "years": 5
                         }
                     },
@@ -190,7 +201,6 @@
                         "name": "VS Code",
                         "attributes": {
                             "level": "Expert",
-                            "icon": "💻",
                             "years": 5
                         }
                     },
@@ -198,7 +208,6 @@
                         "name": "Figma",
                         "attributes": {
                             "level": "Intermediate",
-                            "icon": "🎨",
                             "years": 2
                         }
                     }

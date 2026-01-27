@@ -59,20 +59,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             {/* Thumbnail */}
             <div className="text-6xl text-center my-6">{project.thumbnail}</div>
 
-            {/* Title */}
-            <h3 className="text-xl font-bold text-game-text-primary text-center mb-2 group-hover:text-game-primary transition-colors">
-                {project.title}
-            </h3>
+            <div className="flex justify-between items-center">
+                {/* Title */}
+                <h3 className="text-xl font-bold text-game-text-primary text-center mb-2 group-hover:text-game-primary transition-colors">
+                    {project.title}
+                </h3>
 
-            {/* type */}
-            <p
-                className={`text-center text-sm mb-3 ${typeColors[project.type]}`}
-            >
-                {project.type}
-            </p>
+                {/* type */}
+                <p
+                    className={`text-center text-sm mb-3 ${typeColors[project.type]}`}
+                >
+                    {project.type}
+                </p>
+            </div>
 
             {/* Description */}
-            <p className="text-game-text-secondary text-sm text-center line-clamp-2">
+            <p className="text-game-text-secondary text-sm text-left line-clamp-2">
                 {project.description}
             </p>
 

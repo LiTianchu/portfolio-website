@@ -14,7 +14,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({
 }) => {
     const attributes = nodeDatum.attributes as SkillAttributes | undefined;
     const level = (attributes?.level as string) || 'Intermediate';
-    const icon = (attributes?.icon as string) || '📦';
     const hasChildren = nodeDatum.children && nodeDatum.children.length > 0;
 
     const handleClick = (e: React.MouseEvent) => {
@@ -50,38 +49,33 @@ const CustomNode: React.FC<CustomNodeProps> = ({
                 onClick={handleClick}
             />
 
-            {/* Icon */}
-            <text
-                x="-45"
-                y="5"
-                fontSize="20"
-                textAnchor="middle"
-                style={{ pointerEvents: 'none' }}
-            >
-                {icon}
-            </text>
-
             {/* Name */}
             <text
-                x="10"
+                x="0"
                 y="-5"
-                fill="white"
                 fontSize="12"
                 fontWeight="bold"
                 textAnchor="middle"
-                style={{ pointerEvents: 'none' }}
+                style={{
+                    pointerEvents: 'none',
+                    fill: '#ffffff',
+                    stroke: 'none',
+                }}
             >
                 {nodeDatum.name}
             </text>
 
             {/* Level badge */}
             <text
-                x="10"
+                x="0"
                 y="12"
-                fill={levelColors[level]}
                 fontSize="9"
                 textAnchor="middle"
-                style={{ pointerEvents: 'none' }}
+                style={{
+                    pointerEvents: 'none',
+                    fill: levelColors[level] || '#7ed7d9',
+                    stroke: 'none',
+                }}
             >
                 {level}
             </text>
@@ -100,13 +94,17 @@ const CustomNode: React.FC<CustomNodeProps> = ({
             {hasChildren && (
                 <text
                     x="50"
-                    y="4"
-                    fill="#00d4ff"
+                    y="3"
                     fontSize="10"
+                    fontWeight="bold"
                     textAnchor="middle"
-                    style={{ pointerEvents: 'none' }}
+                    style={{
+                        pointerEvents: 'none',
+                        fill: '#00d4ff',
+                        stroke: 'none',
+                    }}
                 >
-                    {nodeDatum.__rd3t?.collapsed ? '+' : '��?'}
+                    {nodeDatum.__rd3t?.collapsed ? '+' : '-'}
                 </text>
             )}
         </g>
