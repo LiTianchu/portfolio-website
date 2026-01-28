@@ -40,10 +40,10 @@ const CustomNode: React.FC<CustomNodeProps> = ({
                 y="-30"
                 width="120"
                 height="60"
-                rx="8"
-                fill="rgba(20, 20, 35, 0.9)"
+                rx="12"
+                fill="rgba(25, 40, 60, 0.85)"
                 stroke={levelColors[level]}
-                strokeWidth="2"
+                strokeWidth="1.5"
                 filter="url(#glow)"
                 style={{ cursor: 'pointer' }}
                 onClick={handleClick}
@@ -86,8 +86,8 @@ const CustomNode: React.FC<CustomNodeProps> = ({
                     cx="50"
                     cy="0"
                     r="8"
-                    fill="rgba(0, 212, 255, 0.3)"
-                    stroke="#00d4ff"
+                    fill="rgba(168, 212, 240, 0.2)"
+                    stroke="rgba(168, 212, 240, 0.6)"
                     strokeWidth="1"
                 />
             )}
@@ -100,7 +100,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({
                     textAnchor="middle"
                     style={{
                         pointerEvents: 'none',
-                        fill: '#00d4ff',
+                        fill: 'rgba(168, 212, 240, 0.9)',
                         stroke: 'none',
                     }}
                 >

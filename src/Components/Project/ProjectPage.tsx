@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSpring, animated, useTrail, config } from '@react-spring/web';
+import { useSpring, animated, useSprings, config } from '@react-spring/web';
 import projectsJSON from '@assets/projects.json';
 import BackButton from '@comp/Common/BackButton';
 import ProjectCard from './ProjectCard';
@@ -57,12 +57,15 @@ const ProjectPage: React.FC = () => {
         config: config.gentle,
     });
 
-    const trail = useTrail(projects.length, {
-        from: { opacity: 0, y: 30 },
-        to: { opacity: 1, y: 0 },
-        delay: 0,
-        config: config.gentle,
-    });
+    const springs = useSprings(
+        projects.length,
+        projects.map((_, index) => ({
+            from: { opacity: 0, y: 20 },
+            to: { opacity: 1, y: 0 },
+            delay: 100 + index * 60,
+            config: config.gentle,
+        }))
+    );
 
     return (
         <div className="page-container overflow-y-auto">
@@ -86,7 +89,7 @@ const ProjectPage: React.FC = () => {
 
                 {/* Projects Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {trail.map((style, index) => (
+                    {springs.map((style, index) => (
                         <ProjectCard
                             key={projects[index].id}
                             project={projects[index]}

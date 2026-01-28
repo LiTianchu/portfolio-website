@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import { useSpring, animated, config } from '@react-spring/web';
 import {
     Calendar,
     MapPin,
@@ -50,13 +50,13 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
         borderColor: hovered
             ? 'rgba(0, 212, 255, 0.8)'
             : 'rgba(0, 212, 255, 0.3)',
-        config: { tension: 300, friction: 20 },
+        config: config.gentle,
     });
 
     const expandSpring = useSpring({
         height: expanded ? 'auto' : 0,
         opacity: expanded ? 1 : 0,
-        config: { tension: 250, friction: 25 },
+        config: config.gentle,
     });
 
     const isActive = endDate === 'Current';

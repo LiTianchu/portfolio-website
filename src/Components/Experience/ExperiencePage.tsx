@@ -1,26 +1,14 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { useSpring, animated, useTrail, config } from '@react-spring/web';
+import { useSpring, animated, useSprings, config } from '@react-spring/web';
 import ExperienceItem from './ExperienceItem';
 import type { ExperienceItemProps } from './ExperienceItem';
 import experiencesJSON from '@assets/experiences.json';
 import BackButton from '@comp/Common/BackButton';
 
 const ExperiencePage: React.FC = () => {
-    const [experienceItems, setExperienceItems] = useState<
-        ExperienceItemProps[]
-    >([]);
-
-    const loadExperienceItems = () => {
-        const experiences = experiencesJSON as {
-            experiences: ExperienceItemProps[];
-        };
-        setExperienceItems(experiences.experiences || []);
-    };
-
-    useEffect(() => {
-        loadExperienceItems();
-    }, []);
+    const experienceItems: ExperienceItemProps[] =
+        (experiencesJSON as { experiences: ExperienceItemProps[] })
+            .experiences || [];
 
     const headerSpring = useSpring({
         from: { opacity: 0, y: -20 },
@@ -28,12 +16,15 @@ const ExperiencePage: React.FC = () => {
         config: config.gentle,
     });
 
-    const trail = useTrail(experienceItems.length, {
-        from: { opacity: 0, x: -30 },
-        to: { opacity: 1, x: 0 },
-        delay: 200,
-        config: config.gentle,
-    });
+    const springs = useSprings(
+        experienceItems.length,
+        experienceItems.map((_, i) => ({
+            from: { opacity: 0, x: -30 },
+            to: { opacity: 1, x: 0 },
+            delay: 100 + i * 80,
+            config: { tension: 280, friction: 22 },
+        }))
+    );
 
     return (
         <div className="page-container overflow-y-auto">
@@ -63,7 +54,7 @@ const ExperiencePage: React.FC = () => {
                     {/* Experience Items */}
                     <div className="space-y-8">
                         {experienceItems.length > 0 ? (
-                            trail.map((style, index) => (
+                            springs.map((style, index) => (
                                 <animated.div
                                     key={`${experienceItems[index].title}-${index}`}
                                     style={style}

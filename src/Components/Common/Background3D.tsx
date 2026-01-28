@@ -17,19 +17,19 @@ const Particles: React.FC<ParticlesProps> = ({ count, timeOfDay }) => {
 
         const colorPalette = {
             day: [
-                new THREE.Color('#00d4ff'),
-                new THREE.Color('#7b2cbf'),
-                new THREE.Color('#ffffff'),
+                new THREE.Color('#a8d4f0'),
+                new THREE.Color('#b8a8d4'),
+                new THREE.Color('#e8f0ff'),
             ],
             night: [
-                new THREE.Color('#00d4ff'),
-                new THREE.Color('#7b2cbf'),
-                new THREE.Color('#00ff88'),
+                new THREE.Color('#88b8d8'),
+                new THREE.Color('#a8c8e8'),
+                new THREE.Color('#c8d8f0'),
             ],
             sunset: [
-                new THREE.Color('#ff6b35'),
-                new THREE.Color('#ffb800'),
-                new THREE.Color('#ff3366'),
+                new THREE.Color('#d4c8e8'),
+                new THREE.Color('#c8b8d4'),
+                new THREE.Color('#e8d8f0'),
             ],
         };
 
@@ -104,9 +104,9 @@ const FloatingGeometry: React.FC<FloatingGeometryProps> = ({ timeOfDay }) => {
     const groupRef = useRef<THREE.Group>(null);
 
     const colorMap = {
-        day: '#00d4ff',
-        night: '#7b2cbf',
-        sunset: '#ff6b35',
+        day: '#a8d4f0',
+        night: '#88b8d8',
+        sunset: '#d4c8e8',
     };
 
     useFrame((state) => {
@@ -134,7 +134,7 @@ const FloatingGeometry: React.FC<FloatingGeometryProps> = ({ timeOfDay }) => {
             <mesh position={[5, 2, -15]} rotation={[Math.PI / 4, 0, 0]}>
                 <torusGeometry args={[1.5, 0.3, 16, 100]} />
                 <meshBasicMaterial
-                    color="#7b2cbf"
+                    color="#b8a8d4"
                     wireframe
                     transparent
                     opacity={0.2}
@@ -145,7 +145,7 @@ const FloatingGeometry: React.FC<FloatingGeometryProps> = ({ timeOfDay }) => {
             <mesh position={[-6, -2, -12]}>
                 <octahedronGeometry args={[1.5, 0]} />
                 <meshBasicMaterial
-                    color="#00ff88"
+                    color="#a8d8e8"
                     wireframe
                     transparent
                     opacity={0.25}
@@ -163,9 +163,9 @@ const GridFloor: React.FC<GridFloorProps> = ({ timeOfDay }) => {
     const gridRef = useRef<THREE.GridHelper>(null);
 
     const colorMap = {
-        day: '#00d4ff',
-        night: '#7b2cbf',
-        sunset: '#ff6b35',
+        day: '#a8d4f0',
+        night: '#88b8d8',
+        sunset: '#d4c8e8',
     };
 
     useFrame((state) => {
@@ -192,9 +192,9 @@ interface Background3DProps {
 
 const Background3D: React.FC<Background3DProps> = ({ timeOfDay = 'night' }) => {
     const bgColorMap = {
-        day: '#0a1628',
-        night: '#0a0a0f',
-        sunset: '#1a0a1e',
+        day: '#0a1520',
+        night: '#0a0f18',
+        sunset: '#0f1018',
     };
 
     return (
@@ -208,12 +208,12 @@ const Background3D: React.FC<Background3DProps> = ({ timeOfDay = 'night' }) => {
                 <FloatingGeometry timeOfDay={timeOfDay} />
                 <GridFloor timeOfDay={timeOfDay} />
             </Canvas>
-            {/* Scan line effect overlay */}
+            {/* Ethereal frost overlay */}
             <div
-                className="absolute inset-0 pointer-events-none opacity-5"
+                className="absolute inset-0 pointer-events-none opacity-[0.03]"
                 style={{
                     background:
-                        'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 212, 255, 0.03) 2px, rgba(0, 212, 255, 0.03) 4px)',
+                        'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(168, 212, 240, 0.05) 3px, rgba(168, 212, 240, 0.05) 6px)',
                 }}
             />
         </div>
