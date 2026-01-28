@@ -148,21 +148,6 @@ const AboutPage: React.FC = () => {
                     className="game-card p-8 mb-8"
                 >
                     <div className="flex flex-col md:flex-row items-center gap-6">
-                        {/* Avatar */}
-                        {/* <div className="relative"> */}
-                        {/*     <div className="w-32 h-32 rounded-full bg-gradient-to-br from-game-primary to-game-secondary flex items-center justify-center text-6xl"> */}
-                        {/*         {aboutData.profile.avatar} */}
-                        {/*     </div> */}
-                        {/*     {aboutData.profile.available && ( */}
-                        {/*         <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-game-bg-dark px-2 py-1 rounded-full"> */}
-                        {/*             <span className="w-2 h-2 rounded-full bg-game-success animate-pulse" /> */}
-                        {/*             <span className="text-game-success text-xs"> */}
-                        {/*                 ONLINE */}
-                        {/*             </span> */}
-                        {/*         </div> */}
-                        {/*     )} */}
-                        {/* </div> */}
-
                         {/* Info */}
                         <div className="text-center md:text-left flex-1">
                             <h2 className="text-3xl font-bold text-game-text-primary mb-1">
