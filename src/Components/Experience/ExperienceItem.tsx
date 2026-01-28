@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
-import { Calendar, MapPin, Award, CheckCircle } from 'react-feather';
+import {
+    Calendar,
+    MapPin,
+    Award,
+    CheckCircle,
+    Briefcase,
+    BookOpen,
+    Activity,
+    Heart,
+} from 'react-feather';
 
 export interface ExperienceItemProps {
     title: string;
@@ -9,6 +18,7 @@ export interface ExperienceItemProps {
     startDate: string;
     endDate: string | 'Current';
     location: string;
+    type: 'Work' | 'Education' | 'Activity' | 'Hobby';
     descPoints?: string[];
     achievements?: string[];
 }
@@ -20,6 +30,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
     startDate,
     endDate,
     location,
+    type,
     descPoints,
     achievements,
 }) => {
@@ -94,7 +105,10 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
                         <Calendar size={18} />
                     </span>
                     <span>
-                        {formatDate(startDate)} -{' '}
+                        {startDate !== 'Forgot When'
+                            ? formatDate(startDate)
+                            : 'Forgot When'}{' '}
+                        -{' '}
                         {isActive ? (
                             <span className="text-game-success">Present</span>
                         ) : (
@@ -107,6 +121,20 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
                         <MapPin size={18} />
                     </span>
                     <span>{location}</span>
+                </div>
+                <div className="flex items-center gap-2 text-game-text-secondary">
+                    <span className="flex items-center">
+                        {type === 'Work' ? (
+                            <Briefcase size={18} />
+                        ) : type === 'Education' ? (
+                            <BookOpen size={18} />
+                        ) : type === 'Activity' ? (
+                            <Activity size={18} />
+                        ) : type === 'Hobby' ? (
+                            <Heart size={18} />
+                        ) : null}
+                    </span>
+                    <span>{type}</span>
                 </div>
             </div>
 

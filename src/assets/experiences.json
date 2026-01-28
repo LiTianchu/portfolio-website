@@ -1,48 +1,157 @@
 {
     "experiences": [
         {
-            "title": "Title A",
+            "title": "Master, Computing",
             "occupationType": "Full-time",
-            "organizationName": "Tech Company Inc.",
-            "startDate": "2022-01-15",
+            "organizationName": "National University of Singapore",
+            "startDate": "Aug 2025",
             "endDate": "Current",
             "location": "Singapore",
+            "type": "Education",
             "descPoints": [
-                "Point 1",
-                "Point 2",
-                "Point 3"
+                "NUS Games Development Group - Member"
             ],
             "achievements": [
-                "Point 1",
-                "Point 2"
+                "2nd Place in NUS Game Craft 2025"
             ]
         },
         {
-            "title": "Title B",
+            "title": "Bachelor, Information Engineering & Media",
             "occupationType": "Full-time",
-            "organizationName": "StartUp Labs",
-            "startDate": "2020-06-01",
-            "endDate": "2021-12-31",
-            "location": "Remote",
+            "organizationName": "Nanyang Technological University",
+            "startDate": "Aug 2021",
+            "endDate": "Jul 2025",
+            "location": "Singapore",
+            "type": "Education",
             "descPoints": [
-                "Point 1",
-                "Point 2",
-                "Point 3"
+                "Marvel Club @ EEE - Technical Head",
+                "Visual Arts Society - Member"
             ],
             "achievements": [
-                "Point 1",
-                "Point 2"
+                "Graduated with Highest Distinction",
+                "Dean's List of AY2021-2022"
             ]
         },
         {
-            "title": "Title C",
-            "occupationType": "Internship",
-            "organizationName": "Web Solutions Co.",
-            "startDate": "2019-06-01",
-            "endDate": "2019-08-31",
+            "title": "Technical Head",
+            "occupationType": "Part-time",
+            "organizationName": "Marvel Club @ EEE",
+            "startDate": "Aug 2024",
+            "endDate": "Jul 2025",
             "location": "Singapore",
+            "type": "Activity",
             "descPoints": [
-                "Point 1"
+                "Planned and conducted 4 technical workshops in Unity and Godot Engine game development throughout the year 2024/2025",
+                "Lead indie game projects for submission to the Game Development World Championship competition"
+            ]
+        },
+        {
+            "title": "Intern, 3D Graphics Research and Unity Development",
+            "occupationType": "Full-time",
+            "organizationName": "Panasonic R&D Center",
+            "startDate": "Jan 2024",
+            "endDate": "Aug 2024",
+            "location": "Singapore",
+            "type": "Work",
+            "descPoints": [
+                "Contributed to high-performance 3D video mesh modeling and compression algorithms in C++",
+                "Spearheaded Unity-based AR visualizer for 3D video mesh rendering, implementing custom shaders and real-time mesh processing",
+                "Built Unity Editor tools for streamlined asset management, deployment, and team workflow optimization"
+            ]
+        },
+        {
+            "title": "Berkeley Summer School",
+            "occupationType": "Full-time",
+            "organizationName": "University of California, Berkeley",
+            "startDate": "Jun 2023",
+            "endDate": "Aug 2023",
+            "location": "Berkeley, CA, USA",
+            "type": "Activity",
+            "descPoints": [
+                "Completed the legendary CS61B Data Structures course",
+                "Travelled to Stanford to buy T-Shirts",
+                "Took a photo with the Golden Gate Bridge"
+            ],
+            "achievements": [
+                "Survived a 16-hour economy class flight from Singapore to San Francisco"
+            ]
+        },
+        {
+            "title": "Full-stack Web Developer",
+            "occupationType": "Part-time",
+            "organizationName": "SP User Experience Centre",
+            "startDate": "Mar 2023",
+            "endDate": "May 2023",
+            "location": "Singapore",
+            "type": "Work",
+            "descPoints": [
+                "Shipped an interactive learning website for design students, using ASP.NET, Razor Pages, MS SQL, and MS Azure",
+                "Implemented responsive design to ensure optimal user experience across various devices and screen sizes"
+            ]
+        },
+        {
+            "title": "Diploma, Information Technology",
+            "occupationType": "Full-time",
+            "organizationName": "Singapore Polytechnic",
+            "startDate": "Apr 2018",
+            "endDate": "May 2021",
+            "location": "Singapore",
+            "type": "Education",
+            "descPoints": [
+                "Weiqi Club - Member"
+            ],
+            "achievements": [
+                "Vice-leader of Final Year Project team, 3rd place in final showcase"
+            ]
+        },
+        {
+            "title": "Intern, Mobile Application Development",
+            "occupationType": "Full-time",
+            "organizationName": "A*STAR, Institute of High Performance Computing",
+            "startDate": "Mar 2020",
+            "endDate": "Aug 2020",
+            "location": "Singapore",
+            "type": "Work",
+            "descPoints": [
+                "Developed a cross-platform mobile app using Flutter and Dart Language for digital healthcare solutions",
+                "Collaborated with UI/UX designers to implement user-friendly interfaces and seamless navigation",
+                "Improved user experience by implementing asynchronous loading and optimized loading performance via profiling"
+            ]
+        },
+        {
+            "title": "Creative Software Project Enjoyer",
+            "occupationType": "Part-time",
+            "organizationName": "My House",
+            "startDate": "May 2021",
+            "endDate": "Current",
+            "location": "Singapore",
+            "type": "Hobby",
+            "descPoints": [
+                "Cooking up fun personal projects using latest web and graphics technologies"
+            ]
+        },
+        {
+            "title": "Digital Artist",
+            "occupationType": "Part-time",
+            "organizationName": "My House",
+            "startDate": "Apr 2018",
+            "endDate": "Current",
+            "location": "Singapore",
+            "type": "Hobby",
+            "descPoints": [
+                "Creating digital artworks using Procreate and Adobe Photoshop"
+            ]
+        },
+        {
+            "title": "Master Chef",
+            "occupationType": "Part-time",
+            "organizationName": "My House",
+            "startDate": "Forgot When",
+            "endDate": "Current",
+            "location": "Singapore",
+            "type": "Hobby",
+            "descPoints": [
+                "Specialized in making delicious meals for family and friends"
             ]
         }
     ]

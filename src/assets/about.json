@@ -28,9 +28,9 @@
         }
     ],
     "stats": {
-        "yearsExperience": 5,
+        "yearsExperience": 4,
         "projectsCompleted": 20,
         "coffeeConsumed": 1000,
-        "linesOfCode": 50000
+        "linesOfCode": 100000
     }
 }

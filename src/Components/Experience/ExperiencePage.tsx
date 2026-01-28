@@ -125,35 +125,10 @@ const ExperiencePage: React.FC = () => {
                         </p>
                         <p className="text-game-text-muted">Active</p>
                     </div>
-                    <div className="text-center">
-                        <p className="text-game-secondary text-2xl font-bold">
-                            {calculateTotalYears(experienceItems)}
-                        </p>
-                        <p className="text-game-text-muted">Years XP</p>
-                    </div>
                 </animated.div>
             </div>
         </div>
     );
 };
-
-// Helper function to calculate total years of experience
-function calculateTotalYears(experiences: ExperienceItemProps[]): string {
-    let totalMonths = 0;
-    experiences.forEach((exp) => {
-        const start = new Date(exp.startDate);
-        const end =
-            exp.endDate === 'Current' ? new Date() : new Date(exp.endDate);
-        const months =
-            (end.getFullYear() - start.getFullYear()) * 12 +
-            (end.getMonth() - start.getMonth());
-        totalMonths += months;
-    });
-    const years = Math.floor(totalMonths / 12);
-    const months = totalMonths % 12;
-    return months > 0
-        ? `${years}.${Math.round((months / 12) * 10)}`
-        : `${years}`;
-}
 
 export default ExperiencePage;

@@ -204,7 +204,7 @@ const AboutPage: React.FC = () => {
                                 <div className="flex items-center gap-2">
                                     <StatIcon size={24} />
                                     <p className="text-2xl font-bold text-game-primary">
-                                        {stats[index].value}
+                                        {stats[index].value}+
                                     </p>
                                 </div>
                                 <p className="text-game-text-muted text-sm">
