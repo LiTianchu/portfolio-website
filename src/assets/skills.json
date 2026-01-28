@@ -290,7 +290,7 @@
                                 },
                                 "children": [
                                     {
-                                        "name": "Frontend",
+                                        "name": "Front-end",
                                         "attributes": {
                                             "level": "Category",
                                             "description": "User-facing interfaces and interactions"
@@ -359,7 +359,7 @@
                                         ]
                                     },
                                     {
-                                        "name": "Backend",
+                                        "name": "Back-end",
                                         "attributes": {
                                             "level": "Category",
                                             "description": "Server-side logic and APIs"
@@ -384,6 +384,34 @@
                                                 "attributes": {
                                                     "level": "Beginner",
                                                     "description": "Document-based NoSQL database"
+                                                }
+                                            },
+                                            {
+                                                "name": "MSSQL",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Relational database management system by Microsoft"
+                                                }
+                                            },
+                                            {
+                                                "name": "PostgreSQL",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Open-source relational database system"
+                                                }
+                                            },
+                                            {
+                                                "name": "RESTful APIs",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "Designing stateless web services"
+                                                }
+                                            },
+                                            {
+                                                "name": "GraphQL",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Strongly typed backend APIs and query language"
                                                 }
                                             }
                                         ]
@@ -425,13 +453,6 @@
                                             "description": "Tools and technologies for web development"
                                         },
                                         "children": [
-                                            {
-                                                "name": "GraphQL",
-                                                "attributes": {
-                                                    "level": "Beginner",
-                                                    "description": "Strongly typed backend APIs and query language"
-                                                }
-                                            },
                                             {
                                                 "name": "WebSockets",
                                                 "attributes": {
@@ -685,7 +706,7 @@
                                 "name": "Gaming",
                                 "attributes": {
                                     "level": "Advanced",
-                                    "description": "Putting here to piss off some narrow-minded recruiters"
+                                    "description": "I usually tell my friends that I'm researching game design"
                                 }
                             }
                         ]

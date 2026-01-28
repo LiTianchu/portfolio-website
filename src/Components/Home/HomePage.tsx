@@ -39,10 +39,10 @@ const HomePage: React.FC = () => {
                 <div className="text-center mb-12">
                     <animated.h1
                         style={titleSpring}
-                        className="text-5xl md:text-6xl font-bold mb-4 tracking-wider"
+                        className="text-5xl md:text-6xl font-bold mb-4 tracking-wider whitespace-nowrap"
                     >
                         <span className="text-game-primary glow-text">
-                            Rain&apos;s
+                            Tianchu&apos;s
                         </span>
                         <span className="text-game-text-primary">
                             {' '}
