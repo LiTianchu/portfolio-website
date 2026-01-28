@@ -107,7 +107,7 @@ const AboutPage: React.FC = () => {
         },
         {
             value: aboutData.stats.projectsCompleted,
-            label: 'Quests Done',
+            label: 'Projects Done',
             icon: Codesandbox,
         },
         {

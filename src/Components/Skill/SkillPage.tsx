@@ -16,9 +16,9 @@ export interface SkillNode extends RawNodeDatum {
 }
 
 export const levelColors: Record<string, string> = {
-    Master: '#d4c078',
-    Expert: '#c4a8d8',
-    Advanced: '#a8c8e8',
+    Root: '#f7fcfc',
+    Category: '#f0ecaf',
+    Advanced: '#c4a8d8',
     Intermediate: '#88d4d8',
     Beginner: '#a8d8b8',
 };
@@ -29,20 +29,47 @@ const SkillPage: React.FC = () => {
         (skillsJSON as { skillTree: RawNodeDatum }).skillTree
     );
     const [translate, setTranslate] = useState({ x: 0, y: 60 });
+    const [zoom, setZoom] = useState(0.7);
     const treeContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const updateTranslate = () => {
+        const updateTranslateAndZoom = () => {
             if (treeContainerRef.current) {
                 const { width } =
                     treeContainerRef.current.getBoundingClientRect();
                 setTranslate({ x: width / 2, y: 60 });
+
+                // Calculate zoom based on screen width
+                // Larger screens get more zoom (higher value)
+                // Mobile: ~0.5, Tablet: ~0.65, Desktop: ~0.8-1.0
+                const screenWidth = window.innerWidth;
+                let calculatedZoom = 0.5;
+
+                if (screenWidth < 640) {
+                    // Mobile
+                    calculatedZoom = 0.45;
+                } else if (screenWidth < 1024) {
+                    // Tablet
+                    calculatedZoom = 0.6;
+                } else if (screenWidth < 1440) {
+                    // Small desktop
+                    calculatedZoom = 0.75;
+                } else if (screenWidth < 1920) {
+                    // Desktop
+                    calculatedZoom = 0.85;
+                } else {
+                    // Large desktop
+                    calculatedZoom = 1.0;
+                }
+
+                setZoom(calculatedZoom);
             }
         };
 
-        updateTranslate();
-        window.addEventListener('resize', updateTranslate);
-        return () => window.removeEventListener('resize', updateTranslate);
+        updateTranslateAndZoom();
+        window.addEventListener('resize', updateTranslateAndZoom);
+        return () =>
+            window.removeEventListener('resize', updateTranslateAndZoom);
     }, []);
 
     const headerSpring = useSpring({
@@ -120,8 +147,8 @@ const SkillPage: React.FC = () => {
                         enableLegacyTransitions
                         transitionDuration={300}
                         collapsible={true}
-                        initialDepth={undefined}
-                        zoom={0.7}
+                        initialDepth={2}
+                        zoom={zoom}
                         scaleExtent={{ min: 0.3, max: 2 }}
                     />
 

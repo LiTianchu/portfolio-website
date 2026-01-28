@@ -148,7 +148,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
                 {descPoints && descPoints.length > 0 && (
                     <div className="mb-4 pt-4 border-t border-game-glass-border">
                         <h4 className="text-sm font-semibold text-game-text-primary mb-2 tracking-wider">
-                            MISSION LOG
+                            QUEST LOG
                         </h4>
                         <ul className="space-y-2">
                             {descPoints.map((point, index) => (

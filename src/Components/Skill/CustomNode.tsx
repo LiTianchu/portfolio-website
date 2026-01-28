@@ -21,6 +21,30 @@ const CustomNode: React.FC<CustomNodeProps> = ({
         onSkillClick?.(nodeDatum as SkillNode);
     };
 
+    // Wrap text if too long (split into lines)
+    const wrapText = (text: string, maxChars: number = 12): string[] => {
+        if (text.length <= maxChars) return [text];
+
+        const words = text.split(' ');
+        const lines: string[] = [];
+        let currentLine = '';
+
+        words.forEach((word) => {
+            const testLine = currentLine ? `${currentLine} ${word}` : word;
+            if (testLine.length <= maxChars) {
+                currentLine = testLine;
+            } else {
+                if (currentLine) lines.push(currentLine);
+                currentLine = word;
+            }
+        });
+
+        if (currentLine) lines.push(currentLine);
+        return lines.slice(0, 2); // Max 2 lines
+    };
+
+    const textLines = wrapText(nodeDatum.name, 16);
+
     return (
         <g onClick={toggleNode}>
             {/* Connection line glow */}
@@ -36,10 +60,10 @@ const CustomNode: React.FC<CustomNodeProps> = ({
 
             {/* Node background */}
             <rect
-                x="-60"
-                y="-30"
-                width="120"
-                height="60"
+                x="-70"
+                y="-35"
+                width="140"
+                height="70"
                 rx="12"
                 fill="rgba(25, 40, 60, 0.85)"
                 stroke={levelColors[level]}
@@ -52,7 +76,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({
             {/* Name */}
             <text
                 x="0"
-                y="-5"
+                y={textLines.length === 1 ? -5 : -12}
                 fontSize="12"
                 fontWeight="bold"
                 textAnchor="middle"
@@ -62,13 +86,17 @@ const CustomNode: React.FC<CustomNodeProps> = ({
                     stroke: 'none',
                 }}
             >
-                {nodeDatum.name}
+                {textLines.map((line, i) => (
+                    <tspan key={i} x="0" dy={i === 0 ? 0 : 14}>
+                        {line}
+                    </tspan>
+                ))}
             </text>
 
             {/* Level badge */}
             <text
                 x="0"
-                y="12"
+                y={textLines.length === 1 ? 12 : 18}
                 fontSize="9"
                 textAnchor="middle"
                 style={{
@@ -83,7 +111,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({
             {/* Expand indicator */}
             {hasChildren && (
                 <circle
-                    cx="50"
+                    cx="60"
                     cy="0"
                     r="8"
                     fill="rgba(168, 212, 240, 0.2)"
@@ -93,7 +121,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({
             )}
             {hasChildren && (
                 <text
-                    x="50"
+                    x="60"
                     y="3"
                     fontSize="10"
                     fontWeight="bold"

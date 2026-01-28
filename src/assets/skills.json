@@ -2,37 +2,36 @@
     "skillTree": {
         "name": "Skills",
         "attributes": {
-            "level": "Master"
+            "level": "Root"
         },
         "children": [
             {
-                "name": "Frontend",
+                "name": "Art",
                 "attributes": {
-                    "level": "Expert",
-                    "description": "Building beautiful user interfaces"
+                    "level": "Category",
+                    "description": "Visual and design-related skills"
                 },
                 "children": [
                     {
-                        "name": "React",
+                        "name": "Art Concepts",
                         "attributes": {
-                            "level": "Expert",
-                            "years": 4
+                            "level": "Category"
                         },
                         "children": [
                             {
-                                "name": "Redux",
+                                "name": "Color & Lighting",
                                 "attributes": {
-                                    "level": "Advanced"
+                                    "level": "Intermediate"
                                 }
                             },
                             {
-                                "name": "React Query",
+                                "name": "Perspective",
                                 "attributes": {
-                                    "level": "Advanced"
+                                    "level": "Intermediate"
                                 }
                             },
                             {
-                                "name": "React Spring",
+                                "name": "Composition",
                                 "attributes": {
                                     "level": "Intermediate"
                                 }
@@ -40,29 +39,614 @@
                         ]
                     },
                     {
-                        "name": "TypeScript",
+                        "name": "Design",
                         "attributes": {
-                            "level": "Expert",
-                            "years": 3
-                        }
-                    },
-                    {
-                        "name": "CSS",
-                        "attributes": {
-                            "level": "Expert",
-                            "years": 5
+                            "level": "Category",
+                            "description": "Design principles and tools"
                         },
                         "children": [
                             {
-                                "name": "Tailwind",
+                                "name": "Graphic Design",
                                 "attributes": {
-                                    "level": "Expert"
+                                    "level": "Beginner",
+                                    "description": "Creating visual content to communicate messages"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Adobe Illustrator",
+                                        "attributes": {
+                                            "level": "Beginner",
+                                            "description": "Vector graphics design software"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Game Design",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Fundamentals of designing engaging game experiences"
                                 }
                             },
                             {
-                                "name": "Sass",
+                                "name": "UI Design",
                                 "attributes": {
-                                    "level": "Advanced"
+                                    "level": "Intermediate",
+                                    "description": "Designing usable and intuitive interfaces"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Figma",
+                                        "attributes": {
+                                            "level": "Beginner",
+                                            "description": "Collaborative interface design tool"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Media Art",
+                        "attributes": {
+                            "level": "Category",
+                            "description": "Digital art creation"
+                        },
+                        "children": [
+                            {
+                                "name": "Pixel Art",
+                                "attributes": {
+                                    "level": "Advanced",
+                                    "description": "Creating visuals using low-resolution pixels"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Aseprite",
+                                        "attributes": {
+                                            "level": "Intermediate",
+                                            "description": "Pixel art creation and animation tool"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Digital Painting",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Creating artwork using digital tools"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Procreate",
+                                        "attributes": {
+                                            "level": "Intermediate",
+                                            "description": "Digital painting app for iPad"
+                                        }
+                                    },
+                                    {
+                                        "name": "Adobe Photoshop",
+                                        "attributes": {
+                                            "level": "Beginner",
+                                            "description": "Raster graphics editor"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "3D Modelling",
+                                "attributes": {
+                                    "level": "Beginner",
+                                    "description": "Creating three-dimensional digital assets"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Blender",
+                                        "attributes": {
+                                            "level": "Beginner",
+                                            "description": "Open-source 3D creation suite"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Programming",
+                "attributes": {
+                    "level": "Category",
+                    "description": "Core programming knowledge and engineering foundations"
+                },
+                "children": [
+                    {
+                        "name": "Programming Languages",
+                        "attributes": {
+                            "level": "Category",
+                            "description": "Languages used to express computational logic"
+                        },
+                        "children": [
+                            {
+                                "name": "C#",
+                                "attributes": {
+                                    "level": "Advanced",
+                                    "description": "Strongly typed language commonly used for applications and games"
+                                }
+                            },
+                            {
+                                "name": "Python",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "High-level language for scripting, data, and backend development"
+                                }
+                            },
+                            {
+                                "name": "JavaScript & TypeScript",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Primary language for interactive web applications"
+                                }
+                            },
+                            {
+                                "name": "C & C++",
+                                "attributes": {
+                                    "level": "Beginner",
+                                    "description": "Low-level languages for performance-critical and system programming"
+                                }
+                            },
+                            {
+                                "name": "Java",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Object-oriented language commonly used in enterprise and Android development"
+                                }
+                            },
+                            {
+                                "name": "SQL",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Query language for relational database management"
+                                }
+                            },
+                            {
+                                "name": "Lua",
+                                "attributes": {
+                                    "level": "Beginner",
+                                    "description": "Lightweight scripting language commonly used in scripting and game mods"
+                                }
+                            },
+                            {
+                                "name": "HTML & CSS",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "I know that they are not programming languages strictly speaking"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Computer Science Concepts",
+                        "attributes": {
+                            "level": "Category",
+                            "description": "Fundamental concepts behind software systems"
+                        },
+                        "children": [
+                            {
+                                "name": "Data Structures and Algorithms",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Techniques for organizing data and solving problems efficiently"
+                                }
+                            },
+                            {
+                                "name": "Object-Oriented Design",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Designing software using objects and abstraction"
+                                }
+                            },
+                            {
+                                "name": "Computer Architecture",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Understanding how software interacts with hardware"
+                                }
+                            },
+                            {
+                                "name": "Networking",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Principles of communication between computers"
+                                }
+                            },
+                            {
+                                "name": "Databases",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Persistent storage and structured data management"
+                                }
+                            },
+                            {
+                                "name": "Artificial Intelligence",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Algorithms that simulate intelligent behavior"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Software Engineering",
+                        "attributes": {
+                            "level": "Category",
+                            "description": "Applying engineering practices to software development"
+                        },
+                        "children": [
+                            {
+                                "name": "Web Development",
+                                "attributes": {
+                                    "level": "Category",
+                                    "description": "Building applications for the web platform"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Frontend",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "User-facing interfaces and interactions"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "React",
+                                                "attributes": {
+                                                    "level": "Advanced",
+                                                    "description": "Component-based UI development library"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "name": "Redux",
+                                                        "attributes": {
+                                                            "level": "Intermediate",
+                                                            "description": "State management library for React applications"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "React Router",
+                                                        "attributes": {
+                                                            "level": "Beginner",
+                                                            "description": "Routing library for single-page applications"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "React Spring",
+                                                        "attributes": {
+                                                            "level": "Intermediate",
+                                                            "description": "Animation library for React applications"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "CSS Frameworks",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "CSS frameworks for styling and layout"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "name": "Tailwind CSS",
+                                                        "attributes": {
+                                                            "level": "Intermediate",
+                                                            "description": "Utility-first CSS framework"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "Bootstrap",
+                                                        "attributes": {
+                                                            "level": "Beginner",
+                                                            "description": "Simple CSS framework for quick bootstrapping"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "Svelte",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Compiler-based frontend framework"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Backend",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "Server-side logic and APIs"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "ASP.NET",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "Framework for building backend services"
+                                                }
+                                            },
+                                            {
+                                                "name": "Express.js",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Minimal Node.js web framework"
+                                                }
+                                            },
+                                            {
+                                                "name": "MongoDB",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Document-based NoSQL database"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Cloud Computing",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "Deploying and managing applications in the cloud"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "AWS",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Cloud infrastructure and services platform"
+                                                }
+                                            },
+                                            {
+                                                "name": "Azure",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "Microsoft cloud computing platform"
+                                                }
+                                            },
+                                            {
+                                                "name": "Firebase",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Backend-as-a-service platform"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Web Technologies",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "Tools and technologies for web development"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "GraphQL",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Strongly typed backend APIs and query language"
+                                                }
+                                            },
+                                            {
+                                                "name": "WebSockets",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Protocol for real-time communication"
+                                                }
+                                            },
+                                            {
+                                                "name": "Node.js",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "JavaScript runtime built on Chrome's V8 engine"
+                                                }
+                                            },
+                                            {
+                                                "name": "Vite",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "Next-generation frontend build tool"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Game Development",
+                                "attributes": {
+                                    "level": "Category",
+                                    "description": "Designing and implementing interactive game systems"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Game Programming",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "Core concepts behind game development"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "Draw Call Optimization",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "Techniques to reduce rendering overhead"
+                                                }
+                                            },
+                                            {
+                                                "name": "Character Control Camera",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "Player movement and camera behavior systems"
+                                                }
+                                            },
+                                            {
+                                                "name": "Procedural Generation",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "Algorithmic content generation techniques"
+                                                }
+                                            },
+                                            {
+                                                "name": "Game Feel & VFX",
+                                                "attributes": {
+                                                    "level": "Advanced",
+                                                    "description": "Techniques to enhance player experience through feedback"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Game Engines",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "Tools for building games"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "Unity",
+                                                "attributes": {
+                                                    "level": "Advanced",
+                                                    "description": "Game engine for 2D and 3D development"
+                                                }
+                                            },
+                                            {
+                                                "name": "Godot Engine",
+                                                "attributes": {
+                                                    "level": "Advanced",
+                                                    "description": "Open-source game engine"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Graphics Programming",
+                                "attributes": {
+                                    "level": "Category",
+                                    "description": "Rendering techniques and real-time graphics systems"
+                                },
+                                "children": [
+                                    {
+                                        "name": "Shader Languages",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "Programming languages for GPU shaders"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "GLSL",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "OpenGL Shading Language for cross-platform graphics"
+                                                }
+                                            },
+                                            {
+                                                "name": "HLSL",
+                                                "attributes": {
+                                                    "level": "Intermediate",
+                                                    "description": "High-Level Shader Language for DirectX and Unity Shaders"
+                                                }
+                                            }
+                                        ]
+                                    },
+
+                                    {
+                                        "name": "Graphics Libraries",
+                                        "attributes": {
+                                            "level": "Category",
+                                            "description": "APIs for rendering 2D and 3D graphics"
+                                        },
+                                        "children": [
+                                            {
+                                                "name": "OpenGL",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "Cross-platform graphics API"
+                                                }
+                                            },
+                                            {
+                                                "name": "Three.js",
+                                                "attributes": {
+                                                    "level": "Beginner",
+                                                    "description": "High-level 3D graphics library for the web"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "name": "React Three Fiber",
+                                                        "attributes": {
+                                                            "level": "Beginner",
+                                                            "description": "React renderer for Three.js"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Tools",
+                        "attributes": {
+                            "level": "Category",
+                            "description": "Development and productivity tools"
+                        },
+                        "children": [
+                            {
+                                "name": "Linux",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Unix-based operating system for development"
+                                }
+                            },
+                            {
+                                "name": "Git",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Version control system for source code"
+                                }
+                            },
+                            {
+                                "name": "Docker",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "Containerization platform for applications"
+                                }
+                            },
+                            {
+                                "name": "VS Code",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "That code editor that everyone uses"
+                                }
+                            },
+                            {
+                                "name": "Vim",
+                                "attributes": {
+                                    "level": "Advanced",
+                                    "description": "I use Vim btw"
+                                }
+                            },
+                            {
+                                "name": "Copilot",
+                                "attributes": {
+                                    "level": "Intermediate",
+                                    "description": "AI-powered code completion tool"
+                                }
+                            },
+                            {
+                                "name": "Tmux",
+                                "attributes": {
+                                    "level": "Beginner",
+                                    "description": "Terminal multiplexer for managing multiple terminal sessions"
                                 }
                             }
                         ]
@@ -70,146 +654,57 @@
                 ]
             },
             {
-                "name": "Backend",
+                "name": "Others",
                 "attributes": {
-                    "level": "Advanced",
-                    "description": "Server-side development"
+                    "level": "Category",
+                    "description": "Skills acquired unintentionally"
                 },
                 "children": [
                     {
-                        "name": "Node.js",
+                        "name": "Unrelated Hobbies",
                         "attributes": {
-                            "level": "Advanced",
-                            "years": 3
+                            "level": "Category",
+                            "description": "Things my career advisor says that I shouldn't put on my resume"
                         },
                         "children": [
                             {
-                                "name": "Express",
+                                "name": "Cooking",
                                 "attributes": {
-                                    "level": "Advanced"
+                                    "level": "Advanced",
+                                    "description": "Debugging recipes through trial and error"
                                 }
                             },
                             {
-                                "name": "NestJS",
+                                "name": "Linux Ricing",
                                 "attributes": {
-                                    "level": "Intermediate"
+                                    "level": "Advanced",
+                                    "description": "Spending hours tweaking things nobody will see"
+                                }
+                            },
+                            {
+                                "name": "Gaming",
+                                "attributes": {
+                                    "level": "Advanced",
+                                    "description": "Putting here to piss off some narrow-minded recruiters"
                                 }
                             }
                         ]
                     },
                     {
-                        "name": "Python",
+                        "name": "Life Skills",
                         "attributes": {
-                            "level": "Advanced",
-                            "years": 4
+                            "level": "Category",
+                            "description": "Skills that keep me alive"
                         },
                         "children": [
                             {
-                                "name": "FastAPI",
+                                "name": "Procrastination Optimization",
                                 "attributes": {
-                                    "level": "Advanced"
-                                }
-                            },
-                            {
-                                "name": "Django",
-                                "attributes": {
-                                    "level": "Intermediate"
+                                    "level": "Advanced",
+                                    "description": "Achieving maximum delay with minimal guilt"
                                 }
                             }
                         ]
-                    },
-                    {
-                        "name": "Databases",
-                        "attributes": {
-                            "level": "Advanced"
-                        },
-                        "children": [
-                            {
-                                "name": "PostgreSQL",
-                                "attributes": {
-                                    "level": "Advanced"
-                                }
-                            },
-                            {
-                                "name": "MongoDB",
-                                "attributes": {
-                                    "level": "Advanced"
-                                }
-                            },
-                            {
-                                "name": "Redis",
-                                "attributes": {
-                                    "level": "Intermediate"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "DevOps",
-                "attributes": {
-                    "level": "Intermediate",
-                    "description": "Infrastructure & deployment"
-                },
-                "children": [
-                    {
-                        "name": "Docker",
-                        "attributes": {
-                            "level": "Advanced",
-                            "years": 2
-                        }
-                    },
-                    {
-                        "name": "AWS",
-                        "attributes": {
-                            "level": "Intermediate",
-                            "years": 2
-                        }
-                    },
-                    {
-                        "name": "CI/CD",
-                        "attributes": {
-                            "level": "Advanced"
-                        },
-                        "children": [
-                            {
-                                "name": "GitHub Actions",
-                                "attributes": {
-                                    "level": "Advanced"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "Tools",
-                "attributes": {
-                    "level": "Expert",
-                    "description": "Development tools"
-                },
-                "children": [
-                    {
-                        "name": "Git",
-                        "attributes": {
-                            "level": "Expert",
-                            "years": 5
-                        }
-                    },
-                    {
-                        "name": "VS Code",
-                        "attributes": {
-                            "level": "Expert",
-                            "years": 5
-                        }
-                    },
-                    {
-                        "name": "Figma",
-                        "attributes": {
-                            "level": "Intermediate",
-                            "years": 2
-                        }
                     }
                 ]
             }
