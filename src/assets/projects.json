@@ -2,8 +2,8 @@
     "projects": [
         {
             "title": "Mysterious Game Project",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "A game project currently cooking with my friend.",
+            "longDescription": "A game project currently cooking with my friend. More details will be revealed soon!",
             "thumbnailFit": "cover",
             "thumbnail": "lie/desktop.png",
             "technologies": ["Unity", "C#", "Aseprite"],
@@ -15,8 +15,8 @@
         },
         {
             "title": "Story Mosaic",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "A collaborative storytelling platform that allows writers to create and share interactive Choose Your Own Adventure games.",
+            "longDescription": "A collaborative storytelling platform that allows writers to create and share interactive Choose Your Own Adventure games. It features real-time collaboration, a GUI flowchart story editor, and a user-friendly interface for both writers and readers.",
             "thumbnailFit": "cover",
             "thumbnail": "story_mosaic/thumbnail.png",
             "technologies": [
@@ -41,15 +41,15 @@
                 "story_mosaic/storymanage.png"
             ],
             "features": [
-                "Automated data preprocessing",
-                "Custom ML model training",
-                "Real-time analytics dashboard"
+                "Real-time collaboration over flowchart editor",
+                "Create, share and star stories",
+                "Interactive story playing experience for readers"
             ]
         },
         {
             "title": "ARvatar",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "An augmented reality messaging app with 3D avatar customization.",
+            "longDescription": "An augmented reality messaging app that allows users to create and customize 3D avatars, send real-time messages, and interact with their avatars in real-world environments using AR technology.",
             "thumbnailFit": "contain",
             "thumbnail": "arvatar/logo.png",
             "technologies": [
@@ -69,15 +69,15 @@
                 "arvatar/emote.png"
             ],
             "features": [
-                "Layer-based editing",
-                "Animation timeline",
-                "Export to multiple formats"
+                "Emotes with 3D character animation",
+                "Real-time messaging",
+                "Join AR chat rooms with custom avatars"
             ]
         },
         {
             "title": "MiniRenderer",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "3D software(CPU) graphics rendering engine written in C++",
+            "longDescription": "3D software(CPU) graphics rendering engine written in C++. Implemented the entire rendering pipeline, including 3D transformation, triangle rasterization, shading, texture mapping, normal mapping, shadow testing, and other advanced graphics techniques.",
             "thumbnailFit": "contain",
             "thumbnail": "renderer/complete_diablo.png",
             "technologies": ["C++"],
@@ -97,15 +97,15 @@
                 "renderer/ssao_diablo.png"
             ],
             "features": [
-                "Multi-cloud support",
-                "One-click deployments",
-                "Cost optimization tools"
+                "Rendering pipeline from scratch",
+                "Normal mapping, texturing and ambient occlusion",
+                "Software shader in C++"
             ]
         },
         {
             "title": "3D Narrative Game Project",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "A 3D narrative-driven game developed in Unity, created for learning purposes.",
+            "longDescription": "A 3D narrative-driven game developed in Unity, created for learning purposes. Features stylized pixel art rendering, custom dialogue system, and branching storylines",
             "thumbnailFit": "cover",
             "thumbnail": "doctor/demo_render.png",
             "technologies": ["Unity", "C#"],
@@ -115,15 +115,15 @@
             "images": ["doctor/demo_ui.png", "doctor/demo_render.png"],
             "liveUrl": "https://ltc0522.itch.io/project",
             "features": [
-                "Real-time audio analysis",
-                "Customizable visualizations",
-                "Plugin architecture"
+                "Custom dialogue system with branching storylines",
+                "Stylized pixel art rendering using Unity's URP",
+                "Interactive 3D environments"
             ]
         },
         {
             "title": "SVG Morph",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "A simple web-based tool to create smooth morphing animations between SVGs.",
+            "longDescription": "A simple web-based tool to create smooth morphing animations between SVGs. Supports uploading, rendering and exporting animations with different animation easing options.",
             "thumbnailFit": "cover",
             "thumbnail": "svg_morph/thumbnail.png",
             "technologies": ["React", "JavaScript", "D3.js", "SVG", "FFmpeg"],
@@ -136,15 +136,15 @@
                 "svg_morph/morphing_sun.gif"
             ],
             "features": [
-                "Context-aware suggestions",
-                "Multi-language support",
-                "Learning from user patterns"
+                "Upload and chain multiple SVG files for morphing",
+                "Create smooth morphing animations with settings for duration, easing, and framerate",
+                "Export animations as MP4 in various resolutions including 4K"
             ]
         },
         {
             "title": "Definitely Not a Rip-off",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "Experimental narrative puzzle game based off game industry memes.",
+            "longDescription": "An experimental comedic narrative puzzle game based off game industry memes. Role in the team: Programmer, Designer and Writer",
             "thumbnailFit": "cover",
             "thumbnail": "dnar/title.png",
             "technologies": ["Unity", "C#"],
@@ -160,15 +160,15 @@
                 "dnar/meme.png"
             ],
             "features": [
-                "Context-aware suggestions",
-                "Multi-language support",
-                "Learning from user patterns"
+                "Rich feedback and game feel",
+                "Fourth-wall breaking gameplay and humorous dialogues",
+                "Completed in 7 days (2-people team) for NUS Game Craft 2025"
             ]
         },
         {
             "title": "RPG Framework in Godot",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "A RPG framework built in Godot Engine to facilitate the development of 2D RPG games.",
+            "longDescription": "A RPG framework built in Godot Engine to facilitate the development of 2D RPG games. Contains a map system, quest system, inventory management, SRPG battle system, weather system and more.",
             "thumbnailFit": "cover",
             "thumbnail": "rpg/day.png",
             "technologies": ["Godot", "C#", "Aseprite"],
@@ -182,15 +182,15 @@
                 "rpg/rain.png"
             ],
             "features": [
-                "Context-aware suggestions",
-                "Multi-language support",
-                "Learning from user patterns"
+                "Turn-based SRPG battle system",
+                "Dynamic weather and day-night cycle",
+                "Other common RPG systems such as quests and inventory"
             ]
         },
         {
             "title": "Isekai Goddess Simulator",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "A worker placement strategy game that captures the essence of real-time strategy games.",
+            "longDescription": "A worker placement strategy game that captures the essence of real-time strategy games. You play as a goddess that helps lost souls to respawn in Isekai as adventurers, with the end goal of defeating the demon lord.",
             "thumbnailFit": "cover",
             "thumbnail": "goddess/thumbnail.png",
             "technologies": ["Unity", "C#", "Procreate"],
@@ -203,26 +203,25 @@
                 "goddess/help.png"
             ],
             "features": [
-                "Context-aware suggestions",
-                "Multi-language support",
-                "Learning from user patterns"
+                "Unique worker placement mechanics adapted for real-time gameplay",
+                "Completed in 7 days (solo) for NUS Game Craft 2023"
             ]
         },
         {
             "title": "My OpenGL Rendering Engine",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "description": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes.",
+            "longDescription": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes. Implemented various graphics techniques including Phong shading, cube mapping, skyboxes, normal vector visualization. Will work on it when I feel like it.",
             "thumbnailFit": "cover",
             "thumbnail": "opengl/normal_visualizer.png",
-            "technologies": ["C++", "OpenGL", "GLFW"],
+            "technologies": ["C++", "OpenGL", "GLFW", "Assimp"],
             "type": "Graphics",
             "status": "In Progress",
             "imagesFit": "contain",
             "images": ["opengl/normal_visualizer.png"],
             "features": [
-                "Context-aware suggestions",
-                "Multi-language support",
-                "Learning from user patterns"
+                "Various 3D rendering techniques with OpenGL",
+                "Model importing with Assimp",
+                "Adjustable camera, lighting and controls"
             ]
         }
     ]
