@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSpring, animated, useSprings, config } from '@react-spring/web';
 import projectsJSON from '@assets/projects.json';
 import BackButton from '@comp/Common/BackButton';
@@ -28,6 +28,8 @@ export interface Project {
     images?: string[];
     longDescription: string;
     thumbnail: string;
+    thumbnailFit?: 'cover' | 'contain';
+    imagesFit?: 'cover' | 'contain';
     technologies: string[];
     type:
         | 'Game'
@@ -42,14 +44,28 @@ export interface Project {
     liveUrl?: string;
     features: string[];
 }
-
+// vite glob import for images
+const imageModules = import.meta.glob('@assets/images/**/*', {
+    eager: true,
+    as: 'url',
+});
 const ProjectPage: React.FC = () => {
-    const [projects] = useState<Project[]>(
-        (projectsJSON as { projects: Project[] }).projects || []
-    );
+    const [projects, setProjects] = useState<Project[]>([]);
+
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
+
+    const getImageUrl = (filename: string) => {
+        const path = `/src/assets/images/${filename}`;
+        console.log(
+            'Getting image URL for:',
+            filename,
+            '->',
+            imageModules[path]
+        );
+        return imageModules[path] as string;
+    };
 
     const headerSpring = useSpring({
         from: { opacity: 0, y: -20 },
@@ -67,9 +83,25 @@ const ProjectPage: React.FC = () => {
         }))
     );
 
+    // replace image urls
+    useEffect(() => {
+        const projectsData = (projectsJSON as { projects: Project[] }).projects;
+        const projectsWithPathResolved = projectsData.map((project) => {
+            if (project.images && project.images.length > 0) {
+                return {
+                    ...project,
+                    thumbnail: getImageUrl(project.thumbnail),
+                    images: project.images.map((img) => getImageUrl(img)),
+                };
+            }
+            return project;
+        });
+        setProjects(projectsWithPathResolved);
+    }, []);
+
     return (
         <div className="page-container overflow-y-auto">
-            <div className="content-container glass-panel-dark p-8">
+            <div className="content-container glass-panel-dark p-8 ">
                 <div className="mb-6 flex justify-start">
                     <BackButton />
                 </div>
@@ -91,7 +123,7 @@ const ProjectPage: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {springs.map((style, index) => (
                         <ProjectCard
-                            key={projects[index].id}
+                            key={index}
                             project={projects[index]}
                             onClick={setSelectedProject}
                             style={style}

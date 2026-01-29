@@ -30,16 +30,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
         >
             <animated.div
                 style={modalSpring}
-                className="glass-panel-dark p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto scrollbar-game"
+                className="glass-panel-dark p-8 xl:max-w-[60vw] lg:max-w-[70vw] md:max-w-[80vw] max-w-[90vw] w-full max-h-[90vh] overflow-y-auto scrollbar-game"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <span className="text-4xl">
-                                {project.thumbnail}
-                            </span>
                             <div>
                                 <h2 className="text-3xl font-bold text-game-primary">
                                     {project.title}
@@ -62,7 +59,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
                 {project.images && project.images.length > 0 && (
                     <div className="mb-6">
-                        <SlideShow images={project.images} />
+                        <SlideShow
+                            images={project.images}
+                            imagesFit={project.imagesFit}
+                        />
                     </div>
                 )}
 

@@ -41,36 +41,41 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             onClick={() => onClick(project)}
         >
             {/* Status badge */}
-            <div className="absolute top-3 right-3">
+            <div className="flex justify-between items-center mb-2">
+                {/* type */}
+                <p
+                    className={`text-center text-sm ${typeColors[project.type]}`}
+                >
+                    {project.type}
+                </p>
                 <div
-                    className={`flex gap-2 px-2 py-1 rounded text-xs font-semibold ${statusColors[project.status]}`}
+                    className={`flex items-center gap-2 px-2 py-1 rounded text-xs font-semibold ${statusColors[project.status]}`}
                 >
                     {project.status === 'In Progress' ? (
-                        <Monitor size={12} className="self-center" />
+                        <Monitor size={12} />
                     ) : project.status === 'Completed' ? (
-                        <Package size={12} className="self-center" />
+                        <Package size={12} />
                     ) : (
-                        <Calendar size={12} className="self-center" />
+                        <Calendar size={12} />
                     )}
                     {project.status}
                 </div>
             </div>
 
             {/* Thumbnail */}
-            <div className="text-6xl text-center my-6">{project.thumbnail}</div>
+            <div className="w-full h-40 mb-4 relative overflow-hidden rounded-md bg-game-bg-dark">
+                <img
+                    src={project.thumbnail}
+                    alt={`${project.title} thumbnail`}
+                    className={`fade-edge absolute inset-0 w-full h-full ${project.thumbnailFit === 'contain' ? 'object-contain' : 'object-cover'}`}
+                />
+            </div>
 
             <div className="flex justify-between items-center">
                 {/* Title */}
                 <h3 className="text-xl font-bold text-game-text-primary text-center mb-2 group-hover:text-game-primary transition-colors">
                     {project.title}
                 </h3>
-
-                {/* type */}
-                <p
-                    className={`text-center text-sm mb-3 ${typeColors[project.type]}`}
-                >
-                    {project.type}
-                </p>
             </div>
 
             {/* Description */}

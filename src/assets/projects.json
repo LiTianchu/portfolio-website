@@ -1,33 +1,24 @@
 {
     "projects": [
         {
-            "id": "proj-001",
             "title": "Mysterious Game Project",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "thumbnail": "🎮",
-            "technologies": [
-                "Unity",
-                "C#",
-                "Aseprite"
-            ],
+            "thumbnailFit": "cover",
+            "thumbnail": "lie/desktop.png",
+            "technologies": ["Unity", "C#", "Aseprite"],
             "type": "Game",
             "status": "In Progress",
-            "images": [
-                "lie/desktop_clear.png"
-            ],
-            "features": [
-                "Very funny",
-                "Really",
-                "Trust me"
-            ]
+            "imagesFit": "contain",
+            "images": ["lie/desktop.png", "lie/desktop_clear.png"],
+            "features": ["Very funny"]
         },
         {
-            "id": "proj-002",
             "title": "Story Mosaic",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "thumbnail": "📊",
+            "thumbnailFit": "cover",
+            "thumbnail": "story_mosaic/thumbnail.png",
             "technologies": [
                 "React",
                 "TypeScript",
@@ -41,8 +32,13 @@
             "type": "Web",
             "status": "Completed",
             "githubUrl": "https://github.com/LiTianchu/story-mosaic",
+            "imagesFit": "contain",
             "images": [
-                "test_image_3.jpg"
+                "story_mosaic/edit.png",
+                "story_mosaic/storydetail.png",
+                "story_mosaic/landing.png",
+                "story_mosaic/reader.png",
+                "story_mosaic/storymanage.png"
             ],
             "features": [
                 "Automated data preprocessing",
@@ -51,21 +47,27 @@
             ]
         },
         {
-            "id": "proj-003",
-            "title": "Pixel Forge",
-            "description": "Creative design tool for game assets",
-            "longDescription": "A browser-based design tool for creating and exporting game assets with layer support and animation capabilities.",
-            "thumbnail": "🎨",
+            "title": "ARvatar",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "contain",
+            "thumbnail": "arvatar/logo.png",
             "technologies": [
-                "Canvas API",
-                "WebGL",
-                "React",
-                "IndexedDB"
+                "Unity",
+                "C#",
+                "Firebase",
+                "Firestore",
+                "AR Foundation"
             ],
             "type": "Application",
-            "status": "In Progress",
-            "githubUrl": "https://github.com/username/project3",
-            "images": [],
+            "status": "Completed",
+            "githubUrl": "https://github.com/LiTianchu/ARvatar",
+            "imagesFit": "contain",
+            "images": [
+                "arvatar/ar.png",
+                "arvatar/customization.png",
+                "arvatar/emote.png"
+            ],
             "features": [
                 "Layer-based editing",
                 "Animation timeline",
@@ -73,22 +75,27 @@
             ]
         },
         {
-            "id": "proj-004",
-            "title": "Cloud Runner",
-            "description": "Serverless deployment automation platform",
-            "longDescription": "An automation platform for deploying and managing serverless applications across multiple cloud providers.",
-            "thumbnail": "☁️",
-            "technologies": [
-                "AWS Lambda",
-                "Terraform",
-                "Go",
-                "React"
-            ],
-            "type": "Application",
+            "title": "MiniRenderer",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "contain",
+            "thumbnail": "renderer/complete_diablo.png",
+            "technologies": ["C++"],
+            "type": "Graphics",
             "status": "Completed",
-            "githubUrl": "https://github.com/username/project4",
-            "liveUrl": "https://project4.demo.com",
-            "images": [],
+            "githubUrl": "https://github.com/LiTianchu/MiniRenderer",
+            "imagesFit": "contain",
+            "images": [
+                "renderer/complete_diablo.png",
+                "renderer/wireframe_diablo.png",
+                "renderer/depth_buffer_diablo.png",
+                "renderer/flat_diablo.png",
+                "renderer/smooth_diablo.png",
+                "renderer/uv_diablo.png",
+                "renderer/texture_diablo.png",
+                "renderer/texture_normal_shadowmap_diablo.png",
+                "renderer/ssao_diablo.png"
+            ],
             "features": [
                 "Multi-cloud support",
                 "One-click deployments",
@@ -96,23 +103,17 @@
             ]
         },
         {
-            "id": "proj-005",
-            "title": "Sound Wave",
-            "description": "Audio visualization and processing library",
-            "longDescription": "A JavaScript library for audio visualization with support for various visual effects and real-time audio processing.",
-            "thumbnail": "🎵",
-            "technologies": [
-                "Web Audio API",
-                "Three.js",
-                "TypeScript"
-            ],
-            "type": "Library",
+            "title": "3D Narrative Game Project",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "cover",
+            "thumbnail": "doctor/demo_render.png",
+            "technologies": ["Unity", "C#"],
+            "type": "Game",
             "status": "Completed",
-            "githubUrl": "https://github.com/username/project5",
-            "images": [
-                "test_image_1.png",
-                "test_image_2.jpg"
-            ],
+            "imagesFit": "cover",
+            "images": ["doctor/demo_ui.png", "doctor/demo_render.png"],
+            "liveUrl": "https://ltc0522.itch.io/project",
             "features": [
                 "Real-time audio analysis",
                 "Customizable visualizations",
@@ -120,21 +121,104 @@
             ]
         },
         {
-            "id": "proj-006",
-            "title": "Neural Net",
-            "description": "AI-powered code assistant",
-            "longDescription": "An intelligent code assistant that provides suggestions, refactoring options, and bug detection using machine learning.",
-            "thumbnail": "🤖",
-            "technologies": [
-                "Python",
-                "GPT-4",
-                "VS Code API",
-                "TypeScript"
+            "title": "SVG Morph",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "cover",
+            "thumbnail": "svg_morph/thumbnail.png",
+            "technologies": ["React", "JavaScript", "D3.js", "SVG", "FFmpeg"],
+            "type": "Web",
+            "status": "Completed",
+            "githubUrl": "https://github.com/LiTianchu/SVG-Morph",
+            "imagesFit": "contain",
+            "images": [
+                "svg_morph/morphing_animal.gif",
+                "svg_morph/morphing_sun.gif"
             ],
-            "type": "Application",
+            "features": [
+                "Context-aware suggestions",
+                "Multi-language support",
+                "Learning from user patterns"
+            ]
+        },
+        {
+            "title": "Definitely Not a Rip-off",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "cover",
+            "thumbnail": "dnar/title.png",
+            "technologies": ["Unity", "C#"],
+            "type": "Game",
+            "status": "Completed",
+            "liveUrl": "https://ltc0522.itch.io/dnar",
+            "imagesFit": "contain",
+            "images": [
+                "dnar/menu.png",
+                "dnar/glitch.png",
+                "dnar/scene.png",
+                "dnar/desktop.png",
+                "dnar/meme.png"
+            ],
+            "features": [
+                "Context-aware suggestions",
+                "Multi-language support",
+                "Learning from user patterns"
+            ]
+        },
+        {
+            "title": "RPG Framework in Godot",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "cover",
+            "thumbnail": "rpg/day.png",
+            "technologies": ["Godot", "C#", "Aseprite"],
+            "type": "Game",
             "status": "In Progress",
-            "githubUrl": "https://github.com/username/project6",
-            "images": [],
+            "imagesFit": "contain",
+            "images": [
+                "rpg/day.png",
+                "rpg/day_rain.png",
+                "rpg/night.png",
+                "rpg/rain.png"
+            ],
+            "features": [
+                "Context-aware suggestions",
+                "Multi-language support",
+                "Learning from user patterns"
+            ]
+        },
+        {
+            "title": "Isekai Goddess Simulator",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "cover",
+            "thumbnail": "goddess/thumbnail.png",
+            "technologies": ["Unity", "C#", "Procreate"],
+            "type": "Game",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": [
+                "goddess/game.png",
+                "goddess/diary.png",
+                "goddess/help.png"
+            ],
+            "features": [
+                "Context-aware suggestions",
+                "Multi-language support",
+                "Learning from user patterns"
+            ]
+        },
+        {
+            "title": "My OpenGL Rendering Engine",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "thumbnailFit": "cover",
+            "thumbnail": "opengl/normal_visualizer.png",
+            "technologies": ["C++", "OpenGL", "GLFW"],
+            "type": "Graphics",
+            "status": "In Progress",
+            "imagesFit": "contain",
+            "images": ["opengl/normal_visualizer.png"],
             "features": [
                 "Context-aware suggestions",
                 "Multi-language support",
