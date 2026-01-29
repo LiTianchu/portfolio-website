@@ -514,7 +514,7 @@
                                                 }
                                             },
                                             {
-                                                "name": "Game Feel & VFX",
+                                                "name": "Game Feel",
                                                 "attributes": {
                                                     "level": "Advanced",
                                                     "description": "Techniques to enhance player experience through feedback"
