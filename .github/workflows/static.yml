@@ -5,7 +5,6 @@ on:
     # Runs on pushes targeting the default branch
     push:
         branches: ['main']
-
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
 
@@ -44,6 +43,16 @@ jobs:
             - name: Build
               run: npm run build
               
+            # Debug: Check if dist folder exists and what's in it
+            - name: Verify build output
+              run: |
+                  echo "Checking if dist folder exists..."
+                  ls -la
+                  echo "Contents of dist folder:"
+                  ls -la dist/
+                  echo "Contents of dist/assets folder:"
+                  ls -la dist/assets/ || echo "No assets folder found"
+              
             - name: Setup Pages
               uses: actions/configure-pages@v5
               
@@ -51,7 +60,7 @@ jobs:
               uses: actions/upload-pages-artifact@v3
               with:
                   # Upload dist folder
-                  path: './dist'
+                  path: 'dist'
                   
             - name: Deploy to GitHub Pages
               id: deployment
