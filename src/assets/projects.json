@@ -2,46 +2,45 @@
     "projects": [
         {
             "id": "proj-001",
-            "title": "Cyber Quest",
-            "description": "A full-stack web application with real-time features",
-            "longDescription": "An innovative web platform built with modern technologies featuring real-time collaboration, responsive design, and scalable architecture.",
+            "title": "Mysterious Game Project",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             "thumbnail": "🎮",
             "technologies": [
-                "React",
-                "TypeScript",
-                "Node.js",
-                "WebSocket"
+                "Unity",
+                "C#",
+                "Aseprite"
             ],
             "type": "Game",
-            "status": "Completed",
-            "githubUrl": "https://github.com/username/project1",
-            "liveUrl": "https://project1.demo.com",
+            "status": "In Progress",
             "images": [
-                "test_image_1.png",
-                "test_image_2.jpg",
-                "test_image_3.jpg"
+                "lie/desktop_clear.png"
             ],
             "features": [
-                "Real-time multiplayer support",
-                "Cloud-based save system",
-                "Cross-platform compatibility"
+                "Very funny",
+                "Really",
+                "Trust me"
             ]
         },
         {
             "id": "proj-002",
-            "title": "Data Nexus",
-            "description": "Machine learning pipeline for data analysis",
-            "longDescription": "A comprehensive ML pipeline that processes large datasets and provides actionable insights through interactive visualizations.",
+            "title": "Story Mosaic",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "longDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             "thumbnail": "📊",
             "technologies": [
-                "Python",
-                "TensorFlow",
-                "FastAPI",
-                "Docker"
+                "React",
+                "TypeScript",
+                "Tailwind CSS",
+                "Node.js",
+                "Docker",
+                "Express.js",
+                "MongoDB",
+                "Socket.io"
             ],
             "type": "Web",
             "status": "Completed",
-            "githubUrl": "https://github.com/username/project2",
+            "githubUrl": "https://github.com/LiTianchu/story-mosaic",
             "images": [
                 "test_image_3.jpg"
             ],

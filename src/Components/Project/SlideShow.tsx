@@ -8,7 +8,7 @@ interface SlideShowProps {
 }
 
 // vite glob import for images
-const imageModules = import.meta.glob('@assets/images/*', {
+const imageModules = import.meta.glob('@assets/images/**/*', {
     eager: true,
     as: 'url',
 });
