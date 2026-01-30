@@ -24,7 +24,7 @@ const BackButton: React.FC<BackButtonProps> = ({
     const positionClasses =
         variant === 'fixed'
             ? 'fixed z-[1001] top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-8'
-            : 'sticky z-10 top-0 left-0 sm:top-4 sm:left-4';
+            : 'sticky z-[1001] top-0 left-0 sm:top-4 sm:left-4';
 
     return (
         <animated.button
