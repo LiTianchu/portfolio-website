@@ -105,7 +105,7 @@ const SkillPage: React.FC = () => {
                         <span className="text-game-text-primary"> TREE</span>
                     </h1>
                     <p className="text-game-text-secondary md:text-lg sm:text-base text-sm tracking-wider">
-                        CLICK • ZOOM • DRAG • EXPAND • COLLAPSE
+                        CLICK • ZOOM • DRAG • EXPAND
                     </p>
                     <div className="mt-2 h-1 w-24 mx-auto bg-linear-to-r from-transparent via-game-primary to-transparent" />
                 </animated.div>
