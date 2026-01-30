@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useSpring, animated, to } from '@react-spring/web';
 import { typeColors, statusColors } from './ProjectPage';
 import type { Project } from './ProjectPage';
@@ -18,6 +17,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     style,
 }) => {
     const [hovered, setHovered] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageError, setImageError] = useState(false);
 
     const hoverSpring = useSpring({
         scale: hovered ? 1.02 : 1,
@@ -64,11 +65,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
             {/* Thumbnail */}
             <div className="w-full h-40 mb-4 relative overflow-hidden rounded-md bg-game-bg-dark">
-                <img
-                    src={project.thumbnail}
-                    alt={`${project.title} thumbnail`}
-                    className={`fade-edge absolute inset-0 w-full h-full ${project.thumbnailFit === 'contain' ? 'object-contain' : 'object-cover'}`}
-                />
+                {!project.thumbnail || imageError ? (
+                    <div className="flex items-center justify-center w-full h-full text-game-text-muted">
+                        <span className="text-sm">Image unavailable</span>
+                    </div>
+                ) : (
+                    <>
+                        {!imageLoaded && (
+                            <div className="absolute inset-0 bg-game-bg-dark animate-pulse" />
+                        )}
+                        <img
+                            src={project.thumbnail}
+                            alt={`${project.title} thumbnail`}
+                            loading="lazy"
+                            decoding="async"
+                            onLoad={() => setImageLoaded(true)}
+                            onError={() => setImageError(true)}
+                            className={`fade-edge absolute inset-0 w-full h-full transition-opacity duration-300 ${
+                                project.thumbnailFit === 'contain'
+                                    ? 'object-contain'
+                                    : 'object-cover'
+                            } ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        />
+                    </>
+                )}
             </div>
 
             <div className="flex justify-between items-center">

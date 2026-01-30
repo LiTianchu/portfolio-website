@@ -47,7 +47,8 @@ export interface Project {
 // vite glob import for images
 const imageModules = import.meta.glob('@assets/images/**/*', {
     eager: true,
-    as: 'url',
+    query: '?url',
+    import: 'default',
 });
 const ProjectPage: React.FC = () => {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -58,12 +59,6 @@ const ProjectPage: React.FC = () => {
 
     const getImageUrl = (filename: string) => {
         const path = `/src/assets/images/${filename}`;
-        console.log(
-            'Getting image URL for:',
-            filename,
-            '->',
-            imageModules[path]
-        );
         return imageModules[path] as string;
     };
 
