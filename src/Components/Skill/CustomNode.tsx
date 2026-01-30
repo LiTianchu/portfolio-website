@@ -146,7 +146,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({
                             stroke: 'none',
                         }}
                     >
-                        {nodeDatum.__rd3t?.collapsed ? '+' : '-'}
+                        {nodeDatum.__rd3t?.collapsed ? '＋' : '—'}
                     </text>
                 </>
             )}

@@ -50,7 +50,7 @@
             "title": "ARvatar",
             "description": "An augmented reality messaging app with 3D avatar customization.",
             "longDescription": "An augmented reality messaging app that allows users to create and customize 3D avatars, send real-time messages, and interact with their avatars in real-world environments using AR technology.",
-            "thumbnailFit": "contain",
+            "thumbnailFit": "cover",
             "thumbnail": "arvatar/logo.png",
             "technologies": [
                 "Unity",
@@ -78,7 +78,7 @@
             "title": "MiniRenderer",
             "description": "3D software(CPU) graphics rendering engine written in C++",
             "longDescription": "3D software(CPU) graphics rendering engine written in C++. Implemented the entire rendering pipeline, including 3D transformation, triangle rasterization, shading, texture mapping, normal mapping, shadow testing, and other advanced graphics techniques.",
-            "thumbnailFit": "contain",
+            "thumbnailFit": "cover",
             "thumbnail": "renderer/thumbnail.png",
             "technologies": ["C++"],
             "type": "Graphics",
