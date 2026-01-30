@@ -79,7 +79,7 @@ const SlideShow: React.FC<SlideShowProps> = ({
     return (
         <div>
             {/* Slides container */}
-            <div className="flex justify-center flex-col relative w-full xl:h-200 lg:h-120 sm:h-80 md:h-100 h-50 overflow-hidden">
+            <div className="flex justify-center flex-col relative w-full 4xl:h-180 3xl:h-150 lg:h-120 sm:h-80 md:h-100 h-50 overflow-hidden">
                 {transitions((style, index) => {
                     const img = images[index];
                     const isLoaded = loadedImages.has(index);

@@ -111,7 +111,7 @@
             "technologies": ["Unity", "C#"],
             "type": "Game",
             "status": "Completed",
-            "imagesFit": "cover",
+            "imagesFit": "contain",
             "images": ["doctor/demo_ui.png", "doctor/demo_render.png"],
             "liveUrl": "https://ltc0522.itch.io/project",
             "features": [
