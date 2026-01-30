@@ -29,7 +29,7 @@ const ExperiencePage: React.FC = () => {
     return (
         <div className="page-container overflow-y-auto">
             <div className="content-container glass-panel-dark p-8">
-                <div className="mb-6 flex justify-start">
+                <div className="mb-3 flex justify-start">
                     <BackButton />
                 </div>
                 {/* Header - Save Screen Style */}
@@ -104,7 +104,9 @@ const ExperiencePage: React.FC = () => {
                         <p className="text-game-primary text-2xl font-bold">
                             {experienceItems.length}
                         </p>
-                        <p className="text-game-text-muted">Total Roles</p>
+                        <p className="text-game-text-muted text-xs md:text-sm whitespace-nowrap">
+                            Total Roles
+                        </p>
                     </div>
                     <div className="text-center">
                         <p className="text-game-success text-2xl font-bold">
@@ -114,7 +116,9 @@ const ExperiencePage: React.FC = () => {
                                 ).length
                             }
                         </p>
-                        <p className="text-game-text-muted">Active</p>
+                        <p className="text-game-text-muted text-xs md:text-sm whitespace-nowrap">
+                            Active
+                        </p>
                     </div>
                 </animated.div>
             </div>

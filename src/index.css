@@ -277,7 +277,7 @@ body {
     }
 
     .game-button {
-        padding: 10px 24px;
-        font-size: 1rem;
+        padding: 8px 16px;
+        font-size: 0.8rem;
     }
 }

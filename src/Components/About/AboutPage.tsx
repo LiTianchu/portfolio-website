@@ -125,9 +125,12 @@ const AboutPage: React.FC = () => {
     return (
         <div className="page-container overflow-y-auto">
             <div className="content-container glass-panel-dark p-8 max-w-4xl">
-                <div className="mb-6 flex justify-start">
+                <animated.div
+                    style={headerSpring}
+                    className="mb-3 flex justify-start"
+                >
                     <BackButton />
-                </div>
+                </animated.div>
                 {/* Header */}
                 <animated.div style={headerSpring} className="text-center mb-8">
                     <h1 className="text-3xl sm:text-4xl font-bold mb-2">

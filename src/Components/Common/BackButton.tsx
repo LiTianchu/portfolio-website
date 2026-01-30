@@ -2,16 +2,12 @@ import React from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useAppDispatch } from '@states/hook';
 import { changePage } from '@states/currentPageSlice';
-
+import { ArrowLeft } from 'react-feather';
 interface BackButtonProps {
-    label?: string;
     className?: string;
 }
 
-const BackButton: React.FC<BackButtonProps> = ({
-    label = 'Back to Menu',
-    className = '',
-}) => {
+const BackButton: React.FC<BackButtonProps> = ({ className = '' }) => {
     const dispatch = useAppDispatch();
     const [hovered, setHovered] = React.useState(false);
 
@@ -28,12 +24,14 @@ const BackButton: React.FC<BackButtonProps> = ({
                     (s) => `scale(${s}) translateX(${spring.x.get()}px)`
                 ),
             }}
-            className={`game-button hover:game-button-hover rounded-lg px-4 py-2 text-sm ${className}`}
+            className={`game-button hover:game-button-hover rounded-lg px-4 py-2 text-sm text-center ${className}`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             onClick={() => dispatch(changePage(0))}
         >
-            ← {label}
+            <span className="inline-block align-middle">
+                <ArrowLeft />
+            </span>{' '}
         </animated.button>
     );
 };

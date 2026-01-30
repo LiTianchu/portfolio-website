@@ -102,7 +102,7 @@ const ProjectPage: React.FC = () => {
     return (
         <div className="page-container overflow-y-auto">
             <div className="content-container glass-panel-dark p-8 ">
-                <div className="mb-6 flex justify-start">
+                <div className="mb-3 flex justify-start">
                     <BackButton />
                 </div>
                 {/* Header */}
@@ -137,7 +137,9 @@ const ProjectPage: React.FC = () => {
                         <p className="text-game-primary text-2xl font-bold">
                             {projects.length}
                         </p>
-                        <p className="text-game-text-muted">Total Projects</p>
+                        <p className="text-game-text-muted text-xs md:text-sm whitespace-nowrap">
+                            Total Projects
+                        </p>
                     </div>
                     <div className="text-center">
                         <p className="text-game-success text-2xl font-bold">
@@ -146,7 +148,9 @@ const ProjectPage: React.FC = () => {
                                     .length
                             }
                         </p>
-                        <p className="text-game-text-muted">Completed</p>
+                        <p className="text-game-text-muted text-xs md:text-sm whitespace-nowrap">
+                            Completed
+                        </p>
                     </div>
                     <div className="text-center">
                         <p className="text-game-warning text-2xl font-bold">
@@ -156,7 +160,9 @@ const ProjectPage: React.FC = () => {
                                 ).length
                             }
                         </p>
-                        <p className="text-game-text-muted">In Progress</p>
+                        <p className="text-game-text-muted text-xs md:text-sm whitespace-nowrap">
+                            In Progress
+                        </p>
                     </div>
                 </div>
             </div>

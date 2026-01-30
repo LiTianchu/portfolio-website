@@ -35,9 +35,10 @@ const SkillPage: React.FC = () => {
     useEffect(() => {
         const updateTranslateAndZoom = () => {
             if (treeContainerRef.current) {
-                const { width } =
+                const { width, height } =
                     treeContainerRef.current.getBoundingClientRect();
-                setTranslate({ x: width / 2, y: 60 });
+
+                setTranslate({ x: width / 2, y: height / 2.7 });
 
                 // Calculate zoom based on screen width
                 // Larger screens get more zoom (higher value)
@@ -47,10 +48,10 @@ const SkillPage: React.FC = () => {
 
                 if (screenWidth < 640) {
                     // Mobile
-                    calculatedZoom = 0.45;
+                    calculatedZoom = 0.57;
                 } else if (screenWidth < 1024) {
                     // Tablet
-                    calculatedZoom = 0.6;
+                    calculatedZoom = 0.7;
                 } else if (screenWidth < 1440) {
                     // Small desktop
                     calculatedZoom = 0.75;
@@ -91,12 +92,12 @@ const SkillPage: React.FC = () => {
 
     return (
         <div className="page-container">
-            <div className="content-container-wide glass-panel-dark p-8 h-[85vh] flex flex-col w-[90vw]">
-                <div className="mb-4 flex justify-start">
+            <div className="z-1000 p-8 absolute top-0 flex flex-col w-full bg-gradient-to-b from-game-bg-dark/100 to-transparent">
+                <div className="flex justify-start">
                     <BackButton />
                 </div>
                 {/* Header */}
-                <animated.div style={headerSpring} className="text-center mb-4">
+                <animated.div style={headerSpring} className="text-center mb-2">
                     <h1 className="text-3xl md:text-4xl font-bold mb-2">
                         <span className="text-game-primary glow-text">
                             SKILL
@@ -104,9 +105,9 @@ const SkillPage: React.FC = () => {
                         <span className="text-game-text-primary"> TREE</span>
                     </h1>
                     <p className="text-game-text-secondary md:text-lg sm:text-base text-sm tracking-wider">
-                        CLICK OR EXPAND NODES TO EXPLORE
+                        CLICK • ZOOM • DRAG • EXPAND • COLLAPSE
                     </p>
-                    <div className="mt-4 h-1 w-24 mx-auto bg-linear-to-r from-transparent via-game-primary to-transparent" />
+                    <div className="mt-2 h-1 w-24 mx-auto bg-linear-to-r from-transparent via-game-primary to-transparent" />
                 </animated.div>
 
                 {/* Legend */}
@@ -126,43 +127,39 @@ const SkillPage: React.FC = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Tree Container */}
-                <animated.div
-                    ref={treeContainerRef}
-                    style={treeSpring}
-                    className="flex-1 relative rounded-lg overflow-hidden bg-frost-glass/30 backdrop-blur-sm"
-                >
-                    <Tree
-                        data={treeData}
-                        orientation="vertical"
-                        pathFunc="step"
-                        translate={translate}
-                        separation={{ siblings: 1.2, nonSiblings: 1.5 }}
-                        nodeSize={{ x: 140, y: 180 }}
-                        renderCustomNodeElement={(props) => (
-                            <CustomNode
-                                {...props}
-                                onSkillClick={handleNodeClick}
-                            />
-                        )}
-                        pathClassFunc={() => 'skill-tree-link'}
-                        enableLegacyTransitions
-                        transitionDuration={300}
-                        collapsible={true}
-                        initialDepth={2}
-                        zoom={zoom}
-                        scaleExtent={{ min: 0.3, max: 2 }}
-                    />
-
-                    {/* Skill Detail Panel */}
-                    <SkillDetail
-                        skill={selectedSkill}
-                        onClose={() => setSelectedSkill(null)}
-                    />
-                </animated.div>
             </div>
 
+            {/* Tree Container */}
+            <animated.div
+                ref={treeContainerRef}
+                style={treeSpring}
+                className="w-full h-full absolute overflow-hidden bg-frost-glass backdrop-blur-lg"
+            >
+                <Tree
+                    data={treeData}
+                    orientation="vertical"
+                    pathFunc="step"
+                    translate={translate}
+                    separation={{ siblings: 1.2, nonSiblings: 1.5 }}
+                    nodeSize={{ x: 140, y: 180 }}
+                    renderCustomNodeElement={(props) => (
+                        <CustomNode {...props} onSkillClick={handleNodeClick} />
+                    )}
+                    pathClassFunc={() => 'skill-tree-link'}
+                    enableLegacyTransitions
+                    transitionDuration={300}
+                    collapsible={true}
+                    initialDepth={2}
+                    zoom={zoom}
+                    scaleExtent={{ min: 0.3, max: 2 }}
+                />
+
+                {/* Skill Detail Panel */}
+                <SkillDetail
+                    skill={selectedSkill}
+                    onClose={() => setSelectedSkill(null)}
+                />
+            </animated.div>
             {/* Custom styles for tree links */}
             <style>{`
                 .skill-tree-link {

@@ -111,9 +111,9 @@ const CustomNode: React.FC<CustomNodeProps> = ({
             {/* Expand indicator */}
             {hasChildren && (
                 <circle
-                    cx="60"
+                    cx="57"
                     cy="0"
-                    r="8"
+                    r="10"
                     fill="rgba(168, 212, 240, 0.2)"
                     stroke="rgba(168, 212, 240, 0.6)"
                     strokeWidth="1"
@@ -121,7 +121,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({
             )}
             {hasChildren && (
                 <text
-                    x="60"
+                    x="57"
                     y="3"
                     fontSize="10"
                     fontWeight="bold"
