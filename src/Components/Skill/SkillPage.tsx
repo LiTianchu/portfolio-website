@@ -111,7 +111,7 @@ const SkillPage: React.FC = () => {
                 </animated.div>
 
                 {/* Legend */}
-                <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-4 text-xs">
+                {/* <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-4 text-xs">
                     {Object.entries(levelColors).map(([level, color]) => (
                         <div
                             key={level}
@@ -126,7 +126,7 @@ const SkillPage: React.FC = () => {
                             </span>
                         </div>
                     ))}
-                </div>
+                </div> */}
             </div>
 
             {/* Tree Container */}
