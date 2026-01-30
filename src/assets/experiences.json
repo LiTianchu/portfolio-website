@@ -8,12 +8,8 @@
             "endDate": "Current",
             "location": "Singapore",
             "type": "Education",
-            "descPoints": [
-                "NUS Games Development Group - Member"
-            ],
-            "achievements": [
-                "2nd Place in NUS Game Craft 2025"
-            ]
+            "descPoints": ["NUS Games Development Group - Member"],
+            "achievements": ["2nd Place in NUS Game Craft 2025"]
         },
         {
             "title": "Bachelor of Information Engineering & Media",
@@ -48,7 +44,7 @@
         {
             "title": "Intern, 3D Graphics Research and Unity Development",
             "occupationType": "Full-time",
-            "organizationName": "Panasonic R&D Center",
+            "organizationName": "Panasonic R&D Centre",
             "startDate": "Jan 2024",
             "endDate": "Aug 2024",
             "location": "Singapore",
@@ -97,9 +93,7 @@
             "endDate": "May 2021",
             "location": "Singapore",
             "type": "Education",
-            "descPoints": [
-                "Weiqi Club - Member"
-            ],
+            "descPoints": ["Weiqi Club - Member"],
             "achievements": [
                 "Vice-leader of Final Year Project team, 3rd place in final showcase"
             ]
