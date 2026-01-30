@@ -38,11 +38,54 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
     const [hovered, setHovered] = useState(false);
 
     const formatDate = (dateStr: string) => {
+        // Handle 'Forgot When' or other non-date strings
+        if (!dateStr || dateStr === 'Forgot When') {
+            return dateStr;
+        }
+
+        // Parse date formats like 'Aug 2025' or 'Jul 2025'
+        const monthYearMatch = dateStr.match(/^([A-Za-z]{3})\s+(\d{4})$/);
+        if (monthYearMatch) {
+            const [, month, year] = monthYearMatch;
+            const monthMap: { [key: string]: string } = {
+                Jan: '01',
+                Feb: '02',
+                Mar: '03',
+                Apr: '04',
+                May: '05',
+                Jun: '06',
+                Jul: '07',
+                Aug: '08',
+                Sep: '09',
+                Oct: '10',
+                Nov: '11',
+                Dec: '12',
+            };
+            const monthNum = monthMap[month];
+            if (monthNum) {
+                // Create ISO format date string
+                const isoDateStr = `${year}-${monthNum}-01`;
+                const date = new Date(isoDateStr);
+                if (!isNaN(date.getTime())) {
+                    return date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                    });
+                }
+            }
+        }
+
+        // Try parsing as a standard date
         const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-        });
+        if (!isNaN(date.getTime())) {
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+            });
+        }
+
+        // If all else fails, return the original string
+        return dateStr;
     };
 
     const hoverSpring = useSpring({
@@ -87,11 +130,11 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
                 <h3 className="text-lg md:text-xl font-bold text-game-text-primary group-hover:text-game-primary transition-colors">
                     {title}
                 </h3>
-                <div className="flex flex-wrap flex-col sm:flex-row items-start sm:items-center gap-1 md:gap-2 mt-1">
+                <div className="flex flex-wrap flex-col lg:flex-row items-start lg:items-center gap-1 md:gap-2 mt-1">
                     <span className="text-game-primary text-sm md:text-base font-semibold">
                         {organizationName}
                     </span>
-                    <span className="text-game-text-muted hidden sm:inline">
+                    <span className="text-game-text-muted hidden lg:inline">
                         •
                     </span>
                     <span className="text-game-text-secondary text-xs md:text-sm">
@@ -101,7 +144,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
             </div>
 
             {/* Meta info */}
-            <div className="flex flex-col md:flex-row gap-4 text-sm mb-4">
+            <div className="flex flex-col lg:flex-row gap-4 text-sm mb-4">
                 <div className="flex items-center gap-2 text-game-text-secondary">
                     <span className="flex items-center">
                         <Calendar size={18} />

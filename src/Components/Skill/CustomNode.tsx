@@ -108,32 +108,47 @@ const CustomNode: React.FC<CustomNodeProps> = ({
                 {level}
             </text>
 
-            {/* Expand indicator */}
+            {/* Expand indicator with larger touch target */}
             {hasChildren && (
-                <circle
-                    cx="57"
-                    cy="0"
-                    r="10"
-                    fill="rgba(168, 212, 240, 0.2)"
-                    stroke="rgba(168, 212, 240, 0.6)"
-                    strokeWidth="1"
-                />
-            )}
-            {hasChildren && (
-                <text
-                    x="57"
-                    y="3"
-                    fontSize="10"
-                    fontWeight="bold"
-                    textAnchor="middle"
-                    style={{
-                        pointerEvents: 'none',
-                        fill: 'rgba(168, 212, 240, 0.9)',
-                        stroke: 'none',
-                    }}
-                >
-                    {nodeDatum.__rd3t?.collapsed ? '+' : '-'}
-                </text>
+                <>
+                    {/* Visual circle */}
+                    <circle
+                        cx="57"
+                        cy="0"
+                        r="10"
+                        fill="rgba(168, 212, 240, 0.2)"
+                        stroke="rgba(168, 212, 240, 0.6)"
+                        strokeWidth="1"
+                        style={{ pointerEvents: 'none' }}
+                    />
+                    {/* Larger invisible touch target (44x44px for mobile) */}
+                    <circle
+                        cx="57"
+                        cy="0"
+                        r="22"
+                        fill="rgba(0, 0, 0, 0)"
+                        stroke="none"
+                        style={{ cursor: 'pointer' }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            toggleNode?.();
+                        }}
+                    />
+                    <text
+                        x="57"
+                        y="3"
+                        fontSize="10"
+                        fontWeight="bold"
+                        textAnchor="middle"
+                        style={{
+                            pointerEvents: 'none',
+                            fill: 'rgba(168, 212, 240, 0.9)',
+                            stroke: 'none',
+                        }}
+                    >
+                        {nodeDatum.__rd3t?.collapsed ? '+' : '-'}
+                    </text>
+                </>
             )}
         </g>
     );
