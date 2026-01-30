@@ -111,6 +111,7 @@
             "technologies": ["C++", "OpenGL", "GLFW", "Assimp"],
             "type": "Graphics",
             "status": "In Progress",
+            "githubUrl": "https://github.com/LiTianchu/my-opengl-renderer",
             "imagesFit": "contain",
             "images": ["opengl/normal_visualizer.png"],
             "features": [
@@ -214,6 +215,7 @@
             "technologies": ["Unity", "C#", "Procreate"],
             "type": "Game",
             "status": "Completed",
+            "liveUrl": "https://ltc0522.itch.io/isekai-goddess-simulator",
             "imagesFit": "contain",
             "images": [
                 "goddess/game.png",
