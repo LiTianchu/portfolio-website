@@ -136,7 +136,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                             rel="noopener noreferrer"
                             className="game-button hover:game-button-hover rounded-lg bg-game-secondary/20 border-game-secondary text-game-secondary"
                         >
-                            Demo{' '}
+                            Live{' '}
                         </a>
                     )}
                 </div>

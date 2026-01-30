@@ -64,7 +64,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
 
             {/* Thumbnail */}
-            <div className="w-full h-40 mb-4 relative overflow-hidden rounded-md bg-game-bg-dark">
+            <div className="w-full h-40 mb-4 relative overflow-hidden rounded-md bg-transparent">
                 {!project.thumbnail || imageError ? (
                     <div className="flex items-center justify-center w-full h-full text-game-text-muted">
                         <span className="text-sm">Image unavailable</span>
@@ -81,7 +81,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                             decoding="async"
                             onLoad={() => setImageLoaded(true)}
                             onError={() => setImageError(true)}
-                            className={`fade-edge absolute inset-0 w-full h-full transition-opacity duration-300 ${
+                            className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
                                 project.thumbnailFit === 'contain'
                                     ? 'object-contain'
                                     : 'object-cover'

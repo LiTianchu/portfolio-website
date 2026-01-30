@@ -103,21 +103,20 @@
             ]
         },
         {
-            "title": "3D Narrative Game Project",
-            "description": "A 3D narrative-driven game developed in Unity, created for learning purposes.",
-            "longDescription": "A 3D narrative-driven game developed in Unity, created for learning purposes. Features stylized pixel art rendering, custom dialogue system, and branching storylines",
+            "title": "My OpenGL Rendering Engine",
+            "description": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes.",
+            "longDescription": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes. Implemented various graphics techniques including Phong shading, cube mapping, skyboxes, normal vector visualization. Will work on it when I feel like it.",
             "thumbnailFit": "cover",
-            "thumbnail": "doctor/demo_render.png",
-            "technologies": ["Unity", "C#"],
-            "type": "Game",
-            "status": "Completed",
+            "thumbnail": "opengl/normal_visualizer.png",
+            "technologies": ["C++", "OpenGL", "GLFW", "Assimp"],
+            "type": "Graphics",
+            "status": "In Progress",
             "imagesFit": "contain",
-            "images": ["doctor/demo_ui.png", "doctor/demo_render.png"],
-            "liveUrl": "https://ltc0522.itch.io/project",
+            "images": ["opengl/normal_visualizer.png"],
             "features": [
-                "Custom dialogue system with branching storylines",
-                "Stylized pixel art rendering using Unity's URP",
-                "Interactive 3D environments"
+                "Various 3D rendering techniques with OpenGL",
+                "Model importing with Assimp",
+                "Adjustable camera, lighting and controls"
             ]
         },
         {
@@ -133,12 +132,31 @@
             "imagesFit": "contain",
             "images": [
                 "svg_morph/morphing_animal.gif",
-                "svg_morph/morphing_sun.gif"
+                "svg_morph/morphing_sun.gif",
+                "svg_morph/ui.jpg"
             ],
             "features": [
                 "Upload and chain multiple SVG files for morphing",
                 "Create smooth morphing animations with settings for duration, easing, and framerate",
                 "Export animations as MP4 in various resolutions including 4K"
+            ]
+        },
+        {
+            "title": "3D Narrative Game Project",
+            "description": "A 3D narrative-driven game developed in Unity, created for learning purposes.",
+            "longDescription": "A 3D narrative-driven game developed in Unity, created for learning purposes. Features stylized pixel art rendering, custom dialogue system, and branching storylines",
+            "thumbnailFit": "cover",
+            "thumbnail": "doctor/demo_render.png",
+            "technologies": ["Unity", "C#"],
+            "type": "Game",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": ["doctor/demo_ui.png", "doctor/demo_render.png"],
+            "liveUrl": "https://ltc0522.itch.io/project",
+            "features": [
+                "Custom dialogue system with branching storylines",
+                "Stylized pixel art rendering using Unity's URP",
+                "Interactive 3D environments"
             ]
         },
         {
@@ -208,20 +226,86 @@
             ]
         },
         {
-            "title": "My OpenGL Rendering Engine",
-            "description": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes.",
-            "longDescription": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes. Implemented various graphics techniques including Phong shading, cube mapping, skyboxes, normal vector visualization. Will work on it when I feel like it.",
+            "title": "My Pixel Art Drawings",
+            "description": "A collection of my pixel art drawings created for fun. ",
+            "longDescription": "A collection of my pixel art drawings created for fun. Will do more when I feel like it.",
             "thumbnailFit": "cover",
-            "thumbnail": "opengl/normal_visualizer.png",
-            "technologies": ["C++", "OpenGL", "GLFW", "Assimp"],
-            "type": "Graphics",
+            "thumbnail": "pixel/floating_time.jpg",
+            "technologies": ["Aseprite", "Procreate"],
+            "type": "Art",
             "status": "In Progress",
             "imagesFit": "contain",
-            "images": ["opengl/normal_visualizer.png"],
+            "liveUrl": "https://www.pixiv.net/users/42530173",
+            "images": [
+                "pixel/floating_time.jpg",
+                "pixel/ruin_walk.jpg",
+                "pixel/overgrown_classroom.jpg",
+                "pixel/pixelart_structure.jpg"
+            ],
+            "features": ["It's quite cool"]
+        },
+        {
+            "title": "UI/UX Prototype for NTU Learn",
+            "description": "A UI redesign for NTU Learn platform.",
+            "longDescription": "A UI redesign for NTU Learn platform. A 4-people group project submission for a Interface Design course in NTU. We focused on improving user experience, accessibility, and visual design to create a more intuitive and engaging learning environment for students.",
+            "thumbnailFit": "cover",
+            "thumbnail": "ntulearn/preview.png",
+            "technologies": ["Figma"],
+            "type": "Art",
+            "status": "Completed",
+            "liveUrl": "https: //www.figma.com/proto/kIdDxNys3V1JzHm5ggt9nV/spacejam---NTULearn?node-id=137-3132&node-type=frame&t=huzjJK2SrMYFB2yh-1&scaling=scale-down&content-scaling=responsive&page-id=0%3A1&starting-point-node-id=137%3A3132&show-proto-sidebar=1",
+            "imagesFit": "contain",
+            "images": [
+                "ntulearn/home.png",
+                "ntulearn/courses.png",
+                "ntulearn/course_details.png",
+                "ntulearn/preview.png"
+            ],
             "features": [
-                "Various 3D rendering techniques with OpenGL",
-                "Model importing with Assimp",
-                "Adjustable camera, lighting and controls"
+                "Improved accessibility features by incorporating customizable dashboard",
+                "Revamped the visual to use a vibrant color scheme with color coding for engagement and clarity",
+                "Conducted testing with 50+ users to gather feedback and iteratively refine the design"
+            ]
+        },
+        {
+            "title": "My Graphic Design Works",
+            "description": "A collection of my graphic design works created for various projects.",
+            "longDescription": "A collection of my graphic design works created for various art-related courses back in College. Contains a variety of visual designs including posters, product analysis, and abstract illustrations.",
+            "thumbnailFit": "cover",
+            "thumbnail": "graphic_design/prod2.jpg",
+            "technologies": ["Adobe Illustrator", "Adobe Photoshop"],
+            "type": "Art",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": [
+                "graphic_design/prod2.jpg",
+                "graphic_design/prod1.jpg",
+                "graphic_design/prod3.jpg",
+                "graphic_design/prod_poster.jpg",
+                "graphic_design/prod_poster2.jpg",
+                "graphic_design/freedom.jpg",
+                "graphic_design/pi.png"
+            ],
+            "features": [
+                "Utilized various graphic design techniques to create visually appealing graphics",
+                "Applied principles of design such as balance, contrast, and alignment to enhance visual communication"
+            ]
+        },
+        {
+            "title": "Blender Donut Exercise",
+            "description": "The classic Blender donut exercise I did for learning modern 3D content creation pipeline.",
+            "longDescription": "The classic Blender donut exercise I did for learning modern 3D content creation pipeline. Followed the Blender Guru's tutorial to create a realistic donut model, with PBR material, ray-traced lighting, and post-processing effects.",
+            "thumbnailFit": "cover",
+            "thumbnail": "3d_art/blender_donut.jpg",
+            "technologies": ["Blender"],
+            "type": "Art",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": ["3d_art/blender_donut.jpg"],
+            "features": [
+                "Learned the complete 3D pipeline including modeling, texturing, sculpting, shading, and post-processing",
+                "Applied PBR materials for realistic rendering",
+                "Utilized geometry nodes for procedural generation of sprinkles"
             ]
         }
     ]
