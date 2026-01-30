@@ -79,7 +79,7 @@
             "description": "3D software(CPU) graphics rendering engine written in C++",
             "longDescription": "3D software(CPU) graphics rendering engine written in C++. Implemented the entire rendering pipeline, including 3D transformation, triangle rasterization, shading, texture mapping, normal mapping, shadow testing, and other advanced graphics techniques.",
             "thumbnailFit": "contain",
-            "thumbnail": "renderer/complete_diablo.png",
+            "thumbnail": "renderer/thumbnail.png",
             "technologies": ["C++"],
             "type": "Graphics",
             "status": "Completed",
