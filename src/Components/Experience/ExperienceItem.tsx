@@ -76,7 +76,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
             {isActive && (
                 <div className="absolute top-3 right-3 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-game-success animate-pulse" />
-                    <span className="text-game-success text-xs font-semibold">
+                    <span className="text-game-success text-xs md:font-semibold">
                         ACTIVE
                     </span>
                 </div>
@@ -84,37 +84,45 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
 
             {/* Header */}
             <div className="mb-3">
-                <h3 className="text-xl font-bold text-game-text-primary group-hover:text-game-primary transition-colors">
+                <h3 className="text-lg md:text-xl font-bold text-game-text-primary group-hover:text-game-primary transition-colors">
                     {title}
                 </h3>
-                <div className="flex flex-wrap items-center gap-2 mt-1">
-                    <span className="text-game-primary font-semibold">
+                <div className="flex flex-wrap flex-col sm:flex-row items-start sm:items-center gap-1 md:gap-2 mt-1">
+                    <span className="text-game-primary text-sm md:text-base font-semibold">
                         {organizationName}
                     </span>
-                    <span className="text-game-text-muted">•</span>
-                    <span className="text-game-text-secondary text-sm">
+                    <span className="text-game-text-muted hidden sm:inline">
+                        •
+                    </span>
+                    <span className="text-game-text-secondary text-xs md:text-sm">
                         {occupationType}
                     </span>
                 </div>
             </div>
 
             {/* Meta info */}
-            <div className="flex gap-4 text-sm mb-4">
+            <div className="flex flex-col md:flex-row gap-4 text-sm mb-4">
                 <div className="flex items-center gap-2 text-game-text-secondary">
                     <span className="flex items-center">
                         <Calendar size={18} />
                     </span>
-                    <span>
-                        {startDate !== 'Forgot When'
-                            ? formatDate(startDate)
-                            : 'Forgot When'}{' '}
-                        -{' '}
-                        {isActive ? (
-                            <span className="text-game-success">Present</span>
-                        ) : (
-                            formatDate(endDate)
-                        )}
-                    </span>
+                    <div>
+                        <p className="inline">
+                            {startDate !== 'Forgot When'
+                                ? formatDate(startDate)
+                                : 'Forgot When'}{' '}
+                        </p>
+                        <p className="inline">- </p>
+                        <p className="inline">
+                            {isActive ? (
+                                <span className="text-game-success">
+                                    Present
+                                </span>
+                            ) : (
+                                formatDate(endDate)
+                            )}
+                        </p>
+                    </div>
                 </div>
                 <div className="flex items-center gap-2 text-game-text-secondary">
                     <span className="flex items-center">

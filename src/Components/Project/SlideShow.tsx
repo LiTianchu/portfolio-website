@@ -37,7 +37,7 @@ const SlideShow: React.FC<SlideShowProps> = ({
             {/* Slides container */}
             <animated.div
                 style={fadeSpring}
-                className="flex justify-center flex-col relative w-full xl:h-200 lg:h-120 h-100 overflow-hidden"
+                className="flex justify-center flex-col relative w-full xl:h-200 lg:h-120 sm:h-80 md:h-100 h-50 overflow-hidden"
             >
                 {images.map((img, index) => {
                     const isActive = index === currentIndex;

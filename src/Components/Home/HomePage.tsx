@@ -34,12 +34,12 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="page-container">
-            <div className="p-12 max-w-2xl w-full h-64 flex flex-col justify-center">
+            <div className="md:p-12 sm:p-8 p-6 max-w-2xl w-full h-64 flex flex-col justify-center">
                 {/* Title Section */}
                 <div className="text-center mb-12">
                     <animated.h1
                         style={titleSpring}
-                        className="text-5xl md:text-6xl font-bold mb-4 tracking-wider whitespace-nowrap"
+                        className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 tracking-wider whitespace-nowrap"
                     >
                         <span className="text-game-primary glow-text">
                             Tianchu&apos;s
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
                     </animated.h1>
                     <animated.p
                         style={subtitleSpring}
-                        className="text-game-text-secondary text-lg tracking-widest"
+                        className="text-game-text-secondary md:text-lg sm:text-base text-sm tracking-widest"
                     >
                         PROGRAMMER • ARTIST • CREATOR
                     </animated.p>

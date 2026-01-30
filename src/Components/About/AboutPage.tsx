@@ -130,13 +130,13 @@ const AboutPage: React.FC = () => {
                 </div>
                 {/* Header */}
                 <animated.div style={headerSpring} className="text-center mb-8">
-                    <h1 className="text-4xl font-bold mb-2">
+                    <h1 className="text-3xl sm:text-4xl font-bold mb-2">
                         <span className="text-game-primary glow-text">
                             CHARACTER{' '}
                         </span>
                         <span className="text-game-text-primary">INFO</span>
                     </h1>
-                    <p className="text-game-text-secondary tracking-wider">
+                    <p className="text-game-text-secondary md:text-lg sm:text-base text-sm tracking-wider">
                         PROFILE & CONTACT DETAILS
                     </p>
                     <div className="mt-4 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-game-primary to-transparent" />
@@ -153,7 +153,7 @@ const AboutPage: React.FC = () => {
                             <h2 className="text-3xl font-bold text-game-text-primary mb-1">
                                 {aboutData.profile.name}
                             </h2>
-                            <p className="text-game-primary text-lg mb-2">
+                            <p className="text-game-primary text-xs sm:text-sm md:text-lg mb-2">
                                 {aboutData.profile.title}
                             </p>
                             <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm">
@@ -170,7 +170,7 @@ const AboutPage: React.FC = () => {
                         <h3 className="text-sm font-semibold text-game-text-primary mb-2 tracking-wider">
                             BACKSTORY
                         </h3>
-                        <p className="text-game-text-secondary leading-relaxed">
+                        <p className="text-game-text-secondary leading-relaxed text-sm md:text-base">
                             {aboutData.profile.bio}
                         </p>
                     </div>
@@ -188,11 +188,11 @@ const AboutPage: React.FC = () => {
                             >
                                 <div className="flex items-center gap-2">
                                     <StatIcon size={24} />
-                                    <p className="text-2xl font-bold text-game-primary">
+                                    <p className="text-lg md:text-2xl font-bold text-game-primary">
                                         {stats[index].value}+
                                     </p>
                                 </div>
-                                <p className="text-game-text-muted text-sm">
+                                <p className="text-game-text-muted md:text-sm text-xs">
                                     {stats[index].label}
                                 </p>
                             </animated.div>
@@ -207,7 +207,7 @@ const AboutPage: React.FC = () => {
                 >
                     <div className="flex items-center gap-4 mb-6">
                         <PhoneCall size={32} />
-                        <h3 className="flex items-center text-lg font-semibold text-game-text-primary tracking-wide h-4">
+                        <h3 className="flex items-center text-sm md:text-lg font-semibold text-game-text-primary tracking-wide h-4">
                             COMMUNICATION CHANNELS
                         </h3>
                     </div>
@@ -217,7 +217,7 @@ const AboutPage: React.FC = () => {
                             className="flex items-center justify-between p-3 bg-game-bg-light rounded-lg cursor-pointer hover:bg-game-bg-medium transition-colors"
                             onClick={handleCopyEmail}
                         >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-1.5 md:gap-3 cursor-pointer">
                                 <span className="text-xl">
                                     <AtSign size={24} />
                                 </span>
@@ -225,12 +225,12 @@ const AboutPage: React.FC = () => {
                                     <p className="text-game-text-muted text-xs">
                                         EMAIL
                                     </p>
-                                    <p className="text-game-text-primary">
+                                    <p className="text-game-text-primary text-xs sm:text-sm md:text-base">
                                         {aboutData.contact.email}
                                     </p>
                                 </div>
                             </div>
-                            <span className="text-game-primary text-sm">
+                            <span className="text-game-primary text-xs md:text-sm">
                                 {copiedEmail ? '✓ Copied!' : <Copy size={20} />}
                             </span>
                         </div>
@@ -240,7 +240,7 @@ const AboutPage: React.FC = () => {
                             onClick={handleCopyTelegram}
                             className="flex items-center justify-between p-3 bg-game-bg-light rounded-lg hover:bg-game-bg-medium transition-colors"
                         >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-1.5 md:gap-3 cursor-pointer">
                                 <span className="text-xl">
                                     <Send size={24} />
                                 </span>
@@ -248,12 +248,12 @@ const AboutPage: React.FC = () => {
                                     <p className="text-game-text-muted text-xs">
                                         TELEGRAM
                                     </p>
-                                    <p className="text-game-text-primary">
+                                    <p className="text-game-text-primary text-xs sm:text-sm md:text-base">
                                         {aboutData.contact.telegram}
                                     </p>
                                 </div>
                             </div>
-                            <span className="text-game-primary text-sm">
+                            <span className="text-game-primary text-xs md:text-sm">
                                 {copiedTelegram ? (
                                     '✓ Copied!'
                                 ) : (
@@ -274,7 +274,7 @@ const AboutPage: React.FC = () => {
                                 href={aboutData.social[index].url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="game-card p-4 flex flex-col items-center gap-2 min-w-[100px] hover:border-game-primary transition-colors"
+                                className="game-card p-4 flex flex-col items-center gap-2 min-w-[80px] md:min-w-[100px] hover:border-game-primary transition-colors"
                             >
                                 <span className="text-3xl">
                                     {aboutData.social[index].platform ===

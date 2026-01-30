@@ -107,13 +107,13 @@ const ProjectPage: React.FC = () => {
                 </div>
                 {/* Header */}
                 <animated.div style={headerSpring} className="text-center mb-8">
-                    <h1 className="text-4xl font-bold mb-2">
+                    <h1 className="text-3xl sm:text-4xl font-bold mb-2">
                         <span className="text-game-primary glow-text">
                             LEVEL
                         </span>
                         <span className="text-game-text-primary"> SELECT</span>
                     </h1>
-                    <p className="text-game-text-secondary tracking-wider">
+                    <p className="text-game-text-secondary md:text-lg sm:text-base text-sm tracking-wider">
                         CHOOSE A PROJECT TO EXPLORE
                     </p>
                     <div className="mt-4 h-1 w-24 mx-auto bg-linear-to-r from-transparent via-game-primary to-transparent" />

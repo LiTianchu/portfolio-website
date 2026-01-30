@@ -107,11 +107,9 @@ body {
 }
 
 @utility game-button {
-    background: linear-gradient(
-        135deg,
-        rgba(30, 50, 70, 0.6),
-        rgba(50, 70, 100, 0.4)
-    );
+    background: linear-gradient(135deg,
+            rgba(30, 50, 70, 0.6),
+            rgba(50, 70, 100, 0.4));
     backdrop-filter: blur(12px);
     border: 1px solid rgba(168, 212, 240, 0.3);
     color: var(--color-game-primary);
@@ -130,11 +128,9 @@ body {
 }
 
 @utility game-button-hover {
-    background: linear-gradient(
-        135deg,
-        rgba(50, 80, 120, 0.7),
-        rgba(70, 100, 140, 0.5)
-    );
+    background: linear-gradient(135deg,
+            rgba(50, 80, 120, 0.7),
+            rgba(70, 100, 140, 0.5));
     border-color: rgba(200, 220, 255, 0.5);
     box-shadow:
         0 0 30px rgba(168, 212, 240, 0.25),
@@ -144,11 +140,9 @@ body {
 }
 
 @utility game-card {
-    background: linear-gradient(
-        145deg,
-        rgba(25, 40, 60, 0.7),
-        rgba(15, 25, 40, 0.8)
-    );
+    background: linear-gradient(145deg,
+            rgba(25, 40, 60, 0.7),
+            rgba(15, 25, 40, 0.8));
     backdrop-filter: blur(16px);
     border: 1px solid rgba(168, 212, 240, 0.15);
     border-radius: 16px;
@@ -210,35 +204,30 @@ body {
 }
 
 @utility fade-lr-edge {
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 3.5%,
-        black 96.5%,
-        transparent
-    );
-    mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 3.5%,
-        black 96.5%,
-        transparent
-    );
+    -webkit-mask-image: linear-gradient(to right,
+            transparent,
+            black 3.5%,
+            black 96.5%,
+            transparent);
+    mask-image: linear-gradient(to right,
+            transparent,
+            black 3.5%,
+            black 96.5%,
+            transparent);
 }
 
 @utility fade-bottom {
     .fade-bottom {
-        -webkit-mask-image: linear-gradient(
-            to bottom,
-            black 70%,
-            transparent 100%
-        );
+        -webkit-mask-image: linear-gradient(to bottom,
+                black 70%,
+                transparent 100%);
         mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
     }
 }
 
 /* Animation keyframes */
 @keyframes pulse-glow {
+
     0%,
     100% {
         opacity: 1;
@@ -250,6 +239,7 @@ body {
 }
 
 @keyframes float {
+
     0%,
     100% {
         transform: translateY(0px);
@@ -280,3 +270,14 @@ body {
 
 /* Import Google Fonts - Ethereal Fantasy Style */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@media screen and (max-width: 768px) {
+    .page-container {
+        padding: 1rem;
+    }
+
+    .game-button {
+        padding: 10px 24px;
+        font-size: 1rem;
+    }
+}

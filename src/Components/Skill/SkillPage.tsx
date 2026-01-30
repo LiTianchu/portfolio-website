@@ -91,28 +91,31 @@ const SkillPage: React.FC = () => {
 
     return (
         <div className="page-container">
-            <div className="content-container-wide glass-panel-dark p-8 h-[85vh] flex flex-col w-[75vw] md:w-[90vw] sm:w-[95vw]">
+            <div className="content-container-wide glass-panel-dark p-8 h-[85vh] flex flex-col w-[90vw]">
                 <div className="mb-4 flex justify-start">
                     <BackButton />
                 </div>
                 {/* Header */}
                 <animated.div style={headerSpring} className="text-center mb-4">
-                    <h1 className="text-4xl font-bold mb-2">
+                    <h1 className="text-3xl md:text-4xl font-bold mb-2">
                         <span className="text-game-primary glow-text">
                             SKILL
                         </span>
                         <span className="text-game-text-primary"> TREE</span>
                     </h1>
-                    <p className="text-game-text-secondary tracking-wider">
-                        CLICK NODES TO EXPLORE • DRAG TO NAVIGATE
+                    <p className="text-game-text-secondary md:text-lg sm:text-base text-sm tracking-wider">
+                        CLICK OR EXPAND NODES TO EXPLORE
                     </p>
                     <div className="mt-4 h-1 w-24 mx-auto bg-linear-to-r from-transparent via-game-primary to-transparent" />
                 </animated.div>
 
                 {/* Legend */}
-                <div className="flex flex-wrap justify-center gap-4 mb-4 text-xs">
+                <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-4 text-xs">
                     {Object.entries(levelColors).map(([level, color]) => (
-                        <div key={level} className="flex items-center gap-2">
+                        <div
+                            key={level}
+                            className="flex items-center gap-1 md:gap-2"
+                        >
                             <span
                                 className="w-3 h-3 rounded-full"
                                 style={{ backgroundColor: color }}

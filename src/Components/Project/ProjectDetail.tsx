@@ -41,11 +41,21 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                                 <h2 className="text-3xl font-bold text-game-primary">
                                     {project.title}
                                 </h2>
-                                <span
-                                    className={`text-sm ${typeColors[project.type]}`}
-                                >
-                                    {project.type}
-                                </span>
+                                <div>
+                                    {/*Project Type*/}
+                                    <span
+                                        className={`text-sm ${typeColors[project.type]}`}
+                                    >
+                                        {project.type}
+                                    </span>
+                                    <span className="mx-3">•</span>
+                                    {/* Status */}
+                                    <span
+                                        className={`text-sm ${statusColors[project.status]}`}
+                                    >
+                                        {project.status}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,31 +76,22 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                     </div>
                 )}
 
-                {/* Status */}
-                <div className="mb-6">
-                    <span
-                        className={`px-3 py-1 rounded ${statusColors[project.status]}`}
-                    >
-                        {project.status}
-                    </span>
-                </div>
-
                 {/* Description */}
                 <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-game-text-primary mb-2">
+                    <h3 className="text-base md:text-lg font-semibold text-game-text-primary mb-2">
                         Overview
                     </h3>
-                    <p className="text-game-text-secondary leading-relaxed">
+                    <p className="text-game-text-secondary text-sm md:text-base leading-relaxed">
                         {project.longDescription}
                     </p>
                 </div>
 
                 {/* Features */}
                 <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-game-text-primary mb-2">
+                    <h3 className="text-base md:text-lg font-semibold text-game-text-primary mb-2">
                         Feature Highlights
                     </h3>
-                    <ul className="list-disc list-inside space-y-2 text-game-text-secondary">
+                    <ul className="text-sm md:text-base list-disc list-inside space-y-2 text-game-text-secondary">
                         {project.features.map((feature, index) => (
                             <li key={index} className="leading-relaxed">
                                 {feature}
@@ -108,7 +109,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                         {project.technologies.map((tech) => (
                             <span
                                 key={tech}
-                                className="px-3 py-1 bg-game-primary/20 border border-game-primary/50 rounded text-game-primary text-sm"
+                                className="px-3 py-1 bg-game-primary/20 border border-game-primary/50 rounded text-game-primary text-xs md:text-sm"
                             >
                                 {tech}
                             </span>

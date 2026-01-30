@@ -56,8 +56,10 @@ const MenuItem: React.FC<MenuItemProps> = ({
                 className="absolute inset-0 rounded-xl bg-gradient-to-r from-game-primary/20 to-transparent pointer-events-none"
             />
 
-            <div className="flex items-center gap-4 relative z-10">
-                <Icon className="text-2xl" size={24} />
+            <div className="flex items-center relative z-10">
+                <span className="mr-4">
+                    <Icon className="text-2xl" size={24} />
+                </span>
                 <span className="text-xl font-semibold tracking-wider text-game-text-primary group-hover:text-game-primary transition-colors">
                     {label}
                 </span>

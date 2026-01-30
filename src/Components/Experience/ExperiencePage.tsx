@@ -34,13 +34,13 @@ const ExperiencePage: React.FC = () => {
                 </div>
                 {/* Header - Save Screen Style */}
                 <animated.div style={headerSpring} className="text-center mb-8">
-                    <h1 className="text-4xl font-bold mb-2">
+                    <h1 className="text-3xl sm:text-4xl font-bold mb-2">
                         <span className="text-game-primary glow-text">
                             SAVE
                         </span>
                         <span className="text-game-text-primary"> DATA</span>
                     </h1>
-                    <p className="text-game-text-secondary tracking-wider">
+                    <p className="text-game-text-secondary md:text-lg sm:text-base text-sm tracking-wider">
                         CAREER MILESTONES & ACHIEVEMENTS
                     </p>
                     <div className="mt-4 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-game-primary to-transparent" />
@@ -65,7 +65,7 @@ const ExperiencePage: React.FC = () => {
                                     }`}
                                 >
                                     {/* Save slot number */}
-                                    <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-10 h-10 rounded-full bg-game-bg-dark border-2 border-game-primary flex items-center justify-center z-10">
+                                    <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-7 h-7 md:w-10 md:h-10 rounded-full bg-game-bg-dark border-2 border-game-primary flex items-center justify-center z-10">
                                         <span className="text-game-primary font-bold text-sm">
                                             {String(index + 1).padStart(2, '0')}
                                         </span>
@@ -73,7 +73,7 @@ const ExperiencePage: React.FC = () => {
 
                                     {/* Content */}
                                     <div
-                                        className={`ml-14 md:ml-0 md:w-1/2 ${
+                                        className={`ml-4 md:ml-0 w-[72vw] md:w-1/2  ${
                                             index % 2 === 0
                                                 ? 'md:pr-12'
                                                 : 'md:pl-12'
