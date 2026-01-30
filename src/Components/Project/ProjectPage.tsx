@@ -96,10 +96,8 @@ const ProjectPage: React.FC = () => {
 
     return (
         <div className="page-container overflow-y-auto">
-            <div className="content-container glass-panel-dark p-8 ">
-                <div className="mb-3 flex justify-start">
-                    <BackButton />
-                </div>
+            <div className="content-container glass-panel-dark p-8 relative">
+                <BackButton />
                 {/* Header */}
                 <animated.div style={headerSpring} className="text-center mb-8">
                     <h1 className="text-3xl sm:text-4xl font-bold mb-2">
