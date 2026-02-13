@@ -2,24 +2,26 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 
-const modelModules = import.meta.glob('@assets/models/**/*', {
-    eager: true,
-    query: '?url',
-    import: 'default',
-});
+// const modelModules = import.meta.glob('@assets/models/**/*', {
+//     eager: true,
+//     query: '?url',
+//     import: 'default',
+// });
 
 const getModelBySubPath = (subPath: string) => {
-    const modelPath: string = `/src/assets/models/${subPath}`;
-    const actualModelPath: string | undefined = modelModules[modelPath] as
-        | string
-        | undefined;
+    // const modelPath: string = `/src/assets/models/${subPath}`;
+    const modelPath: string = import.meta.env.BASE_URL + `/models/${subPath}`;
+    // const actualModelPath: string | undefined = modelModules[modelPath] as
+    //     | string
+    //     | undefined;
+    //
+    // if (!actualModelPath) {
+    //     console.error(`Model not found at path: ${modelPath}`);
+    //     return null;
+    // }
 
-    if (!actualModelPath) {
-        console.error(`Model not found at path: ${modelPath}`);
-        return null;
-    }
-
-    const { scene } = useGLTF(actualModelPath);
+    // const { scene } = useGLTF(actualModelPath);
+    const { scene } = useGLTF(modelPath);
 
     return <primitive object={scene} />;
 };
