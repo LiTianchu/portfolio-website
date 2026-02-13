@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { useTransition, animated, config } from '@react-spring/web';
 import { useAppSelector } from '@states/hook';
-import Background3D from '@comp/Common/Background3D';
+// import Background3D from '@comp/Common/Background3D';
 import RendererMain from '@comp/Renderer/RendererMain';
 
 // Lazy load pages for better performance
