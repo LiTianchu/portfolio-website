@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { useTransition, animated, config } from '@react-spring/web';
 import { useAppSelector } from '@states/hook';
 import Background3D from '@comp/Common/Background3D';
+import RendererMain from '@comp/Renderer/RendererMain';
 
 // Lazy load pages for better performance
 const HomePage = lazy(() => import('@comp/Home/HomePage'));
@@ -49,7 +50,8 @@ const App: React.FC = () => {
     return (
         <div className="relative min-w-screen min-h-screen overflow-hidden bg-game-bg-dark">
             {/* 3D Background */}
-            <Background3D timeOfDay="night" />
+            {/* <Background3D timeOfDay="night" /> */}
+            <RendererMain />
 
             {/* Page Content with Transitions */}
             <main className="relative z-10 min-h-screen w-full">
