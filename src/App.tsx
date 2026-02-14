@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { useTransition, animated, config } from '@react-spring/web';
 import { useAppSelector } from '@states/hook';
+import PageLoader from '@comp/Common/PageLoader';
 // import Background3D from '@comp/Common/Background3D';
 import RendererMain from '@comp/Renderer/RendererMain';
 
@@ -10,18 +11,6 @@ const AboutPage = lazy(() => import('@comp/About/AboutPage'));
 const ExperiencePage = lazy(() => import('@comp/Experience/ExperiencePage'));
 const ProjectPage = lazy(() => import('@comp/Project/ProjectPage'));
 const SkillPage = lazy(() => import('@comp/Skill/SkillPage'));
-
-// Loading component
-const PageLoader: React.FC = () => (
-    <div className="page-container">
-        <div className="glass-panel-dark p-8 flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-game-primary border-t-transparent rounded-full animate-spin" />
-            <p className="text-game-text-secondary tracking-wider">
-                LOADING...
-            </p>
-        </div>
-    </div>
-);
 
 const App: React.FC = () => {
     const currentPage = useAppSelector((state) => state.currentPage);
@@ -66,7 +55,9 @@ const App: React.FC = () => {
                             left: 0,
                         }}
                     >
-                        <Suspense fallback={<PageLoader />}>
+                        <Suspense
+                            fallback={<PageLoader message="Loading page..." />}
+                        >
                             {item === 0 && <HomePage />}
                             {item === 1 && <AboutPage />}
                             {item === 2 && <ExperiencePage />}

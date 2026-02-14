@@ -22,13 +22,16 @@ import {
 } from '@react-three/postprocessing';
 
 // Preload the model
-useGLTF.preload(import.meta.env.BASE_URL + '/models/fantasy_island/scene.glb');
+useGLTF.preload(
+    import.meta.env.BASE_URL +
+        '/models/japanese_town_street_compressed/scene.glb'
+);
 
 // const SceneLoadingScreen: React.FC = () => {
 //     return (
 //         <Html center>
-//             <Loader
-//                 className="animate-spin [animation-duration:2s] text-game-primary"
+//             <Loadei
+//                  className="animate-spin [animation-duration:2s] text-game-primary"
 //                 size={48}
 //             />
 //         </Html>
@@ -54,8 +57,8 @@ const SceneDirectionalLight: React.FC = () => {
             position={[30, 50, 30]}
             intensity={0.7}
             castShadow
-            shadow-mapSize-width={2048}
-            shadow-mapSize-height={2048}
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
             shadow-camera-near={1}
             shadow-camera-far={500}
             shadow-camera-left={-50}
@@ -90,13 +93,13 @@ const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
                 const mesh = child as THREE.Mesh;
                 mesh.castShadow = true;
                 mesh.receiveShadow = true;
-
+                mesh.frustumCulled = true;
                 console.log(mesh.material);
             }
         });
     }, [scene]);
 
-    return <primitive object={scene} position={[0, 0, 0]} scale={0.5} />;
+    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
 };
 
 const Skybox: React.FC = () => {
@@ -126,12 +129,11 @@ const WaterPlane: React.FC = () => {
         'https://threejs.org/examples/textures/waternormals.jpg'
     );
 
-    useEffect(() => {
-        waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
-    }, [waterNormals]);
-
     const waterPlane = useMemo(() => {
-        const water = new Water(new THREE.PlaneGeometry(2000, 2000, 16, 16), {
+        waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+        waterNormals.needsUpdate = true;
+
+        const water = new Water(new THREE.PlaneGeometry(1000, 1000, 8, 8), {
             textureWidth: 128,
             textureHeight: 128,
             waterNormals: waterNormals,
@@ -141,14 +143,17 @@ const WaterPlane: React.FC = () => {
             distortionScale: 6,
             fog: true,
         });
-        // Initialize time to avoid strips on first render
+
+        // Explicitly initialize time to 0 to prevent strips on first render
         water.material.uniforms['time'].value = 0.0;
+        water.material.needsUpdate = true;
+
         return water;
     }, [waterNormals]);
 
-    useFrame(() => {
-        if (waterRef.current) {
-            waterRef.current.material.uniforms['time'].value += 1.0 / 60.0;
+    useFrame((_, delta) => {
+        if (waterRef.current && waterRef.current.material.uniforms['time']) {
+            waterRef.current.material.uniforms['time'].value += delta * 0.5;
         }
     });
 
@@ -245,7 +250,7 @@ const RendererMain: React.FC = () => {
                         <Skybox />
                         <ambientLight intensity={0.5} />
                         <SceneDirectionalLight />
-                        <Model subPath="fantasy_island/scene.glb" />
+                        <Model subPath="japanese_town_street_compressed/scene.glb" />
                         <WaterPlane />
                         <SceneReady onReady={handleSceneReady} />
                         <OrbitControls
@@ -261,7 +266,7 @@ const RendererMain: React.FC = () => {
                             <Vignette offset={0.4} darkness={0.5} />
                             <DepthOfField
                                 target={0}
-                                focalLength={0.02}
+                                focalLength={40}
                                 bokehScale={1}
                             />
                         </EffectComposer>

@@ -4,6 +4,7 @@ import { useAppDispatch } from '@states/hook';
 import { changePage } from '@/states/slices/currentPageSlice';
 import { Code, Save, Zap, Coffee } from 'react-feather';
 import { useSelector } from 'react-redux';
+import PageLoader from '@comp/Common/PageLoader';
 import type { RootState } from '@states/store';
 import MenuItem from './MenuItem';
 
@@ -40,7 +41,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="page-container">
-            {isSceneLoaded && (
+            {isSceneLoaded ? (
                 <div className="md:p-12 sm:p-8 p-6 max-w-2xl w-full h-64 flex flex-col justify-center">
                     {/* Title Section */}
                     <div className="text-center mb-12">
@@ -90,6 +91,8 @@ const HomePage: React.FC = () => {
                         SELECT AN OPTION TO CONTINUE
                     </animated.p>
                 </div>
+            ) : (
+                <PageLoader message="Something incredible ahead..." />
             )}
         </div>
     );
