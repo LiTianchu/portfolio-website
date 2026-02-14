@@ -15,13 +15,14 @@ import {
 // import { useHelper } from '@react-three/drei';
 // import { DirectionalLightHelper } from 'three';
 import { Water } from 'three/examples/jsm/objects/Water.js';
-import { EffectComposer, Vignette } from '@react-three/postprocessing';
+import {
+    EffectComposer,
+    Vignette,
+    DepthOfField,
+} from '@react-three/postprocessing';
 
 // Preload the model
-useGLTF.preload(
-    import.meta.env.BASE_URL +
-        '/models/japanese_town_street_compressed/scene.glb'
-);
+useGLTF.preload(import.meta.env.BASE_URL + '/models/fantasy_island/scene.glb');
 
 // const SceneLoadingScreen: React.FC = () => {
 //     return (
@@ -51,16 +52,16 @@ const SceneDirectionalLight: React.FC = () => {
         <directionalLight
             ref={lightRef}
             position={[30, 50, 30]}
-            intensity={1}
+            intensity={0.7}
             castShadow
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
             shadow-camera-near={1}
             shadow-camera-far={500}
-            shadow-camera-left={-100}
-            shadow-camera-right={100}
-            shadow-camera-top={100}
-            shadow-camera-bottom={-100}
+            shadow-camera-left={-50}
+            shadow-camera-right={50}
+            shadow-camera-top={50}
+            shadow-camera-bottom={-50}
             shadow-bias={-0.0001}
             shadow-normalBias={0.02}
         />
@@ -95,7 +96,7 @@ const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
         });
     }, [scene]);
 
-    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
+    return <primitive object={scene} position={[0, 0, 0]} scale={0.5} />;
 };
 
 const Skybox: React.FC = () => {
@@ -131,14 +132,14 @@ const WaterPlane: React.FC = () => {
 
     const waterPlane = useMemo(() => {
         const water = new Water(new THREE.PlaneGeometry(2000, 2000, 16, 16), {
-            textureWidth: 256,
-            textureHeight: 256,
+            textureWidth: 128,
+            textureHeight: 128,
             waterNormals: waterNormals,
             sunDirection: new THREE.Vector3(),
             sunColor: 0xffffff,
             waterColor: 0x001e0f,
-            distortionScale: 3.7,
-            fog: false,
+            distortionScale: 6,
+            fog: true,
         });
         // Initialize time to avoid strips on first render
         water.material.uniforms['time'].value = 0.0;
@@ -183,7 +184,6 @@ const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
 
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const [canvasSpringStyles, canvasSpringApi] = useSpring(() => ({
         opacity: 0,
@@ -221,11 +221,11 @@ const RendererMain: React.FC = () => {
                 <Canvas
                     camera={{
                         position: [0, 100, 100],
-                        fov: 75,
+                        fov: 60,
                         near: 0.1,
                         far: 1000,
                     }}
-                    shadows="basic"
+                    shadows="soft"
                     dpr={[1, 2]}
                     gl={{
                         antialias:
@@ -243,9 +243,9 @@ const RendererMain: React.FC = () => {
                     <Suspense fallback={null}>
                         <fog attach="fog" args={['#87ceeb', 50, 500]} />
                         <Skybox />
-                        <ambientLight intensity={1} />
+                        <ambientLight intensity={0.5} />
                         <SceneDirectionalLight />
-                        <Model subPath="japanese_town_street_compressed/scene.glb" />
+                        <Model subPath="fantasy_island/scene.glb" />
                         <WaterPlane />
                         <SceneReady onReady={handleSceneReady} />
                         <OrbitControls
@@ -257,11 +257,14 @@ const RendererMain: React.FC = () => {
                             dampingFactor={0.05}
                             makeDefault
                         />
-                        {!isMobile && (
-                            <EffectComposer multisampling={0}>
-                                <Vignette offset={0.4} darkness={0.5} />
-                            </EffectComposer>
-                        )}
+                        <EffectComposer multisampling={4}>
+                            <Vignette offset={0.4} darkness={0.5} />
+                            <DepthOfField
+                                target={0}
+                                focalLength={0.02}
+                                bokehScale={1}
+                            />
+                        </EffectComposer>
                     </Suspense>
                 </Canvas>
             </animated.div>
