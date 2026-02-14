@@ -15,11 +15,7 @@ import {
 // import { useHelper } from '@react-three/drei';
 // import { DirectionalLightHelper } from 'three';
 import { Water } from 'three/examples/jsm/objects/Water.js';
-import {
-    EffectComposer,
-    Vignette,
-    DepthOfField,
-} from '@react-three/postprocessing';
+import { EffectComposer, Vignette } from '@react-three/postprocessing';
 
 // Preload the model
 useGLTF.preload(
@@ -134,9 +130,9 @@ const WaterPlane: React.FC = () => {
     }, [waterNormals]);
 
     const waterPlane = useMemo(() => {
-        return new Water(new THREE.PlaneGeometry(2000, 2000, 32, 32), {
-            textureWidth: 512,
-            textureHeight: 512,
+        const water = new Water(new THREE.PlaneGeometry(2000, 2000, 16, 16), {
+            textureWidth: 256,
+            textureHeight: 256,
             waterNormals: waterNormals,
             sunDirection: new THREE.Vector3(),
             sunColor: 0xffffff,
@@ -144,10 +140,12 @@ const WaterPlane: React.FC = () => {
             distortionScale: 3.7,
             fog: false,
         });
+        // Initialize time to avoid strips on first render
+        water.material.uniforms['time'].value = 0.0;
+        return water;
     }, [waterNormals]);
 
     useFrame(() => {
-        // Update water every other frame to reduce GPU load
         if (waterRef.current) {
             waterRef.current.material.uniforms['time'].value += 1.0 / 60.0;
         }
@@ -185,6 +183,7 @@ const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
 
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const [canvasSpringStyles, canvasSpringApi] = useSpring(() => ({
         opacity: 0,
@@ -226,10 +225,19 @@ const RendererMain: React.FC = () => {
                         near: 0.1,
                         far: 1000,
                     }}
-                    shadows
+                    shadows="basic"
+                    dpr={[1, 2]}
                     gl={{
-                        antialias: true,
+                        antialias:
+                            typeof window !== 'undefined' &&
+                            window.innerWidth > 768,
                         powerPreference: 'high-performance',
+                        alpha: false,
+                        stencil: false,
+                        depth: true,
+                    }}
+                    onCreated={({ gl }) => {
+                        gl.setClearColor('#87ceeb');
                     }}
                 >
                     <Suspense fallback={null}>
@@ -249,14 +257,11 @@ const RendererMain: React.FC = () => {
                             dampingFactor={0.05}
                             makeDefault
                         />
-                        <EffectComposer>
-                            <DepthOfField
-                                focusDistance={100}
-                                focalLength={100}
-                                bokehScale={2}
-                            />
-                            <Vignette offset={0.4} darkness={0.5} />
-                        </EffectComposer>
+                        {!isMobile && (
+                            <EffectComposer multisampling={0}>
+                                <Vignette offset={0.4} darkness={0.5} />
+                            </EffectComposer>
+                        )}
                     </Suspense>
                 </Canvas>
             </animated.div>
