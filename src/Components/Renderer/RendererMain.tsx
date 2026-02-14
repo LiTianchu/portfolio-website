@@ -4,14 +4,9 @@ import { useEffect, useRef, Suspense, useMemo, useState } from 'react';
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-// import { Loader } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { useSpring, animated, config } from '@react-spring/web';
-// import type { RootState } from '@states/store';
-import {
-    updateSceneLoaded,
-    // updateEffectLoaded,
-} from '@states/slices/rendererSlice';
+import { updateSceneLoaded } from '@states/slices/rendererSlice';
 // import { useHelper } from '@react-three/drei';
 // import { DirectionalLightHelper } from 'three';
 import { Water } from 'three/examples/jsm/objects/Water.js';
@@ -27,25 +22,7 @@ useGLTF.preload(
         '/models/japanese_town_street_compressed/scene.glb'
 );
 
-// const SceneLoadingScreen: React.FC = () => {
-//     return (
-//         <Html center>
-//             <Loadei
-//                  className="animate-spin [animation-duration:2s] text-game-primary"
-//                 size={48}
-//             />
-//         </Html>
-//     );
-// };
-
-// const modelModules = import.meta.glob('@assets/models/**/*', {
-//     eager: true,
-//     query: '?url',
-//     import: 'default',
-// });
-const SceneDirectionalLight: React.FC<{ lowPerformance?: boolean }> = ({
-    lowPerformance = false,
-}) => {
+const SceneDirectionalLight: React.FC = () => {
     const lightRef = useRef<THREE.DirectionalLight>(null);
     // useHelper(
     //     lightRef as React.RefObject<THREE.DirectionalLight>,
@@ -58,9 +35,9 @@ const SceneDirectionalLight: React.FC<{ lowPerformance?: boolean }> = ({
             ref={lightRef}
             position={[30, 50, 30]}
             intensity={0.7}
-            castShadow={!lowPerformance}
-            shadow-mapSize-width={lowPerformance ? 512 : 1024}
-            shadow-mapSize-height={lowPerformance ? 512 : 1024}
+            castShadow={true}
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
             shadow-camera-near={1}
             shadow-camera-far={500}
             shadow-camera-left={-50}
@@ -74,19 +51,8 @@ const SceneDirectionalLight: React.FC<{ lowPerformance?: boolean }> = ({
 };
 
 const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
-    // const modelPath: string = `/src/assets/models/${subPath}`;
     const modelPath: string = import.meta.env.BASE_URL + `/models/${subPath}`;
-    // console.log(`Attempting to load model from path: ${modelPath}`);
-    // const actualModelPath: string | undefined = modelModules[modelPath] as
-    //     | string
-    //     | undefined;
-    //
-    // if (!actualModelPath) {
-    //     console.error(`Model not found at path: ${modelPath}`);
-    //     return null;
-    // }
 
-    // const { scene } = useGLTF(actualModelPath);
     const { scene } = useGLTF(modelPath);
 
     useEffect(() => {
@@ -141,8 +107,8 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
             new THREE.PlaneGeometry(
                 1000,
                 1000,
-                lowPerformance ? 4 : 8,
-                lowPerformance ? 4 : 8
+                lowPerformance ? 8 : 16,
+                lowPerformance ? 8 : 16
             ),
             {
                 textureWidth: lowPerformance ? 64 : 128,
@@ -156,7 +122,6 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
             }
         );
 
-        // Explicitly initialize time to 0 to prevent strips on first render
         water.material.uniforms['time'].value = 0.0;
         water.material.needsUpdate = true;
 
@@ -185,10 +150,8 @@ const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
     const camera = useThree((state) => state.camera);
 
     useEffect(() => {
-        // Compile all materials before showing to prevent lag spike
         gl.compile(scene, camera);
 
-        // Short delay to ensure everything is rendered
         const timer = setTimeout(() => {
             onReady();
         }, 100);
@@ -212,28 +175,28 @@ const PerformanceMonitor: React.FC<{
         const deltaTime = currentTime - lastTimeRef.current;
         lastTimeRef.current = currentTime;
 
-        // Track frame times
+        // track frame times
         frameTimesRef.current.push(deltaTime);
 
-        // Keep only last 60 frames for average calculation
-        if (frameTimesRef.current.length > 60) {
+        // keep only last 30 frames for average calculation
+        if (frameTimesRef.current.length > 30) {
             frameTimesRef.current.shift();
         }
 
-        // Calculate average FPS every 60 frames
-        if (frameTimesRef.current.length >= 60) {
+        // calculate average FPS every 30 frames
+        if (frameTimesRef.current.length >= 30) {
             const avgFrameTime =
                 frameTimesRef.current.reduce((a, b) => a + b, 0) /
                 frameTimesRef.current.length;
             const fps = 1000 / avgFrameTime;
 
-            // FPS threshold: disable heavy effects below 30 FPS
+            // disable heavy effects below 30 FPS
             const FPS_THRESHOLD = 59;
             console.log(`Current FPS: ${fps.toFixed(1)}`);
             if (fps < FPS_THRESHOLD) {
                 lowPerfCountRef.current++;
 
-                // Report low performance if consistently low for 5 consecutive checks
+                // report low performance if consistently low for 5 consecutive checks
                 if (lowPerfCountRef.current >= 5 && !hasReportedRef.current) {
                     console.log(
                         `Low FPS detected: ${fps.toFixed(1)} FPS - Disabling heavy effects`
@@ -245,7 +208,7 @@ const PerformanceMonitor: React.FC<{
                 lowPerfCountRef.current = 0;
             }
 
-            // Clear frame times for next batch
+            // clear frame times for next batch
             frameTimesRef.current = [];
         }
     });
@@ -256,24 +219,41 @@ const PerformanceMonitor: React.FC<{
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
     const [isLowPerformance, setIsLowPerformance] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
     const [canvasSpringStyles, canvasSpringApi] = useSpring(() => ({
         opacity: 0,
         config: config.slow,
     }));
-    // const isEffectLoaded = useSelector((state: RootState) => {
-    //     return state.renderer.effectLoaded;
-    // });
 
-    // useEffect(() => {
-    //     // Defer post-processing effects to reduce initial load
-    //     if (isSceneLoaded) {
-    //         const timer = setTimeout(() => {
-    //             dispatch(updateEffectLoaded(true));
-    //         }, 1500);
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, [isSceneLoaded, dispatch]);
+    // Show notification when low performance is detected
+    useEffect(() => {
+        if (isLowPerformance && !showNotification) {
+            setShowNotification(true);
+
+            // Trigger fade-in after mount
+            const mountTimer = setTimeout(() => {
+                setIsNotificationVisible(true);
+            }, 10);
+
+            // Start fade out after 4 seconds
+            const fadeTimer = setTimeout(() => {
+                setIsNotificationVisible(false);
+            }, 4000);
+
+            // Completely remove after fade-out transition completes
+            const hideTimer = setTimeout(() => {
+                setShowNotification(false);
+            }, 5000);
+
+            return () => {
+                clearTimeout(mountTimer);
+                clearTimeout(fadeTimer);
+                clearTimeout(hideTimer);
+            };
+        }
+    }, [isLowPerformance]);
 
     const handleSceneReady = () => {
         dispatch(updateSceneLoaded(true));
@@ -297,7 +277,7 @@ const RendererMain: React.FC = () => {
                         near: 0.1,
                         far: 1000,
                     }}
-                    shadows={isLowPerformance ? false : 'soft'}
+                    shadows={isLowPerformance ? 'basic' : 'soft'}
                     dpr={isLowPerformance ? [1, 1] : [1, 2]}
                     gl={{
                         antialias:
@@ -319,9 +299,7 @@ const RendererMain: React.FC = () => {
                         )}
                         <Skybox />
                         <ambientLight intensity={0.5} />
-                        <SceneDirectionalLight
-                            lowPerformance={isLowPerformance}
-                        />
+                        <SceneDirectionalLight />
                         <Model subPath="japanese_town_street_compressed/scene.glb" />
                         <WaterPlane lowPerformance={isLowPerformance} />
                         <SceneReady onReady={handleSceneReady} />
@@ -354,6 +332,21 @@ const RendererMain: React.FC = () => {
                     </Suspense>
                 </Canvas>
             </animated.div>
+            {showNotification && (
+                <div
+                    className={`fixed top-3 md:top-4 xl:top-8 left-1/2 w-3/4 max-w-80 -translate-x-1/2 z-50 px-6 py-3 bg-glass-bg/50 backdrop-blur-sm text-game-primary rounded-lg shadow-xl border border-gray-700 transition-all duration-700 ease-out ${
+                        isNotificationVisible
+                            ? 'opacity-100 translate-y-0'
+                            : 'opacity-0 -translate-y-5'
+                    }`}
+                >
+                    <div className="flex items-center gap-3 text-center justify-center">
+                        <span className="text-xs md:text-sm font-medium">
+                            Low FPS - Disabling heavy effects
+                        </span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
