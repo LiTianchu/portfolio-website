@@ -17,10 +17,7 @@ import {
 } from '@react-three/postprocessing';
 
 // Preload the model
-useGLTF.preload(
-    import.meta.env.BASE_URL +
-        '/models/japanese_town_street_compressed/scene.glb'
-);
+useGLTF.preload(import.meta.env.BASE_URL + '/models/forest_house/scene.glb');
 
 const SceneDirectionalLight: React.FC = () => {
     const lightRef = useRef<THREE.DirectionalLight>(null);
@@ -67,7 +64,7 @@ const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
         });
     }, [scene]);
 
-    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
+    return <primitive object={scene} position={[0, 0, 0]} scale={1} />;
 };
 
 const Skybox: React.FC = () => {
@@ -303,7 +300,7 @@ const RendererMain: React.FC = () => {
                         <Skybox />
                         <ambientLight intensity={0.5} />
                         <SceneDirectionalLight />
-                        <Model subPath="japanese_town_street_compressed/scene.glb" />
+                        <Model subPath="forest_house/scene.glb" />
                         <WaterPlane lowPerformance={isLowPerformance} />
                         <SceneReady onReady={handleSceneReady} />
                         <PerformanceMonitor
