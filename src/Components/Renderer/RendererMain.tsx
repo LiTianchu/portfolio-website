@@ -17,9 +17,10 @@ import {
 } from '@react-three/postprocessing';
 
 // Preload the model
-useGLTF.preload(
-    import.meta.env.BASE_URL + '/models/japanese_town_street/scene.glb'
-);
+// useGLTF.preload(
+//     import.meta.env.BASE_URL + '/models/japanese_town_street/scene.glb'
+// );
+useGLTF.preload(import.meta.env.BASE_URL + '/models/forest_house/scene.glb');
 
 const SceneDirectionalLight: React.FC = () => {
     const lightRef = useRef<THREE.DirectionalLight>(null);
@@ -61,12 +62,50 @@ const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
                 mesh.castShadow = true;
                 mesh.receiveShadow = true;
                 mesh.frustumCulled = true;
-                console.log(mesh.material);
+
+                const materials = Array.isArray(mesh.material)
+                    ? mesh.material
+                    : [mesh.material];
+
+                // handle transparency for materials
+                materials.forEach((mat) => {
+                    if (
+                        mat instanceof THREE.MeshStandardMaterial ||
+                        mat instanceof THREE.MeshBasicMaterial ||
+                        mat instanceof THREE.MeshPhysicalMaterial ||
+                        mat instanceof THREE.MeshLambertMaterial ||
+                        mat instanceof THREE.MeshPhongMaterial
+                    ) {
+                        if (mat.transparent || mat.opacity < 1) {
+                            // check if this is a cutout material (binary alpha like foliage/fences)
+                            // by inspecting whether the alpha map or base texture has hard edges
+                            if (
+                                mat.alphaMap ||
+                                (mat.map && mat.alphaTest === 0)
+                            ) {
+                                // use alpha test for cutout-style transparency
+                                // keeps depthWrite on so sorting is correct,
+                                // discards pixels below the threshold
+                                mat.alphaTest = 0.5;
+                                mat.transparent = false;
+                                mat.depthWrite = true;
+                            } else {
+                                // true semi-transparency (glass, etc.)
+                                // disable depth writes so geometry behind is not occluded
+                                mat.depthWrite = false;
+                                mat.transparent = true;
+                            }
+                            // render transparent objects after opaque ones to ensure correct blending
+                            mesh.renderOrder = 1;
+                            mat.needsUpdate = true;
+                        }
+                    }
+                });
             }
         });
     }, [scene]);
 
-    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
+    return <primitive object={scene} position={[0, 0, 0]} scale={1} />;
 };
 
 const Skybox: React.FC = () => {
@@ -138,7 +177,7 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
             ref={waterRef}
             object={waterPlane}
             rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, -2, 0]}
+            position={[0, 4.754, 0]}
         />
     );
 };
@@ -303,7 +342,8 @@ const RendererMain: React.FC = () => {
                         <Skybox />
                         <ambientLight intensity={0.5} />
                         <SceneDirectionalLight />
-                        <Model subPath="japanese_town_street/scene.glb" />
+                        {/* <Model subPath="japanese_town_street/scene.glb" /> */}
+                        <Model subPath="forest_house/scene.glb" />
                         <WaterPlane lowPerformance={isLowPerformance} />
                         <SceneReady onReady={handleSceneReady} />
                         <PerformanceMonitor

@@ -82,7 +82,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                         Overview
                     </h3>
                     <p className="text-game-text-secondary text-sm md:text-base leading-relaxed">
-                        {project.longDescription}
+                        {project.longDescription
+                            .split('\n')
+                            .map((segment, i, arr) => (
+                                <React.Fragment key={i}>
+                                    {segment}
+                                    {i < arr.length - 1 && <br />}
+                                </React.Fragment>
+                            ))}
                     </p>
                 </div>
 

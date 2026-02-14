@@ -313,7 +313,7 @@
         {
             "title": "This Website",
             "description": "Congrats! You have found the meta!",
-            "longDescription": "Congrats! You have found the meta! Hope you enjoy the experience of exploring my website. I am planning to add more interesting things in the future.",
+            "longDescription": "Congrats! You have found the meta! Hope you enjoy the experience of exploring my website. I am planning to add more interesting things in the future. \n Asset Credits: \nStylized Little Japanese Town Street - Michał Solarek\nFree Skybox Textures - crystallotus\nForest House - peachyroyalty",
             "thumbnailFit": "cover",
             "thumbnail": "this_site/thumbnail.png",
             "technologies": [
@@ -334,7 +334,7 @@
                 "this_site/experience.png"
             ],
             "features": [
-                "3D background rendering with React Three Fiber (Scene Model: Stylized Little Japanese Town Street - Michał Solarek, Skybox Texture: Free Skybox Textures - crystallotus)",
+                "3D background rendering with React Three Fiber",
                 "Skill visualization in tree format using React D3 Tree",
                 "Smooth animations throughout the site via React Spring"
             ]
