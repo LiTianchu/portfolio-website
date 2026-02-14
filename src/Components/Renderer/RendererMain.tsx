@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
-import { useEffect, useRef, Suspense, useMemo } from 'react';
-import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
+import { useEffect, useRef, Suspense } from 'react';
+import { Canvas, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 // import { Loader } from 'react-feather';
@@ -14,7 +14,7 @@ import {
 } from '@states/slices/rendererSlice';
 // import { useHelper } from '@react-three/drei';
 // import { DirectionalLightHelper } from 'three';
-import { Water } from 'three/examples/jsm/objects/Water.js';
+// import { Water } from 'three/examples/jsm/objects/Water.js';
 import { EffectComposer, Vignette } from '@react-three/postprocessing';
 
 // Preload the model
@@ -118,48 +118,47 @@ const Skybox: React.FC = () => {
     return null;
 };
 
-const WaterPlane: React.FC = () => {
-    const waterRef = useRef<Water>(null);
-    const waterNormals = useLoader(
-        THREE.TextureLoader,
-        'https://threejs.org/examples/textures/waternormals.jpg'
-    );
+// const WaterPlane: React.FC = () => { const waterRef = useRef<Water>(null);
+//     const waterNormals = useLoader(
+//         THREE.TextureLoader,
+//         'https://threejs.org/examples/textures/waternormals.jpg'
+//     );
 
-    useEffect(() => {
-        waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
-    }, [waterNormals]);
+//     useEffect(() => {
+//         waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+//     }, [waterNormals]);
 
-    const waterPlane = useMemo(() => {
-        const water = new Water(new THREE.PlaneGeometry(2000, 2000, 16, 16), {
-            textureWidth: 256,
-            textureHeight: 256,
-            waterNormals: waterNormals,
-            sunDirection: new THREE.Vector3(),
-            sunColor: 0xffffff,
-            waterColor: 0x001e0f,
-            distortionScale: 3.7,
-            fog: false,
-        });
-        // Initialize time to avoid strips on first render
-        water.material.uniforms['time'].value = 0.0;
-        return water;
-    }, [waterNormals]);
+//     const waterPlane = useMemo(() => {
+//         const water = new Water(new THREE.PlaneGeometry(2000, 2000, 16, 16), {
+//             textureWidth: 256,
+//             textureHeight: 256,
+//             waterNormals: waterNormals,
+//             sunDirection: new THREE.Vector3(),
+//             sunColor: 0xffffff,
+//             waterColor: 0x001e0f,
+//             distortionScale: 3.7,
+//             fog: false,
+//         });
+//         // Initialize time to avoid strips on first render
+//         water.material.uniforms['time'].value = 0.0;
+//         return water;
+//     }, [waterNormals]);
 
-    useFrame(() => {
-        if (waterRef.current) {
-            waterRef.current.material.uniforms['time'].value += 1.0 / 60.0;
-        }
-    });
+//     useFrame(() => {
+//         if (waterRef.current) {
+//             waterRef.current.material.uniforms['time'].value += 1.0 / 60.0;
+//         }
+//     });
 
-    return (
-        <primitive
-            ref={waterRef}
-            object={waterPlane}
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, -2, 0]}
-        />
-    );
-};
+//     return (
+//         <primitive
+//             ref={waterRef}
+//             object={waterPlane}
+//             rotation={[-Math.PI / 2, 0, 0]}
+//             position={[0, -2, 0]}
+//         />
+//     );
+// };
 
 const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
     const gl = useThree((state) => state.gl);
@@ -246,7 +245,7 @@ const RendererMain: React.FC = () => {
                         <ambientLight intensity={1} />
                         <SceneDirectionalLight />
                         <Model subPath="japanese_town_street_compressed/scene.glb" />
-                        <WaterPlane />
+                        {/* <WaterPlane /> */}
                         <SceneReady onReady={handleSceneReady} />
                         <OrbitControls
                             autoRotate
