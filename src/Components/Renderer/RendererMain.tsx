@@ -108,7 +108,7 @@ const Skybox: React.FC = () => {
     const { scene } = useThree();
     const texture = useLoader(
         THREE.TextureLoader,
-        import.meta.env.BASE_URL + '/skyboxes/PurpleBlueSky.png'
+        import.meta.env.BASE_URL + '/skyboxes/PurplyBlueSky.png'
     );
 
     useEffect(() => {
