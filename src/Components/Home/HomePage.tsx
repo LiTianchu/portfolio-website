@@ -17,13 +17,13 @@ const HomePage: React.FC = () => {
         from: { opacity: 0, y: -70 },
         to: { opacity: 1, y: 0 },
         config: config.gentle,
-        delay: 500,
+        delay: 200,
     });
 
     const subtitleSpring = useSpring({
         from: { opacity: 0 },
         to: { opacity: 1 },
-        delay: 600,
+        delay: 300,
         config: config.slow,
     });
 
@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
                     {/* Footer hint */}
                     <animated.p
                         style={subtitleSpring}
-                        className="text-center mt-12 text-game-text-muted text-sm tracking-wider animate-pulse-glow"
+                        className="text-center mt-12 text-game-text-secondary text-sm tracking-wider animate-pulse-glow"
                     >
                         SELECT AN OPTION TO CONTINUE
                     </animated.p>

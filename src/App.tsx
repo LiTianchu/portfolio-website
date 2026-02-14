@@ -30,7 +30,7 @@ const App: React.FC = () => {
     const transitions = useTransition(currentPage, {
         from: {
             opacity: 0,
-            transform: 'scale(0.95) translateY(20px)',
+            transform: 'scale(1.02) translateY(-20px)',
             filter: 'blur(4px)',
         },
         enter: {

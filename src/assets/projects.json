@@ -313,7 +313,7 @@
         {
             "title": "This Website",
             "description": "Congrats! You have found the meta!",
-            "longDescription": "Congrats! You have found the meta!",
+            "longDescription": "Congrats! You have found the meta! Hope you enjoy the experience of exploring my website. I am planning to add more interesting things in the future.",
             "thumbnailFit": "cover",
             "thumbnail": "this_site/thumbnail.png",
             "technologies": [
@@ -325,7 +325,7 @@
                 "React Spring"
             ],
             "type": "Web",
-            "status": "Completed",
+            "status": "In Progress",
             "imagesFit": "contain",
             "images": [
                 "this_site/home_page.png",
