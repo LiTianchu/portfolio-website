@@ -191,21 +191,24 @@ const PerformanceMonitor: React.FC<{
             const fps = 1000 / avgFrameTime;
 
             // disable heavy effects below 30 FPS
-            const FPS_THRESHOLD = 59;
+            const FPS_THRESHOLD_1 = 59;
+            const FPS_THRESHOLD_2 = 30;
             console.log(`Current FPS: ${fps.toFixed(1)}`);
-            if (fps < FPS_THRESHOLD) {
+            if (fps < FPS_THRESHOLD_1) {
                 lowPerfCountRef.current++;
-
-                // report low performance if consistently low for 5 consecutive checks
-                if (lowPerfCountRef.current >= 5 && !hasReportedRef.current) {
-                    console.log(
-                        `Low FPS detected: ${fps.toFixed(1)} FPS - Disabling heavy effects`
-                    );
-                    onPerformanceChange(true);
-                    hasReportedRef.current = true;
-                }
+            } else if (fps < FPS_THRESHOLD_2) {
+                lowPerfCountRef.current += 2; // count more heavily if below critical threshold
             } else {
                 lowPerfCountRef.current = 0;
+            }
+
+            // report low performance if consistently low for 5 consecutive checks
+            if (lowPerfCountRef.current >= 5 && !hasReportedRef.current) {
+                console.log(
+                    `Low FPS detected: ${fps.toFixed(1)} FPS - Disabling heavy effects`
+                );
+                onPerformanceChange(true);
+                hasReportedRef.current = true;
             }
 
             // clear frame times for next batch
