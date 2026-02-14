@@ -149,8 +149,8 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
                 lowPerformance ? 8 : 16
             ),
             {
-                textureWidth: lowPerformance ? 64 : 128,
-                textureHeight: lowPerformance ? 64 : 128,
+                textureWidth: lowPerformance ? 128 : 256,
+                textureHeight: lowPerformance ? 128 : 256,
                 waterNormals: waterNormals,
                 sunDirection: new THREE.Vector3(),
                 sunColor: 0xffffff,
