@@ -31,7 +31,7 @@ const App: React.FC = () => {
         from: {
             opacity: 0,
             transform: 'scale(0.95) translateY(20px)',
-            filter: 'blur(8px)',
+            filter: 'blur(4px)',
         },
         enter: {
             opacity: 1,
@@ -41,7 +41,7 @@ const App: React.FC = () => {
         leave: {
             opacity: 0,
             transform: 'scale(1.02) translateY(-10px)',
-            filter: 'blur(8px)',
+            filter: 'blur(4px)',
         },
         config: { ...config.gentle, duration: 350 },
         exitBeforeEnter: true,

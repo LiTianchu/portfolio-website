@@ -309,6 +309,35 @@
                 "Applied PBR materials for realistic rendering",
                 "Utilized geometry nodes for procedural generation of sprinkles"
             ]
+        },
+        {
+            "title": "This Website",
+            "description": "Congrats! You have found the meta!",
+            "longDescription": "Congrats! You have found the meta!",
+            "thumbnailFit": "cover",
+            "thumbnail": "this_site/thumbnail.png",
+            "technologies": [
+                "React",
+                "TypeScript",
+                "Three.js",
+                "Tailwind CSS",
+                "D3.js",
+                "React Spring"
+            ],
+            "type": "Web",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": [
+                "this_site/home_page.png",
+                "this_site/about.png",
+                "this_site/skill_tree.png",
+                "this_site/experience.png"
+            ],
+            "features": [
+                "3D background rendering with React Three Fiber (Scene Model: Stylized Little Japanese Town Street - Michał Solarek, Skybox Texture: Free Skybox Textures - crystallotus)",
+                "Skill visualization in tree format using React D3 Tree",
+                "Smooth animations throughout the site via React Spring"
+            ]
         }
     ]
 }

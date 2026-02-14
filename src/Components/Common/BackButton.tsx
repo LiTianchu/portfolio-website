@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useAppDispatch } from '@states/hook';
-import { changePage } from '@states/currentPageSlice';
+import { changePage } from '@/states/slices/currentPageSlice';
 import { ArrowLeft } from 'react-feather';
 interface BackButtonProps {
     className?: string;

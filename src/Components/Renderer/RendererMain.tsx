@@ -1,16 +1,80 @@
+/* eslint-disable react/no-unknown-property */
 import React from 'react';
-import { Canvas } from '@react-three/fiber';
+import { useEffect, useRef, Suspense, useMemo } from 'react';
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
+// import { Loader } from 'react-feather';
+import { useDispatch } from 'react-redux';
+import { useSpring, animated, config } from '@react-spring/web';
+// import type { RootState } from '@states/store';
+import {
+    updateSceneLoaded,
+    // updateEffectLoaded,
+} from '@states/slices/rendererSlice';
+// import { useHelper } from '@react-three/drei';
+// import { DirectionalLightHelper } from 'three';
+import { Water } from 'three/examples/jsm/objects/Water.js';
+import {
+    EffectComposer,
+    Vignette,
+    DepthOfField,
+} from '@react-three/postprocessing';
+
+// Preload the model
+useGLTF.preload(
+    import.meta.env.BASE_URL +
+        '/models/japanese_town_street_compressed/scene.glb'
+);
+
+// const SceneLoadingScreen: React.FC = () => {
+//     return (
+//         <Html center>
+//             <Loader
+//                 className="animate-spin [animation-duration:2s] text-game-primary"
+//                 size={48}
+//             />
+//         </Html>
+//     );
+// };
 
 // const modelModules = import.meta.glob('@assets/models/**/*', {
 //     eager: true,
 //     query: '?url',
 //     import: 'default',
 // });
+const SceneDirectionalLight: React.FC = () => {
+    const lightRef = useRef<THREE.DirectionalLight>(null);
+    // useHelper(
+    //     lightRef as React.RefObject<THREE.DirectionalLight>,
+    //     DirectionalLightHelper,
+    //     5,
+    //     'cyan'
+    // );
+    return (
+        <directionalLight
+            ref={lightRef}
+            position={[30, 50, 30]}
+            intensity={1}
+            castShadow
+            shadow-mapSize-width={2048}
+            shadow-mapSize-height={2048}
+            shadow-camera-near={1}
+            shadow-camera-far={500}
+            shadow-camera-left={-100}
+            shadow-camera-right={100}
+            shadow-camera-top={100}
+            shadow-camera-bottom={-100}
+            shadow-bias={-0.0001}
+            shadow-normalBias={0.02}
+        />
+    );
+};
 
-const getModelBySubPath = (subPath: string) => {
+const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
     // const modelPath: string = `/src/assets/models/${subPath}`;
     const modelPath: string = import.meta.env.BASE_URL + `/models/${subPath}`;
+    // console.log(`Attempting to load model from path: ${modelPath}`);
     // const actualModelPath: string | undefined = modelModules[modelPath] as
     //     | string
     //     | undefined;
@@ -23,36 +87,179 @@ const getModelBySubPath = (subPath: string) => {
     // const { scene } = useGLTF(actualModelPath);
     const { scene } = useGLTF(modelPath);
 
-    return <primitive object={scene} />;
+    useEffect(() => {
+        scene.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+                const mesh = child as THREE.Mesh;
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+
+                console.log(mesh.material);
+            }
+        });
+    }, [scene]);
+
+    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
+};
+
+const Skybox: React.FC = () => {
+    const { scene } = useThree();
+    const texture = useLoader(
+        THREE.TextureLoader,
+        import.meta.env.BASE_URL + '/skyboxes/PurplyBlueSky.png'
+    );
+
+    useEffect(() => {
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        texture.colorSpace = THREE.SRGBColorSpace;
+        scene.background = texture;
+
+        return () => {
+            scene.background = null;
+        };
+    }, [scene, texture]);
+
+    return null;
+};
+
+const WaterPlane: React.FC = () => {
+    const waterRef = useRef<Water>(null);
+    const waterNormals = useLoader(
+        THREE.TextureLoader,
+        'https://threejs.org/examples/textures/waternormals.jpg'
+    );
+
+    useEffect(() => {
+        waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+    }, [waterNormals]);
+
+    const waterPlane = useMemo(() => {
+        return new Water(new THREE.PlaneGeometry(2000, 2000, 32, 32), {
+            textureWidth: 512,
+            textureHeight: 512,
+            waterNormals: waterNormals,
+            sunDirection: new THREE.Vector3(),
+            sunColor: 0xffffff,
+            waterColor: 0x001e0f,
+            distortionScale: 3.7,
+            fog: false,
+        });
+    }, [waterNormals]);
+
+    useFrame(() => {
+        // Update water every other frame to reduce GPU load
+        if (waterRef.current) {
+            waterRef.current.material.uniforms['time'].value += 1.0 / 60.0;
+        }
+    });
+
+    return (
+        <primitive
+            ref={waterRef}
+            object={waterPlane}
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, -2, 0]}
+        />
+    );
+};
+
+const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
+    const gl = useThree((state) => state.gl);
+    const scene = useThree((state) => state.scene);
+    const camera = useThree((state) => state.camera);
+
+    useEffect(() => {
+        // Compile all materials before showing to prevent lag spike
+        gl.compile(scene, camera);
+
+        // Short delay to ensure everything is rendered
+        const timer = setTimeout(() => {
+            onReady();
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [gl, scene, camera, onReady]);
+
+    return null;
 };
 
 const RendererMain: React.FC = () => {
-    // const loadedScene = getModelBySubPath('forest_house/scene.gltf');
-    const loadedScene = getModelBySubPath(
-        'stylized_little_japanese_town_street/scene.gltf'
-    );
+    const dispatch = useDispatch();
+
+    const [canvasSpringStyles, canvasSpringApi] = useSpring(() => ({
+        opacity: 0,
+        config: config.slow,
+    }));
+    // const isEffectLoaded = useSelector((state: RootState) => {
+    //     return state.renderer.effectLoaded;
+    // });
+
+    // useEffect(() => {
+    //     // Defer post-processing effects to reduce initial load
+    //     if (isSceneLoaded) {
+    //         const timer = setTimeout(() => {
+    //             dispatch(updateEffectLoaded(true));
+    //         }, 1500);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [isSceneLoaded, dispatch]);
+
+    const handleSceneReady = () => {
+        dispatch(updateSceneLoaded(true));
+        canvasSpringApi.start({
+            from: { opacity: 0 },
+            to: { opacity: 1 },
+            config: config.gentle,
+        });
+    };
+
     return (
-        // TODO: implement a 3D viewer functonality
         <div className="fixed inset-0 z-0">
-            <Canvas
-                camera={{
-                    position: [0, 800, 800],
-                    rotation: [70, 0, 0],
-                    fov: 75,
-                    near: 1,
-                    far: 2000,
-                }}
+            <animated.div
+                style={canvasSpringStyles}
+                className="fixed inset-0 transition-opacity duration-500"
             >
-                <ambientLight intensity={1} />
-                <directionalLight position={[1000, 1000, 500]} intensity={1} />
-                {loadedScene}
-                <OrbitControls
-                    autoRotate
-                    autoRotateSpeed={2}
-                    enableZoom={true}
-                    enablePan={true}
-                />
-            </Canvas>
+                <Canvas
+                    camera={{
+                        position: [0, 100, 100],
+                        fov: 75,
+                        near: 0.1,
+                        far: 1000,
+                    }}
+                    shadows
+                    gl={{
+                        antialias: true,
+                        powerPreference: 'high-performance',
+                    }}
+                >
+                    <Suspense fallback={null}>
+                        <fog attach="fog" args={['#87ceeb', 50, 500]} />
+                        <Skybox />
+                        <ambientLight intensity={1} />
+                        <SceneDirectionalLight />
+                        <Model subPath="japanese_town_street_compressed/scene.glb" />
+                        <WaterPlane />
+                        <SceneReady onReady={handleSceneReady} />
+                        <OrbitControls
+                            autoRotate
+                            autoRotateSpeed={1}
+                            enableZoom={true}
+                            enablePan={true}
+                            enableDamping
+                            dampingFactor={0.05}
+                            makeDefault
+                        />
+                        <EffectComposer>
+                            <DepthOfField
+                                focusDistance={100}
+                                focalLength={100}
+                                bokehScale={2}
+                            />
+                            <Vignette offset={0.4} darkness={0.5} />
+                        </EffectComposer>
+                    </Suspense>
+                </Canvas>
+            </animated.div>
         </div>
     );
 };
