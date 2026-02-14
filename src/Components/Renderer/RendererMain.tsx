@@ -155,7 +155,7 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
                 sunDirection: new THREE.Vector3(),
                 sunColor: 0xffffff,
                 waterColor: 0x001e0f,
-                distortionScale: lowPerformance ? 3 : 6,
+                distortionScale: 3,
                 fog: !lowPerformance,
             }
         );
@@ -229,7 +229,7 @@ const PerformanceMonitor: React.FC<{
             const fps = 1000 / avgFrameTime;
 
             // disable heavy effects below 30 FPS
-            const FPS_THRESHOLD_1 = 55;
+            const FPS_THRESHOLD_1 = 50;
             const FPS_THRESHOLD_2 = 35;
             console.log(`Current FPS: ${fps.toFixed(1)}`);
             if (fps < FPS_THRESHOLD_1) {
