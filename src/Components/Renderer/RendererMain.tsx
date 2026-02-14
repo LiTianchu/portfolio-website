@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
-import { useEffect, useRef, Suspense, useMemo } from 'react';
+import { useEffect, useRef, Suspense, useMemo, useState } from 'react';
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
@@ -43,7 +43,9 @@ useGLTF.preload(
 //     query: '?url',
 //     import: 'default',
 // });
-const SceneDirectionalLight: React.FC = () => {
+const SceneDirectionalLight: React.FC<{ lowPerformance?: boolean }> = ({
+    lowPerformance = false,
+}) => {
     const lightRef = useRef<THREE.DirectionalLight>(null);
     // useHelper(
     //     lightRef as React.RefObject<THREE.DirectionalLight>,
@@ -56,9 +58,9 @@ const SceneDirectionalLight: React.FC = () => {
             ref={lightRef}
             position={[30, 50, 30]}
             intensity={0.7}
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
+            castShadow={!lowPerformance}
+            shadow-mapSize-width={lowPerformance ? 512 : 1024}
+            shadow-mapSize-height={lowPerformance ? 512 : 1024}
             shadow-camera-near={1}
             shadow-camera-far={500}
             shadow-camera-left={-50}
@@ -106,7 +108,7 @@ const Skybox: React.FC = () => {
     const { scene } = useThree();
     const texture = useLoader(
         THREE.TextureLoader,
-        import.meta.env.BASE_URL + '/skyboxes/PurplyBlueSky.png'
+        import.meta.env.BASE_URL + '/skyboxes/PurpleBlueSky.png'
     );
 
     useEffect(() => {
@@ -122,7 +124,9 @@ const Skybox: React.FC = () => {
     return null;
 };
 
-const WaterPlane: React.FC = () => {
+const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
+    lowPerformance = false,
+}) => {
     const waterRef = useRef<Water>(null);
     const waterNormals = useLoader(
         THREE.TextureLoader,
@@ -133,23 +137,31 @@ const WaterPlane: React.FC = () => {
         waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
         waterNormals.needsUpdate = true;
 
-        const water = new Water(new THREE.PlaneGeometry(1000, 1000, 8, 8), {
-            textureWidth: 128,
-            textureHeight: 128,
-            waterNormals: waterNormals,
-            sunDirection: new THREE.Vector3(),
-            sunColor: 0xffffff,
-            waterColor: 0x001e0f,
-            distortionScale: 6,
-            fog: true,
-        });
+        const water = new Water(
+            new THREE.PlaneGeometry(
+                1000,
+                1000,
+                lowPerformance ? 4 : 8,
+                lowPerformance ? 4 : 8
+            ),
+            {
+                textureWidth: lowPerformance ? 64 : 128,
+                textureHeight: lowPerformance ? 64 : 128,
+                waterNormals: waterNormals,
+                sunDirection: new THREE.Vector3(),
+                sunColor: 0xffffff,
+                waterColor: 0x001e0f,
+                distortionScale: lowPerformance ? 3 : 6,
+                fog: !lowPerformance,
+            }
+        );
 
         // Explicitly initialize time to 0 to prevent strips on first render
         water.material.uniforms['time'].value = 0.0;
         water.material.needsUpdate = true;
 
         return water;
-    }, [waterNormals]);
+    }, [waterNormals, lowPerformance]);
 
     useFrame((_, delta) => {
         if (waterRef.current && waterRef.current.material.uniforms['time']) {
@@ -187,8 +199,63 @@ const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
     return null;
 };
 
+const PerformanceMonitor: React.FC<{
+    onPerformanceChange: (isLowPerf: boolean) => void;
+}> = ({ onPerformanceChange }) => {
+    const lastTimeRef = useRef<number>(performance.now());
+    const frameTimesRef = useRef<number[]>([]);
+    const lowPerfCountRef = useRef<number>(0);
+    const hasReportedRef = useRef<boolean>(false);
+
+    useFrame(() => {
+        const currentTime = performance.now();
+        const deltaTime = currentTime - lastTimeRef.current;
+        lastTimeRef.current = currentTime;
+
+        // Track frame times
+        frameTimesRef.current.push(deltaTime);
+
+        // Keep only last 60 frames for average calculation
+        if (frameTimesRef.current.length > 60) {
+            frameTimesRef.current.shift();
+        }
+
+        // Calculate average FPS every 60 frames
+        if (frameTimesRef.current.length >= 60) {
+            const avgFrameTime =
+                frameTimesRef.current.reduce((a, b) => a + b, 0) /
+                frameTimesRef.current.length;
+            const fps = 1000 / avgFrameTime;
+
+            // FPS threshold: disable heavy effects below 30 FPS
+            const FPS_THRESHOLD = 30;
+
+            if (fps < FPS_THRESHOLD) {
+                lowPerfCountRef.current++;
+
+                // Report low performance if consistently low for 3 consecutive checks
+                if (lowPerfCountRef.current >= 3 && !hasReportedRef.current) {
+                    console.log(
+                        `Low FPS detected: ${fps.toFixed(1)} FPS - Disabling heavy effects`
+                    );
+                    onPerformanceChange(true);
+                    hasReportedRef.current = true;
+                }
+            } else {
+                lowPerfCountRef.current = 0;
+            }
+
+            // Clear frame times for next batch
+            frameTimesRef.current = [];
+        }
+    });
+
+    return null;
+};
+
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
+    const [isLowPerformance, setIsLowPerformance] = useState(false);
 
     const [canvasSpringStyles, canvasSpringApi] = useSpring(() => ({
         opacity: 0,
@@ -230,10 +297,11 @@ const RendererMain: React.FC = () => {
                         near: 0.1,
                         far: 1000,
                     }}
-                    shadows="soft"
-                    dpr={[1, 2]}
+                    shadows={isLowPerformance ? false : 'soft'}
+                    dpr={isLowPerformance ? [1, 1] : [1, 2]}
                     gl={{
                         antialias:
+                            !isLowPerformance &&
                             typeof window !== 'undefined' &&
                             window.innerWidth > 768,
                         powerPreference: 'high-performance',
@@ -246,13 +314,20 @@ const RendererMain: React.FC = () => {
                     }}
                 >
                     <Suspense fallback={null}>
-                        <fog attach="fog" args={['#87ceeb', 50, 500]} />
+                        {!isLowPerformance && (
+                            <fog attach="fog" args={['#87ceeb', 50, 500]} />
+                        )}
                         <Skybox />
                         <ambientLight intensity={0.5} />
-                        <SceneDirectionalLight />
+                        <SceneDirectionalLight
+                            lowPerformance={isLowPerformance}
+                        />
                         <Model subPath="japanese_town_street_compressed/scene.glb" />
-                        <WaterPlane />
+                        <WaterPlane lowPerformance={isLowPerformance} />
                         <SceneReady onReady={handleSceneReady} />
+                        <PerformanceMonitor
+                            onPerformanceChange={setIsLowPerformance}
+                        />
                         <OrbitControls
                             autoRotate
                             autoRotateSpeed={1}
@@ -262,14 +337,20 @@ const RendererMain: React.FC = () => {
                             dampingFactor={0.05}
                             makeDefault
                         />
-                        <EffectComposer multisampling={4}>
-                            <Vignette offset={0.4} darkness={0.5} />
-                            <DepthOfField
-                                target={0}
-                                focalLength={40}
-                                bokehScale={1}
-                            />
-                        </EffectComposer>
+                        {isLowPerformance ? (
+                            <EffectComposer multisampling={0}>
+                                <Vignette offset={0.4} darkness={0.5} />
+                            </EffectComposer>
+                        ) : (
+                            <EffectComposer multisampling={4}>
+                                <Vignette offset={0.4} darkness={0.5} />
+                                <DepthOfField
+                                    target={0}
+                                    focalLength={40}
+                                    bokehScale={1}
+                                />
+                            </EffectComposer>
+                        )}
                     </Suspense>
                 </Canvas>
             </animated.div>
