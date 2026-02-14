@@ -67,36 +67,36 @@ const SceneDirectionalLight: React.FC = () => {
     );
 };
 
-// const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
-//     // const modelPath: string = `/src/assets/models/${subPath}`;
-//     const modelPath: string = import.meta.env.BASE_URL + `/models/${subPath}`;
-//     // console.log(`Attempting to load model from path: ${modelPath}`);
-//     // const actualModelPath: string | undefined = modelModules[modelPath] as
-//     //     | string
-//     //     | undefined;
-//     //
-//     // if (!actualModelPath) {
-//     //     console.error(`Model not found at path: ${modelPath}`);
-//     //     return null;
-//     // }
+const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
+    // const modelPath: string = `/src/assets/models/${subPath}`;
+    const modelPath: string = import.meta.env.BASE_URL + `/models/${subPath}`;
+    // console.log(`Attempting to load model from path: ${modelPath}`);
+    // const actualModelPath: string | undefined = modelModules[modelPath] as
+    //     | string
+    //     | undefined;
+    //
+    // if (!actualModelPath) {
+    //     console.error(`Model not found at path: ${modelPath}`);
+    //     return null;
+    // }
 
-//     // const { scene } = useGLTF(actualModelPath);
-//     const { scene } = useGLTF(modelPath);
+    // const { scene } = useGLTF(actualModelPath);
+    const { scene } = useGLTF(modelPath);
 
-//     useEffect(() => {
-//         scene.traverse((child) => {
-//             if ((child as THREE.Mesh).isMesh) {
-//                 const mesh = child as THREE.Mesh;
-//                 mesh.castShadow = true;
-//                 mesh.receiveShadow = true;
+    useEffect(() => {
+        scene.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+                const mesh = child as THREE.Mesh;
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
 
-//                 console.log(mesh.material);
-//             }
-//         });
-//     }, [scene]);
+                console.log(mesh.material);
+            }
+        });
+    }, [scene]);
 
-//     return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
-// };
+    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
+};
 
 const Skybox: React.FC = () => {
     const { scene } = useThree();
@@ -245,7 +245,7 @@ const RendererMain: React.FC = () => {
                         <Skybox />
                         <ambientLight intensity={1} />
                         <SceneDirectionalLight />
-                        {/* <Model subPath="japanese_town_street_compressed/scene.glb" /> */}
+                        <Model subPath="japanese_town_street_compressed/scene.glb" />
                         <WaterPlane />
                         <SceneReady onReady={handleSceneReady} />
                         <OrbitControls
