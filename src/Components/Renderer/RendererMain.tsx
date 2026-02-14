@@ -17,7 +17,9 @@ import {
 } from '@react-three/postprocessing';
 
 // Preload the model
-useGLTF.preload(import.meta.env.BASE_URL + '/models/forest_house/scene.glb');
+useGLTF.preload(
+    import.meta.env.BASE_URL + '/models/japanese_town_street/scene.glb'
+);
 
 const SceneDirectionalLight: React.FC = () => {
     const lightRef = useRef<THREE.DirectionalLight>(null);
@@ -64,7 +66,7 @@ const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
         });
     }, [scene]);
 
-    return <primitive object={scene} position={[0, 0, 0]} scale={1} />;
+    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
 };
 
 const Skybox: React.FC = () => {
@@ -188,8 +190,8 @@ const PerformanceMonitor: React.FC<{
             const fps = 1000 / avgFrameTime;
 
             // disable heavy effects below 30 FPS
-            const FPS_THRESHOLD_1 = 59;
-            const FPS_THRESHOLD_2 = 30;
+            const FPS_THRESHOLD_1 = 55;
+            const FPS_THRESHOLD_2 = 35;
             console.log(`Current FPS: ${fps.toFixed(1)}`);
             if (fps < FPS_THRESHOLD_1) {
                 lowPerfCountRef.current++;
@@ -274,7 +276,7 @@ const RendererMain: React.FC = () => {
                     camera={{
                         position: [0, 100, 100],
                         fov: 60,
-                        near: 0.1,
+                        near: 1,
                         far: 1000,
                     }}
                     shadows={isLowPerformance ? 'basic' : 'soft'}
@@ -288,6 +290,7 @@ const RendererMain: React.FC = () => {
                         alpha: false,
                         stencil: false,
                         depth: true,
+                        logarithmicDepthBuffer: true,
                     }}
                     onCreated={({ gl }) => {
                         gl.setClearColor('#87ceeb');
@@ -300,7 +303,7 @@ const RendererMain: React.FC = () => {
                         <Skybox />
                         <ambientLight intensity={0.5} />
                         <SceneDirectionalLight />
-                        <Model subPath="forest_house/scene.glb" />
+                        <Model subPath="japanese_town_street/scene.glb" />
                         <WaterPlane lowPerformance={isLowPerformance} />
                         <SceneReady onReady={handleSceneReady} />
                         <PerformanceMonitor
