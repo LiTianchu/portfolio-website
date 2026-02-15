@@ -202,13 +202,17 @@ const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
 
 const PerformanceMonitor: React.FC<{
     onPerformanceChange: (isLowPerf: boolean) => void;
-}> = ({ onPerformanceChange }) => {
+    disabled?: boolean;
+}> = ({ onPerformanceChange, disabled = false }) => {
     const lastTimeRef = useRef<number>(performance.now());
     const frameTimesRef = useRef<number[]>([]);
     const lowPerfCountRef = useRef<number>(0);
     const hasReportedRef = useRef<boolean>(false);
 
     useFrame(() => {
+        // Skip monitoring if disabled (e.g., already in low-performance mode)
+        if (disabled) return;
+
         const currentTime = performance.now();
         const deltaTime = currentTime - lastTimeRef.current;
         lastTimeRef.current = currentTime;
@@ -230,15 +234,24 @@ const PerformanceMonitor: React.FC<{
 
             // disable heavy effects below 30 FPS
             const FPS_THRESHOLD_1 = 55;
-            const FPS_THRESHOLD_2 = 40;
+            const FPS_THRESHOLD_2 = 49;
             const FPS_THRESHOLD_3 = 30;
             console.log(`Current FPS: ${fps.toFixed(1)}`);
-            if (fps < FPS_THRESHOLD_1) {
+            if (fps < FPS_THRESHOLD_1 && fps >= FPS_THRESHOLD_2) {
                 lowPerfCountRef.current++;
-            } else if (fps < FPS_THRESHOLD_2) {
+                console.log(
+                    `Moderate FPS detected: ${fps.toFixed(1)} FPS, incrementing low performance count to ${lowPerfCountRef.current}`
+                );
+            } else if (fps < FPS_THRESHOLD_2 && fps >= FPS_THRESHOLD_3) {
                 lowPerfCountRef.current += 3; // count more heavily if below low threshold
+                console.log(
+                    `Low FPS detected: ${fps.toFixed(1)} FPS, incrementing low performance count to ${lowPerfCountRef.current}`
+                );
             } else if (fps < FPS_THRESHOLD_3) {
                 lowPerfCountRef.current += 5; // count even more heavily if below critical threshold
+                console.log(
+                    `Critical FPS detected: ${fps.toFixed(1)} FPS, incrementing low performance count to ${lowPerfCountRef.current}`
+                );
             } else {
                 lowPerfCountRef.current = 0;
             }
@@ -262,7 +275,35 @@ const PerformanceMonitor: React.FC<{
 
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
-    const [isLowPerformance, setIsLowPerformance] = useState(false);
+
+    // Detect mobile devices and default to low performance mode
+    const isMobile = useMemo(() => {
+        if (typeof window === 'undefined') return false;
+
+        // Check for mobile/tablet user agents
+        const userAgent = navigator.userAgent.toLowerCase();
+        const mobileKeywords = [
+            'android',
+            'webos',
+            'iphone',
+            'ipad',
+            'ipod',
+            'blackberry',
+            'windows phone',
+        ];
+        const isMobileUA = mobileKeywords.some((keyword) =>
+            userAgent.includes(keyword)
+        );
+
+        // Check for touch support and small screen
+        const isTouchDevice =
+            'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 768;
+
+        return isMobileUA || (isTouchDevice && isSmallScreen);
+    }, []);
+
+    const [isLowPerformance, setIsLowPerformance] = useState(isMobile);
     const [showNotification, setShowNotification] = useState(false);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
@@ -351,6 +392,7 @@ const RendererMain: React.FC = () => {
                         <SceneReady onReady={handleSceneReady} />
                         <PerformanceMonitor
                             onPerformanceChange={setIsLowPerformance}
+                            disabled={isMobile}
                         />
                         <OrbitControls
                             autoRotate
