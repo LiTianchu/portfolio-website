@@ -132,7 +132,8 @@ function App() {
                 }}
             />
 
-            <BackgroundMusic audioSrcPromise={audioSrcPromise} />
+            {/* Background music for the scene rendering on non-mobile devices */}
+            {!isMobile && <BackgroundMusic audioSrcPromise={audioSrcPromise} />}
         </div>
     );
 }
