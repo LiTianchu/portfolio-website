@@ -4,7 +4,8 @@ import { useEffect, useRef, Suspense, useMemo, useState } from 'react';
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '@states/store';
 import { useSpring, animated, config } from '@react-spring/web';
 import { updateSceneLoaded } from '@states/slices/rendererSlice';
 // import { useHelper } from '@react-three/drei';
@@ -275,35 +276,7 @@ const PerformanceMonitor: React.FC<{
 
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
-
-    // Detect mobile devices and default to low performance mode
-    const isMobile = useMemo(() => {
-        if (typeof window === 'undefined') return false;
-
-        // Check for mobile/tablet user agents
-        const userAgent = navigator.userAgent.toLowerCase();
-        const mobileKeywords = [
-            'android',
-            'webos',
-            'iphone',
-            'ipad',
-            'ipod',
-            'blackberry',
-            'windows phone',
-        ];
-        const isMobileUA = mobileKeywords.some((keyword) =>
-            userAgent.includes(keyword)
-        );
-
-        // Check for touch support and small screen
-        const isTouchDevice =
-            'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const isSmallScreen = window.innerWidth <= 768;
-
-        return isMobileUA || (isTouchDevice && isSmallScreen);
-    }, []);
-
-    const [isLowPerformance, setIsLowPerformance] = useState(isMobile);
+    const [isLowPerformance, setIsLowPerformance] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
@@ -348,6 +321,7 @@ const RendererMain: React.FC = () => {
             config: config.gentle,
         });
     };
+    const isMobile = useSelector((state: RootState) => state.app.isMobile);
 
     return (
         <div className="fixed inset-0 z-0">

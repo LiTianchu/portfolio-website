@@ -3,7 +3,9 @@ import { useTransition, animated, config } from '@react-spring/web';
 import { useAppSelector } from '@states/hook';
 import PageLoader from '@comp/Common/PageLoader';
 import BackgroundMusic from '@comp/Common/BackgroundMusic';
-// import Background3D from '@comp/Common/Background3D';
+import { useDispatch } from 'react-redux';
+import { updateIsMobile } from '@states/slices/appSlice';
+import Background3D from '@comp/Common/Background3D';
 import RendererMain from '@comp/Renderer/RendererMain';
 
 // Lazy load pages for better performance
@@ -23,6 +25,36 @@ const BACKGROUND_MUSIC_FILENAME = 'ocean_wave.mp3';
 
 function App() {
     const currentPage = useAppSelector((state) => state.currentPage);
+
+    // Detect mobile devices and default to low performance mode
+    const isMobile = useMemo(() => {
+        if (typeof window === 'undefined') return false;
+
+        // Check for mobile/tablet user agents
+        const userAgent = navigator.userAgent.toLowerCase();
+        const mobileKeywords = [
+            'android',
+            'webos',
+            'iphone',
+            'ipad',
+            'ipod',
+            'blackberry',
+            'windows phone',
+        ];
+        const isMobileUA = mobileKeywords.some((keyword) =>
+            userAgent.includes(keyword)
+        );
+
+        // Check for touch support and small screen
+        const isTouchDevice =
+            'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 768;
+
+        return isMobileUA || (isTouchDevice && isSmallScreen);
+    }, []);
+
+    const dispatch = useDispatch();
+    dispatch(updateIsMobile(isMobile));
 
     const getAudioUrl = async (filename: string): Promise<string> => {
         const path = `/src/assets/audio/${filename}`;
@@ -63,8 +95,7 @@ function App() {
     return (
         <div className="relative min-w-screen min-h-screen overflow-hidden bg-game-bg-dark">
             {/* 3D Background */}
-            {/* <Background3D timeOfDay="night" /> */}
-            <RendererMain />
+            {isMobile ? <Background3D timeOfDay="night" /> : <RendererMain />}
 
             {/* Page Content with Transitions */}
             <main className="relative z-10 min-h-screen w-full">

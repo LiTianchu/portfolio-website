@@ -9,9 +9,11 @@ import MenuItem from './MenuItem';
 
 function HomePage() {
     const dispatch = useAppDispatch();
+
     const isSceneLoaded = useSelector(
         (state: RootState) => state.renderer.sceneLoaded
     );
+    const isMobile = useSelector((state: RootState) => state.app.isMobile);
 
     const titleSpring = useSpring({
         from: { opacity: 0, y: -70 },
@@ -40,7 +42,8 @@ function HomePage() {
 
     return (
         <div className="page-container">
-            {isSceneLoaded ? (
+            {/* When on mobile, the renderer will be disabled and the scene will never load, so we show the content immediately */}
+            {isSceneLoaded || isMobile ? (
                 <div className="md:p-12 sm:p-8 p-6 max-w-2xl w-full h-64 flex flex-col justify-center">
                     {/* Title Section */}
                     <div className="text-center mb-12">
