@@ -66,14 +66,14 @@ body {
 }
 
 @utility glass-panel-dark {
-    @apply bg-glass-bg backdrop-blur-xl border border-glass-border rounded-xl;
+    @apply bg-glass-bg border border-glass-border rounded-xl;
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 @utility frost-panel {
-    @apply bg-frost-glass backdrop-blur-xl border border-white/10 rounded-xl;
+    @apply bg-frost-glass border border-white/10 rounded-xl;
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.15),

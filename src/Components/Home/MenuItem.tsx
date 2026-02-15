@@ -43,7 +43,7 @@ function MenuItem({
                 ),
             }}
             className="relative w-full max-w-md py-4 px-8 text-left cursor-pointer
-                       bg-game-bg-light/50 backdrop-blur-md border rounded-xl
+                       bg-game-bg-light/50 border rounded-xl
                        hover:border-game-primary transition-colors duration-300
                        group"
             onMouseEnter={() => setHovered(true)}
