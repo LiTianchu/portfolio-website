@@ -30,7 +30,7 @@ function ProjectDetail({ project, onClose }: ProjectDetailProps) {
         >
             <animated.div
                 style={modalSpring}
-                className="glass-panel-dark p-8 xl:max-w-[60vw] lg:max-w-[70vw] md:max-w-[80vw] max-w-[90vw] w-full max-h-[90vh] overflow-y-auto scrollbar-game"
+                className="glass-panel-dark-opaque p-8 xl:max-w-[60vw] lg:max-w-[70vw] md:max-w-[80vw] max-w-[90vw] w-full max-h-[90vh] overflow-y-auto scrollbar-game"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}

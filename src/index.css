@@ -55,6 +55,7 @@ body {
 
     /* Frost Glass Colors */
     --color-glass-bg: rgba(20, 35, 55, 0.6);
+    --color-glass-bg-opaque: rgba(20, 35, 55, 1);
     --color-glass-border: rgba(168, 212, 240, 0.25);
     --color-glass-highlight: rgba(200, 220, 255, 0.1);
     --color-frost-glass: rgba(180, 200, 230, 0.15);
@@ -67,6 +68,13 @@ body {
 
 @utility glass-panel-dark {
     @apply bg-glass-bg border border-glass-border rounded-xl;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@utility glass-panel-dark-opaque {
+    @apply bg-glass-bg-opaque border border-glass-border rounded-xl;
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -110,7 +118,6 @@ body {
     background: linear-gradient(135deg,
             rgba(30, 50, 70, 0.6),
             rgba(50, 70, 100, 0.4));
-    backdrop-filter: blur(12px);
     border: 1px solid rgba(168, 212, 240, 0.3);
     color: var(--color-game-primary);
     padding: 12px 32px;
@@ -143,7 +150,18 @@ body {
     background: linear-gradient(145deg,
             rgba(25, 40, 60, 0.7),
             rgba(15, 25, 40, 0.8));
-    backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 212, 240, 0.15);
+    border-radius: 16px;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+@utility game-card-opaque {
+    background: linear-gradient(145deg,
+            rgba(25, 40, 60, 1),
+            rgba(15, 25, 40, 1));
     border: 1px solid rgba(168, 212, 240, 0.15);
     border-radius: 16px;
     transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
