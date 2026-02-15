@@ -93,7 +93,7 @@ function SkillPage() {
     return (
         <div className="page-container">
             <BackButton variant="fixed" />
-            <div className="z-1000 p-8 absolute top-0 flex flex-col w-full bg-gradient-to-b from-game-bg-dark/100 to-transparent">
+            <div className="z-40 p-8 absolute top-0 flex flex-col w-full bg-gradient-to-b from-game-bg-dark/100 to-transparent">
                 {/* Header */}
                 <animated.div style={headerSpring} className="text-center mb-2">
                     <h1 className="text-3xl md:text-4xl font-bold mb-2">

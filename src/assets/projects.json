@@ -6,12 +6,21 @@
             "longDescription": "A game project currently cooking with my friend. More details will be revealed soon!",
             "thumbnailFit": "cover",
             "thumbnail": "lie/desktop.png",
-            "technologies": ["Unity", "C#", "Aseprite"],
+            "technologies": [
+                "Unity",
+                "C#",
+                "Aseprite"
+            ],
             "type": "Game",
             "status": "In Progress",
             "imagesFit": "contain",
-            "images": ["lie/desktop.png", "lie/desktop_clear.png"],
-            "features": ["Very funny"]
+            "images": [
+                "lie/desktop.png",
+                "lie/desktop_clear.png"
+            ],
+            "features": [
+                "Very funny"
+            ]
         },
         {
             "title": "Story Mosaic",
@@ -80,7 +89,9 @@
             "longDescription": "3D software(CPU) graphics rendering engine written in C++. Implemented the entire rendering pipeline, including 3D transformation, triangle rasterization, shading, texture mapping, normal mapping, shadow testing, and other advanced graphics techniques.",
             "thumbnailFit": "cover",
             "thumbnail": "renderer/thumbnail.png",
-            "technologies": ["C++"],
+            "technologies": [
+                "C++"
+            ],
             "type": "Graphics",
             "status": "Completed",
             "githubUrl": "https://github.com/LiTianchu/MiniRenderer",
@@ -108,12 +119,19 @@
             "longDescription": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes. Implemented various graphics techniques including Phong shading, cube mapping, skyboxes, normal vector visualization. Will work on it when I feel like it.",
             "thumbnailFit": "cover",
             "thumbnail": "opengl/normal_visualizer.png",
-            "technologies": ["C++", "OpenGL", "GLFW", "Assimp"],
+            "technologies": [
+                "C++",
+                "OpenGL",
+                "GLFW",
+                "Assimp"
+            ],
             "type": "Graphics",
             "status": "In Progress",
             "githubUrl": "https://github.com/LiTianchu/my-opengl-renderer",
             "imagesFit": "contain",
-            "images": ["opengl/normal_visualizer.png"],
+            "images": [
+                "opengl/normal_visualizer.png"
+            ],
             "features": [
                 "Various 3D rendering techniques with OpenGL",
                 "Model importing with Assimp",
@@ -126,7 +144,13 @@
             "longDescription": "A simple web-based tool to create smooth morphing animations between SVGs. Supports uploading, rendering and exporting animations with different animation easing options.",
             "thumbnailFit": "cover",
             "thumbnail": "svg_morph/thumbnail.png",
-            "technologies": ["React", "JavaScript", "D3.js", "SVG", "FFmpeg"],
+            "technologies": [
+                "React",
+                "JavaScript",
+                "D3.js",
+                "SVG",
+                "FFmpeg"
+            ],
             "type": "Web",
             "status": "Completed",
             "githubUrl": "https://github.com/LiTianchu/SVG-Morph",
@@ -148,11 +172,17 @@
             "longDescription": "A 3D narrative-driven game developed in Unity, created for learning purposes. Features stylized pixel art rendering, custom dialogue system, and branching storylines",
             "thumbnailFit": "cover",
             "thumbnail": "doctor/demo_render.png",
-            "technologies": ["Unity", "C#"],
+            "technologies": [
+                "Unity",
+                "C#"
+            ],
             "type": "Game",
             "status": "Completed",
             "imagesFit": "contain",
-            "images": ["doctor/demo_ui.png", "doctor/demo_render.png"],
+            "images": [
+                "doctor/demo_ui.png",
+                "doctor/demo_render.png"
+            ],
             "liveUrl": "https://ltc0522.itch.io/project",
             "features": [
                 "Custom dialogue system with branching storylines",
@@ -166,7 +196,10 @@
             "longDescription": "An experimental comedic narrative puzzle game based off game industry memes. Role in the team: Programmer, Designer and Writer",
             "thumbnailFit": "cover",
             "thumbnail": "dnar/title.png",
-            "technologies": ["Unity", "C#"],
+            "technologies": [
+                "Unity",
+                "C#"
+            ],
             "type": "Game",
             "status": "Completed",
             "liveUrl": "https://ltc0522.itch.io/dnar",
@@ -190,7 +223,11 @@
             "longDescription": "A RPG framework built in Godot Engine to facilitate the development of 2D RPG games. Contains a map system, quest system, inventory management, SRPG battle system, weather system and more.",
             "thumbnailFit": "cover",
             "thumbnail": "rpg/day.png",
-            "technologies": ["Godot", "C#", "Aseprite"],
+            "technologies": [
+                "Godot",
+                "C#",
+                "Aseprite"
+            ],
             "type": "Game",
             "status": "In Progress",
             "imagesFit": "contain",
@@ -212,7 +249,11 @@
             "longDescription": "A worker placement strategy game that captures the essence of real-time strategy games. You play as a goddess that helps lost souls to respawn in Isekai as adventurers, with the end goal of defeating the demon lord.",
             "thumbnailFit": "cover",
             "thumbnail": "goddess/thumbnail.png",
-            "technologies": ["Unity", "C#", "Procreate"],
+            "technologies": [
+                "Unity",
+                "C#",
+                "Procreate"
+            ],
             "type": "Game",
             "status": "Completed",
             "liveUrl": "https://ltc0522.itch.io/isekai-goddess-simulator",
@@ -233,7 +274,10 @@
             "longDescription": "A collection of my pixel art drawings created for fun. Will do more when I feel like it.",
             "thumbnailFit": "cover",
             "thumbnail": "pixel/floating_time.jpg",
-            "technologies": ["Aseprite", "Procreate"],
+            "technologies": [
+                "Aseprite",
+                "Procreate"
+            ],
             "type": "Art",
             "status": "In Progress",
             "imagesFit": "contain",
@@ -244,7 +288,9 @@
                 "pixel/overgrown_classroom.jpg",
                 "pixel/pixelart_structure.jpg"
             ],
-            "features": ["It's quite cool"]
+            "features": [
+                "It's quite cool"
+            ]
         },
         {
             "title": "UI/UX Prototype for NTU Learn",
@@ -252,7 +298,9 @@
             "longDescription": "A UI redesign for NTU Learn platform. A 4-people group project submission for a Interface Design course in NTU. We focused on improving user experience, accessibility, and visual design to create a more intuitive and engaging learning environment for students.",
             "thumbnailFit": "cover",
             "thumbnail": "ntulearn/preview.png",
-            "technologies": ["Figma"],
+            "technologies": [
+                "Figma"
+            ],
             "type": "Art",
             "status": "Completed",
             "liveUrl": "https://www.figma.com/proto/kIdDxNys3V1JzHm5ggt9nV/spacejam---NTULearn?node-id=137-3132&node-type=frame&t=lBQE05sUtLZlyya0-1&scaling=scale-down&content-scaling=responsive&page-id=0%3A1&starting-point-node-id=137%3A3132&show-proto-sidebar=1",
@@ -275,7 +323,10 @@
             "longDescription": "A collection of my graphic design works created for various art-related courses back in College. Contains a variety of visual designs including posters, product analysis, and abstract illustrations.",
             "thumbnailFit": "cover",
             "thumbnail": "graphic_design/prod2.jpg",
-            "technologies": ["Adobe Illustrator", "Adobe Photoshop"],
+            "technologies": [
+                "Adobe Illustrator",
+                "Adobe Photoshop"
+            ],
             "type": "Art",
             "status": "Completed",
             "imagesFit": "contain",
@@ -299,11 +350,15 @@
             "longDescription": "The classic Blender donut exercise I did for learning modern 3D content creation pipeline. Followed the Blender Guru's tutorial to create a realistic donut model, with PBR material, ray-traced lighting, and post-processing effects.",
             "thumbnailFit": "cover",
             "thumbnail": "3d_art/blender_donut.jpg",
-            "technologies": ["Blender"],
+            "technologies": [
+                "Blender"
+            ],
             "type": "Art",
             "status": "Completed",
             "imagesFit": "contain",
-            "images": ["3d_art/blender_donut.jpg"],
+            "images": [
+                "3d_art/blender_donut.jpg"
+            ],
             "features": [
                 "Learned the complete 3D pipeline including modeling, texturing, sculpting, shading, and post-processing",
                 "Applied PBR materials for realistic rendering",
@@ -313,9 +368,9 @@
         {
             "title": "This Website",
             "description": "Congrats! You have found the meta!",
-            "longDescription": "Congrats! You have found the meta! Hope you enjoy the experience of exploring my website. I am planning to add more interesting things in the future. \n Asset Credits: \nFree Skybox Textures - crystallotus\nForest House - peachyroyalty",
+            "longDescription": "Congrats! You have found the meta! Hope you enjoy the experience of exploring my website. I am planning to add more interesting things in the future. \n Asset Credits: \nFree Skybox Textures - crystallotus\nForest House - peachyroyalty\nJapanese Town Sreet - Michał Solarek",
             "thumbnailFit": "cover",
-            "thumbnail": "this_site/thumbnail.png",
+            "thumbnail": "this_site/thumbnail2.png",
             "technologies": [
                 "React",
                 "TypeScript",

@@ -17,10 +17,10 @@ import {
 } from '@react-three/postprocessing';
 
 // Preload the model
-// useGLTF.preload(
-//     import.meta.env.BASE_URL + '/models/japanese_town_street/scene.glb'
-// );
-useGLTF.preload(import.meta.env.BASE_URL + '/models/forest_house/scene.glb');
+useGLTF.preload(
+    import.meta.env.BASE_URL + '/models/japanese_town_street/scene.glb'
+);
+// useGLTF.preload(import.meta.env.BASE_URL + '/models/forest_house/scene.glb');
 
 const SceneDirectionalLight: React.FC = () => {
     const lightRef = useRef<THREE.DirectionalLight>(null);
@@ -33,7 +33,6 @@ const SceneDirectionalLight: React.FC = () => {
     return (
         <directionalLight
             ref={lightRef}
-            position={[30, 50, 30]}
             intensity={0.7}
             castShadow={true}
             shadow-mapSize-width={1024}
@@ -105,7 +104,7 @@ const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
         });
     }, [scene]);
 
-    return <primitive object={scene} position={[0, 0, 0]} scale={1} />;
+    return <primitive object={scene} position={[0, 0, 0]} scale={0.1} />;
 };
 
 const Skybox: React.FC = () => {
@@ -177,7 +176,8 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
             ref={waterRef}
             object={waterPlane}
             rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, 4.754, 0]}
+            position={[0, -1.05, 0]}
+            // position={[0, 4.754, 0]}
         />
     );
 };
@@ -230,18 +230,21 @@ const PerformanceMonitor: React.FC<{
 
             // disable heavy effects below 30 FPS
             const FPS_THRESHOLD_1 = 55;
-            const FPS_THRESHOLD_2 = 29;
+            const FPS_THRESHOLD_2 = 40;
+            const FPS_THRESHOLD_3 = 30;
             console.log(`Current FPS: ${fps.toFixed(1)}`);
             if (fps < FPS_THRESHOLD_1) {
                 lowPerfCountRef.current++;
             } else if (fps < FPS_THRESHOLD_2) {
-                lowPerfCountRef.current += 2; // count more heavily if below critical threshold
+                lowPerfCountRef.current += 3; // count more heavily if below low threshold
+            } else if (fps < FPS_THRESHOLD_3) {
+                lowPerfCountRef.current += 5; // count even more heavily if below critical threshold
             } else {
                 lowPerfCountRef.current = 0;
             }
 
-            // report low performance if consistently low for 5 consecutive checks
-            if (lowPerfCountRef.current >= 4 && !hasReportedRef.current) {
+            // report low performance if consistently low for some consecutive checks
+            if (lowPerfCountRef.current >= 10 && !hasReportedRef.current) {
                 console.log(
                     `Low FPS detected: ${fps.toFixed(1)} FPS - Disabling heavy effects`
                 );
@@ -342,8 +345,8 @@ const RendererMain: React.FC = () => {
                         <Skybox />
                         <ambientLight intensity={0.5} />
                         <SceneDirectionalLight />
-                        {/* <Model subPath="japanese_town_street/scene.glb" /> */}
-                        <Model subPath="forest_house/scene.glb" />
+                        <Model subPath="japanese_town_street/scene.glb" />
+                        {/* <Model subPath="forest_house/scene.glb" /> */}
                         <WaterPlane lowPerformance={isLowPerformance} />
                         <SceneReady onReady={handleSceneReady} />
                         <PerformanceMonitor
