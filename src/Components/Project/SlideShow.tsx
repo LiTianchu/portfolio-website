@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useTransition, animated, config } from '@react-spring/web';
 
@@ -7,10 +7,7 @@ interface SlideShowProps {
     imagesFit?: 'cover' | 'contain';
 }
 
-const SlideShow: React.FC<SlideShowProps> = ({
-    images,
-    imagesFit = 'cover',
-}) => {
+function SlideShow({ images, imagesFit = 'cover' }: SlideShowProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
     const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
@@ -176,6 +173,6 @@ const SlideShow: React.FC<SlideShowProps> = ({
             </div>
         </div>
     );
-};
+}
 
 export default SlideShow;

@@ -1,11 +1,10 @@
-import React from 'react';
 import { useSpring, animated, useSprings, config } from '@react-spring/web';
 import ExperienceItem from './ExperienceItem';
 import type { ExperienceItemProps } from './ExperienceItem';
 import experiencesJSON from '@assets/experiences.json';
 import BackButton from '@comp/Common/BackButton';
 
-const ExperiencePage: React.FC = () => {
+function ExperiencePage() {
     const experienceItems: ExperienceItemProps[] =
         (experiencesJSON as { experiences: ExperienceItemProps[] })
             .experiences || [];
@@ -122,6 +121,6 @@ const ExperiencePage: React.FC = () => {
             </div>
         </div>
     );
-};
+}
 
 export default ExperiencePage;

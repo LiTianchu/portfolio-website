@@ -7,7 +7,7 @@ interface ParticlesProps {
     timeOfDay: 'day' | 'night' | 'sunset';
 }
 
-const Particles: React.FC<ParticlesProps> = ({ count, timeOfDay }) => {
+function Particles({ count, timeOfDay }: ParticlesProps) {
     const mesh = useRef<THREE.Points>(null);
 
     const particles = useMemo(() => {
@@ -90,7 +90,7 @@ const Particles: React.FC<ParticlesProps> = ({ count, timeOfDay }) => {
             />
         </points>
     );
-};
+}
 
 interface FloatingGeometryProps {
     timeOfDay: 'day' | 'night' | 'sunset';

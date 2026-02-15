@@ -11,13 +11,13 @@ interface MenuItemProps {
     icon: Icon;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({
+function MenuItem({
     label,
     pageIndex,
     onClick,
     delay,
     icon: Icon, // rename icon to Icon
-}) => {
+}: MenuItemProps) {
     const [hovered, setHovered] = React.useState(false);
 
     const springProps = useSpring({
@@ -69,6 +69,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
             </div>
         </animated.button>
     );
-};
+}
 
 export default MenuItem;

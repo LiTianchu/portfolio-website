@@ -10,7 +10,7 @@ interface ProjectDetailProps {
     onClose: () => void;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
+function ProjectDetail({ project, onClose }: ProjectDetailProps) {
     const modalSpring = useSpring({
         from: { opacity: 0, scale: 0.9, y: 20 },
         to: { opacity: 1, scale: 1, y: 0 },
@@ -150,6 +150,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             </animated.div>
         </animated.div>
     );
-};
+}
 
 export default ProjectDetail;

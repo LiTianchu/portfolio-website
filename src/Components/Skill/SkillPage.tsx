@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import Tree from 'react-d3-tree';
 import type { RawNodeDatum } from 'react-d3-tree';
@@ -23,7 +23,7 @@ export const levelColors: Record<string, string> = {
     Beginner: '#a8d8b8',
 };
 
-const SkillPage: React.FC = () => {
+function SkillPage() {
     const [selectedSkill, setSelectedSkill] = useState<SkillNode | null>(null);
     const [treeData] = useState<RawNodeDatum>(
         (skillsJSON as { skillTree: RawNodeDatum }).skillTree
@@ -167,6 +167,6 @@ const SkillPage: React.FC = () => {
             `}</style>
         </div>
     );
-};
+}
 
 export default SkillPage;

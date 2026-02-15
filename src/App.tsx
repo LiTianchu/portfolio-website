@@ -1,7 +1,8 @@
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy, useMemo } from 'react';
 import { useTransition, animated, config } from '@react-spring/web';
 import { useAppSelector } from '@states/hook';
 import PageLoader from '@comp/Common/PageLoader';
+import BackgroundMusic from '@comp/Common/BackgroundMusic';
 // import Background3D from '@comp/Common/Background3D';
 import RendererMain from '@comp/Renderer/RendererMain';
 
@@ -12,8 +13,31 @@ const ExperiencePage = lazy(() => import('@comp/Experience/ExperiencePage'));
 const ProjectPage = lazy(() => import('@comp/Project/ProjectPage'));
 const SkillPage = lazy(() => import('@comp/Skill/SkillPage'));
 
-const App: React.FC = () => {
+const audioModules = import.meta.glob('@assets/audio/**/*', {
+    eager: false,
+    query: '?url',
+    import: 'default',
+}) as Record<string, () => Promise<string>>;
+
+const BACKGROUND_MUSIC_FILENAME = 'ocean_wave.mp3';
+
+function App() {
     const currentPage = useAppSelector((state) => state.currentPage);
+
+    const getAudioUrl = async (filename: string): Promise<string> => {
+        const path = `/src/assets/audio/${filename}`;
+        const loader: () => Promise<string> = audioModules[path];
+        if (!loader) {
+            console.warn(`Audio file "${filename}" not found in assets/audio.`);
+            return '';
+        }
+        return loader();
+    };
+
+    const audioSrcPromise = useMemo(
+        () => getAudioUrl(BACKGROUND_MUSIC_FILENAME),
+        [BACKGROUND_MUSIC_FILENAME]
+    );
 
     // Page transition animation
     const transitions = useTransition(currentPage, {
@@ -70,14 +94,16 @@ const App: React.FC = () => {
 
             {/* Global scan line effect */}
             <div
-                className="fixed inset-0 pointer-events-none z-50 opacity-[0.02]"
+                className="fixed inset-0 pointer-events-none z-50 opacity-[0.05]"
                 style={{
                     background:
                         'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px)',
                 }}
             />
+
+            <BackgroundMusic audioSrcPromise={audioSrcPromise} />
         </div>
     );
-};
+}
 
 export default App;

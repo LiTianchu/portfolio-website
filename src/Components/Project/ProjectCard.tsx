@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSpring, animated, to } from '@react-spring/web';
 import { typeColors, statusColors } from './ProjectPage';
 import type { Project } from './ProjectPage';
@@ -11,11 +11,7 @@ interface ProjectCardProps {
     style: { opacity: SpringValue<number>; y: SpringValue<number> };
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
-    project,
-    onClick,
-    style,
-}) => {
+function ProjectCard({ project, onClick, style }: ProjectCardProps) {
     const [hovered, setHovered] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageError, setImageError] = useState(false);
@@ -119,5 +115,5 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <div className="absolute inset-0 bg-linear-to-t from-game-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
         </animated.div>
     );
-};
+}
 export default ProjectCard;

@@ -8,10 +8,7 @@ interface BackButtonProps {
     variant?: 'floating' | 'fixed';
 }
 
-const BackButton: React.FC<BackButtonProps> = ({
-    className = '',
-    variant = 'floating',
-}) => {
+function BackButton({ className = '', variant = 'floating' }: BackButtonProps) {
     const dispatch = useAppDispatch();
     const [hovered, setHovered] = React.useState(false);
 
@@ -58,6 +55,6 @@ const BackButton: React.FC<BackButtonProps> = ({
             <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </animated.button>
     );
-};
+}
 
 export default BackButton;

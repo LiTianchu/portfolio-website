@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import type { SkillNode, SkillAttributes } from './SkillPage';
 import { levelColors } from './SkillPage';
@@ -13,7 +12,7 @@ const getSkillIcon = (attributes?: SkillAttributes) => {
     const icon = attributes?.icon;
     return typeof icon === 'string' ? icon : undefined;
 };
-const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onClose }) => {
+function SkillDetail({ skill, onClose }: SkillDetailProps) {
     const modalSpring = useSpring({
         from: { opacity: 0, scale: 0.9 },
         to: { opacity: skill ? 1 : 0, scale: skill ? 1 : 0.9 },
@@ -90,5 +89,5 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onClose }) => {
             )}
         </animated.div>
     );
-};
+}
 export default SkillDetail;

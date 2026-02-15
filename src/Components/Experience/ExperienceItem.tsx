@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import {
     Calendar,
@@ -23,7 +23,7 @@ export interface ExperienceItemProps {
     achievements?: string[];
 }
 
-const ExperienceItem: React.FC<ExperienceItemProps> = ({
+function ExperienceItem({
     title,
     occupationType,
     organizationName,
@@ -33,7 +33,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
     type,
     descPoints,
     achievements,
-}) => {
+}: ExperienceItemProps) {
     const [expanded, setExpanded] = useState(false);
     const [hovered, setHovered] = useState(false);
 
@@ -247,6 +247,6 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
             </div>
         </animated.div>
     );
-};
+}
 
 export default ExperienceItem;

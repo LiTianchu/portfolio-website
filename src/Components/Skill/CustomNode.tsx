@@ -7,11 +7,7 @@ type CustomNodeProps = CustomNodeElementProps & {
     onSkillClick?: (node: SkillNode) => void;
 };
 
-const CustomNode: React.FC<CustomNodeProps> = ({
-    nodeDatum,
-    toggleNode,
-    onSkillClick,
-}) => {
+function CustomNode({ nodeDatum, toggleNode, onSkillClick }: CustomNodeProps) {
     const attributes = nodeDatum.attributes as SkillAttributes | undefined;
     const level = (attributes?.level as string) || 'Intermediate';
     const hasChildren = nodeDatum.children && nodeDatum.children.length > 0;
@@ -152,5 +148,5 @@ const CustomNode: React.FC<CustomNodeProps> = ({
             )}
         </g>
     );
-};
+}
 export default CustomNode;

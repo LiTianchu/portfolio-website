@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSpring, animated, useTrail, config } from '@react-spring/web';
 import {
     MapPin,
@@ -48,7 +48,7 @@ interface AboutData {
     };
 }
 
-const AboutPage: React.FC = () => {
+function AboutPage() {
     const [aboutData] = useState<AboutData>(aboutJSON as AboutData);
     const [copiedEmail, setCopiedEmail] = useState(false);
     const [copiedTelegram, setCopiedTelegram] = useState(false);
@@ -295,6 +295,6 @@ const AboutPage: React.FC = () => {
             </div>
         </div>
     );
-};
+}
 
 export default AboutPage;

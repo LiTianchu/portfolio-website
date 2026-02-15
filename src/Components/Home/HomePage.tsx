@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import { useAppDispatch } from '@states/hook';
 import { changePage } from '@/states/slices/currentPageSlice';
@@ -8,7 +7,7 @@ import PageLoader from '@comp/Common/PageLoader';
 import type { RootState } from '@states/store';
 import MenuItem from './MenuItem';
 
-const HomePage: React.FC = () => {
+function HomePage() {
     const dispatch = useAppDispatch();
     const isSceneLoaded = useSelector(
         (state: RootState) => state.renderer.sceneLoaded
@@ -96,6 +95,6 @@ const HomePage: React.FC = () => {
             )}
         </div>
     );
-};
+}
 
 export default HomePage;

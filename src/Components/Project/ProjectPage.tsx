@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSpring, animated, useSprings, config } from '@react-spring/web';
 import projectsJSON from '@assets/projects.json';
 import BackButton from '@comp/Common/BackButton';
@@ -50,7 +50,7 @@ const imageModules = import.meta.glob('@assets/images/**/*', {
     query: '?url',
     import: 'default',
 });
-const ProjectPage: React.FC = () => {
+function ProjectPage() {
     const [projects, setProjects] = useState<Project[]>([]);
 
     const [selectedProject, setSelectedProject] = useState<Project | null>(
@@ -169,6 +169,6 @@ const ProjectPage: React.FC = () => {
             )}
         </div>
     );
-};
+}
 
 export default ProjectPage;
