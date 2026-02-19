@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { updateIsMobile } from '@states/slices/appSlice';
 import Background3D from '@comp/Common/Background3D';
 import RendererMain from '@comp/Renderer/RendererMain';
+import RendererControlPanel from '@comp/Renderer/RendererControlPanel';
 
 // Lazy load pages for better performance
 const HomePage = lazy(() => import('@comp/Home/HomePage'));
@@ -122,6 +123,8 @@ function App() {
                     </animated.div>
                 ))}
             </main>
+
+            <RendererControlPanel />
 
             {/* Global scan line effect */}
             <div
