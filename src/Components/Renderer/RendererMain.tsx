@@ -273,16 +273,26 @@ const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
 
 const PerformanceMonitor: React.FC<{
     onPerformanceChange: () => void;
-    disabled?: boolean;
-}> = ({ onPerformanceChange, disabled = false }) => {
+    degradationLevel: number;
+    maxDegradationLevel: number;
+}> = ({ onPerformanceChange, degradationLevel, maxDegradationLevel }) => {
     const lastTimeRef = useRef<number>(performance.now());
     const frameTimesRef = useRef<number[]>([]);
     const lowPerfCountRef = useRef<number>(0);
-    const hasReportedRef = useRef<boolean>(false);
+    const prevDegradationLevelRef = useRef<number>(degradationLevel);
 
     useFrame(() => {
-        // Skip monitoring if disabled (e.g., already in low-performance mode)
-        if (disabled) return;
+        // Stop monitoring if max degradation level reached
+        if (degradationLevel >= maxDegradationLevel) return;
+
+        // Reset counters when degradation level changes (new baseline after downgrade)
+        if (degradationLevel !== prevDegradationLevelRef.current) {
+            prevDegradationLevelRef.current = degradationLevel;
+            lowPerfCountRef.current = 0;
+            frameTimesRef.current = [];
+            lastTimeRef.current = performance.now();
+            return;
+        }
 
         const currentTime = performance.now();
         const deltaTime = currentTime - lastTimeRef.current;
@@ -328,12 +338,12 @@ const PerformanceMonitor: React.FC<{
             }
 
             // report low performance if consistently low for some consecutive checks
-            if (lowPerfCountRef.current >= 10 && !hasReportedRef.current) {
+            if (lowPerfCountRef.current >= 10) {
                 console.log(
-                    `Low FPS detected: ${fps.toFixed(1)} FPS - Disabling heavy effects`
+                    `Low FPS detected: ${fps.toFixed(1)} FPS - Applying degradation level ${degradationLevel + 1}`
                 );
                 onPerformanceChange();
-                hasReportedRef.current = true;
+                lowPerfCountRef.current = 0;
             }
 
             // clear frame times for next batch
@@ -382,8 +392,6 @@ const PostProcessingEffects: React.FC = () => {
     const hasAnyEffect =
         vignetteEnabled || depthOfFieldEnabled || chromaticAberrationEnabled;
 
-    if (!hasAnyEffect) return null;
-
     // Build effect list dynamically to satisfy EffectComposer's children types
     const effects: React.ReactElement[] = [];
 
@@ -412,6 +420,8 @@ const PostProcessingEffects: React.FC = () => {
         effects.push(<ChromaticAberration key="ca" offset={caOffset} />);
     }
 
+    if (!hasAnyEffect) return null;
+
     return <EffectComposer multisampling={4}>{effects}</EffectComposer>;
 };
 
@@ -419,6 +429,8 @@ const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
     const [showNotification, setShowNotification] = useState(false);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+    const [degradationLevel, setDegradationLevel] = useState(0);
+    const [notificationMessage, setNotificationMessage] = useState('');
 
     const ambientLightIntensity = useSelector(
         (state: RootState) => state.renderer.ambientLightIntensity
@@ -441,14 +453,29 @@ const RendererMain: React.FC = () => {
         config: config.slow,
     }));
 
-    // when PerformanceMonitor detects low FPS, downgrade settings automatically
+    // when PerformanceMonitor detects low FPS, downgrade settings in tiers
+    // Tier 1: disable post-processing + lower water reflection (biggest perf impact)
+    // Tier 2: further reduce water reflection quality
     const handleLowPerformance = () => {
-        dispatch(updateDepthOfFieldEnabled(false));
-        dispatch(updateChromaticAberrationEnabled(false));
-        dispatch(updateVignetteEnabled(false));
-        dispatch(updateWaterReflectionSize(64));
+        setDegradationLevel((prev) => {
+            if (prev === 0) {
+                // Tier 1: Disable post-processing + reduce water reflection
+                dispatch(updateDepthOfFieldEnabled(false));
+                dispatch(updateChromaticAberrationEnabled(false));
+                dispatch(updateVignetteEnabled(false));
+                dispatch(updateWaterReflectionSize(256));
+                setNotificationMessage(
+                    'Low FPS – Disabled post-processing effects'
+                );
+            } else if (prev === 1) {
+                // Tier 2: Further reduce water reflection quality
+                dispatch(updateWaterReflectionSize(64));
+                setNotificationMessage('Still low FPS – Reduced water quality');
+            }
+            return prev + 1;
+        });
 
-        // show notification when down grade setting
+        // show notification when downgrade settings
         setShowNotification(true);
         const mountTimer = setTimeout(() => {
             setIsNotificationVisible(true);
@@ -520,7 +547,8 @@ const RendererMain: React.FC = () => {
                         <SceneReady onReady={handleSceneReady} />
                         <PerformanceMonitor
                             onPerformanceChange={handleLowPerformance}
-                            disabled={isMobile}
+                            degradationLevel={isMobile ? 2 : degradationLevel}
+                            maxDegradationLevel={2}
                         />
                         <OrbitControls
                             autoRotate={autoRotate}
@@ -545,7 +573,7 @@ const RendererMain: React.FC = () => {
                 >
                     <div className="flex items-center gap-3 text-center justify-center">
                         <span className="text-xs md:text-sm font-medium">
-                            Low FPS - Disabling heavy effects
+                            {notificationMessage}
                         </span>
                     </div>
                 </div>
