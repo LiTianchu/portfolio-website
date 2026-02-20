@@ -143,7 +143,7 @@ const WaterSettings: React.FC = () => {
                 label="Reflection Quality"
                 value={r.waterReflectionSize}
                 options={WATER_REFLECTION_SIZES.map((s) => ({
-                    label: `${s}×${s}${s === 128 ? ' (default)' : ''}`,
+                    label: `${s}×${s}${s === 512 ? ' (default)' : ''}`,
                     value: s,
                 }))}
                 onChange={(v) => dispatch(updateWaterReflectionSize(Number(v)))}
