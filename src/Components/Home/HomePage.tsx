@@ -1,7 +1,7 @@
 import { useSpring, animated, config } from '@react-spring/web';
 import { useAppDispatch } from '@states/hook';
 import { changePage } from '@/states/slices/currentPageSlice';
-import { Code, Save, Zap, Coffee } from 'react-feather';
+import { Code, Save, Zap, Coffee, Sliders } from 'react-feather';
 import { useSelector } from 'react-redux';
 import PageLoader from '@comp/Common/PageLoader';
 import type { RootState } from '@states/store';
@@ -38,6 +38,7 @@ function HomePage() {
         { label: 'EXPERIENCES', pageIndex: 2, icon: Save },
         { label: 'SKILLS', pageIndex: 4, icon: Zap },
         { label: 'ABOUT', pageIndex: 1, icon: Coffee },
+        { label: 'PLAY', pageIndex: 5, icon: Sliders },
     ];
 
     return (
@@ -73,16 +74,20 @@ function HomePage() {
 
                     {/* Menu Items */}
                     <div className="flex flex-col gap-4 items-center">
-                        {menuItems.map((item, index) => (
-                            <MenuItem
-                                key={item.label}
-                                label={item.label}
-                                pageIndex={item.pageIndex}
-                                onClick={handleMenuClick}
-                                delay={400 + index * 100}
-                                icon={item.icon}
-                            />
-                        ))}
+                        {menuItems
+                            .filter((item) => {
+                                return item.label !== 'PLAY' || !isMobile;
+                            })
+                            .map((item, index) => (
+                                <MenuItem
+                                    key={item.label}
+                                    label={item.label}
+                                    pageIndex={item.pageIndex}
+                                    onClick={handleMenuClick}
+                                    delay={400 + index * 100}
+                                    icon={item.icon}
+                                />
+                            ))}
                     </div>
 
                     {/* Footer hint */}

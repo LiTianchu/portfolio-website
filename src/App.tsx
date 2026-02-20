@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { updateIsMobile } from '@states/slices/appSlice';
 import Background3D from '@comp/Common/Background3D';
 import RendererMain from '@comp/Renderer/RendererMain';
+import RendererControlPanel from '@comp/Renderer/RendererControlPanel';
 
 // Lazy load pages for better performance
 const HomePage = lazy(() => import('@comp/Home/HomePage'));
@@ -118,6 +119,9 @@ function App() {
                             {item === 2 && <ExperiencePage />}
                             {item === 3 && <ProjectPage />}
                             {item === 4 && <SkillPage />}
+                            {item === 5 && !isMobile && (
+                                <RendererControlPanel />
+                            )}
                         </Suspense>
                     </animated.div>
                 ))}
