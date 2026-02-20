@@ -322,10 +322,10 @@ function RendererControlPanel() {
     return (
         <>
             {/* Top gradient with back button */}
-            <div className="bottom-0 left-0 right-0 h-1/8 max-h-20 text-center bg-linear-to-b from-game-bg-dark to-transparent z-50">
+            <div className="bottom-0 left-0 right-0 h-1/8 max-h-20 text-center bg-linear-to-b from-game-bg-light to-transparent z-50">
                 <BackButton />
             </div>
-            <div className="absolute flex flex-col justify-start gap-2 bottom-0 left-0 right-0 h-1/4 max-h-80 text-center bg-linear-to-t from-game-bg-dark to-transparent z-50">
+            <div className="absolute flex flex-col justify-start gap-2 bottom-0 left-0 right-0 h-1/4 max-h-80 text-center bg-linear-to-t from-game-bg-light to-transparent z-50">
                 {/* Header and left/right arrow */}
                 <div className="flex items-center justify-between gap-4 max-w-3xl w-7/11 mx-auto">
                     <button onClick={handlePrevious}>
