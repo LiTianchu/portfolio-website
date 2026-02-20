@@ -44,28 +44,21 @@ function BackgroundMusic({ audioSrcPromise }: BackgroundMusicProps) {
                     </audio>
                     <button
                         onClick={toggleAudio}
-                        style={{
-                            position: 'fixed',
-                            bottom: '20px',
-                            right: '20px',
-                            zIndex: 1000,
-                            padding: '12px',
-                            borderRadius: '50%',
-                            border: 'none',
-                            cursor: 'pointer',
-                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                            backdropFilter: 'blur(10px)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            transition: 'all 0.3s ease',
-                        }}
+                        className="fixed bottom-5 right-5 z-[1000] p-3 rounded-full border-none cursor-pointer bg-game-bg-medium hover:bg-light-ink/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 ease-in-out"
                         aria-label={isPlaying ? 'Mute' : 'Unmute'}
                     >
                         {isPlaying ? (
-                            <Volume2 size={20} color="rgba(255, 255, 255, 0.8)" strokeWidth={1.5} />
+                            <Volume2
+                                size={20}
+                                color="rgba(255, 255, 255, 0.8)"
+                                strokeWidth={1.5}
+                            />
                         ) : (
-                            <VolumeX size={20} color="rgba(255, 255, 255, 0.5)" strokeWidth={1.5} />
+                            <VolumeX
+                                size={20}
+                                color="rgba(255, 255, 255, 0.5)"
+                                strokeWidth={1.5}
+                            />
                         )}
                     </button>
                 </>

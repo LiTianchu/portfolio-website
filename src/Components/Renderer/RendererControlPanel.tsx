@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BackButton from '@comp/Common/BackButton';
-import { ArrowLeft, ArrowRight } from 'react-feather';
+import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '@states/store';
 import {
@@ -328,14 +328,26 @@ function RendererControlPanel() {
             <div className="absolute flex flex-col justify-start gap-2 bottom-0 left-0 right-0 h-1/4 max-h-80 text-center bg-linear-to-t from-game-bg-light to-transparent z-50">
                 {/* Header and left/right arrow */}
                 <div className="flex items-center justify-between gap-4 max-w-3xl w-7/11 mx-auto">
-                    <button onClick={handlePrevious}>
-                        <ArrowLeft size={36} />
+                    <button
+                        onClick={handlePrevious}
+                        className="cursor-pointer text-game-primary hover:text-light-ink hover:scale-110 transition-all"
+                        style={{
+                            filter: 'drop-shadow(1px 3px 2px rgba(48,48,48,0.6))',
+                        }}
+                    >
+                        <ChevronLeft size={36} />
                     </button>
                     <h3 className="text-xl lg:text-2xl font-bold whitespace-nowrap">
                         {controlPanelSettings[currentSetting]}
                     </h3>
-                    <button onClick={handleNext}>
-                        <ArrowRight size={36} />
+                    <button
+                        onClick={handleNext}
+                        className="cursor-pointer text-game-primary hover:text-light-ink hover:scale-110 transition-all"
+                        style={{
+                            filter: 'drop-shadow(1px 3px 2px rgba(48,48,48,0.6))',
+                        }}
+                    >
+                        <ChevronRight size={36} />
                     </button>
                 </div>
 
@@ -346,7 +358,7 @@ function RendererControlPanel() {
                             <button
                                 key={controlPanelSettings[index]}
                                 onClick={() => updateCurrentSetting(index)}
-                                className={`rounded-full h-2 transition-all duration-300 w-${index === currentSetting ? 6 + ' bg-game-primary' : 2 + ' bg-game-text-muted hover:bg-game-primary'} `}
+                                className={`rounded-full h-2 cursor-pointer transition-all duration-300 w-${index === currentSetting ? 6 + ' bg-game-primary' : 2 + ' bg-game-text-muted hover:bg-game-primary'} `}
                             ></button>
                         );
                     })}
