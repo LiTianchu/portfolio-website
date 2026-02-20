@@ -61,7 +61,7 @@ function ProjectDetail({ project, onClose }: ProjectDetailProps) {
                     </div>
                     <button
                         onClick={onClose}
-                        className="text-game-text-muted hover:text-game-primary text-2xl transition-colors"
+                        className="text-game-text-muted hover:text-game-primary cursor-pointer text-2xl transition-colors"
                     >
                         <X size={30} />
                     </button>

@@ -120,33 +120,21 @@ function SlideShow({ images, imagesFit = 'cover' }: SlideShowProps) {
                     <div className="flex absolute justify-between top-0 w-full px-0 h-full">
                         <button
                             onClick={prevSlide}
-                            className="filter drop-shadow-lg text-game-primary "
+                            className="filter drop-shadow-lg text-game-primary cursor-pointer hover:text-light-ink hover:scale-110 transition-all"
                             style={{
-                                textShadow: '2px 5px 2px rgba(0,0,0,0.8)',
+                                filter: 'drop-shadow(2px 5px 2px rgba(48,48,48,0.6))',
                             }}
                         >
-                            <ChevronLeft
-                                size={48}
-                                strokeWidth={3}
-                                style={{
-                                    textShadow: ` 1px 2px 0 rgba(0,0,0,0.9), 2px 4px 0 rgba(0,0,0,0.6) `,
-                                }}
-                            />
+                            <ChevronLeft size={48} strokeWidth={3} />
                         </button>
                         <button
                             onClick={nextSlide}
-                            className="filter drop-shadow-lg text-game-primary "
+                            className="filter drop-shadow-lg text-game-primary cursor-pointer hover:text-light-ink hover:scale-110 transition-all"
                             style={{
-                                textShadow: '2px 5px 2px rgba(0,0,0,0.8)',
+                                filter: 'drop-shadow(2px 5px 2px rgba(48,48,48,0.6))',
                             }}
                         >
-                            <ChevronRight
-                                size={48}
-                                strokeWidth={3}
-                                style={{
-                                    textShadow: ` 1px 2px 0 rgba(0,0,0,0.9), 2px 4px 0 rgba(0,0,0,0.6) `,
-                                }}
-                            />
+                            <ChevronRight size={48} strokeWidth={3} />
                         </button>
                     </div>
                 </div>
@@ -163,7 +151,7 @@ function SlideShow({ images, imagesFit = 'cover' }: SlideShowProps) {
                             );
                             setCurrentIndex(index);
                         }}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer${
                             index === currentIndex
                                 ? 'bg-game-primary w-6'
                                 : 'bg-game-text-muted hover:bg-game-primary'
