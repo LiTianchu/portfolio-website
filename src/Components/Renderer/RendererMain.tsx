@@ -7,15 +7,23 @@ import * as THREE from 'three';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '@states/store';
 import { useSpring, animated, config } from '@react-spring/web';
-import { updateSceneLoaded } from '@states/slices/rendererSlice';
-// import { useHelper } from '@react-three/drei';
-// import { DirectionalLightHelper } from 'three';
+import {
+    updateSceneLoaded,
+    updateDepthOfFieldEnabled,
+    updateChromaticAberrationEnabled,
+    updateVignetteEnabled,
+    updateWaterReflectionSize,
+} from '@states/slices/rendererSlice';
+import { useHelper } from '@react-three/drei';
+import { DirectionalLightHelper } from 'three';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import {
     EffectComposer,
     Vignette,
     DepthOfField,
+    ChromaticAberration,
 } from '@react-three/postprocessing';
+import { Vector2 } from 'three';
 
 // Preload the model
 useGLTF.preload(
@@ -25,25 +33,67 @@ useGLTF.preload(
 
 const SceneDirectionalLight: React.FC = () => {
     const lightRef = useRef<THREE.DirectionalLight>(null);
-    // useHelper(
-    //     lightRef as React.RefObject<THREE.DirectionalLight>,
-    //     DirectionalLightHelper,
-    //     5,
-    //     'cyan'
-    // );
+    const directionalLightIntensity = useSelector(
+        (state: RootState) => state.renderer.directionalLightIntensity
+    );
+    const sunColor = useSelector((state: RootState) => state.renderer.sunColor);
+    const sunAzimuth = useSelector(
+        (state: RootState) => state.renderer.sunAzimuth
+    );
+    const sunElevation = useSelector(
+        (state: RootState) => state.renderer.sunElevation
+    );
+    const shadowMapSize = useSelector(
+        (state: RootState) => state.renderer.shadowMapSize
+    );
+
+    const sunPosition = useMemo(() => {
+        const r = 100;
+        const azRad = (sunAzimuth * Math.PI) / 180;
+        const elRad = (sunElevation * Math.PI) / 180;
+        return [
+            r * Math.cos(elRad) * Math.cos(azRad),
+            r * Math.sin(elRad),
+            r * Math.cos(elRad) * Math.sin(azRad),
+        ] as [number, number, number];
+    }, [sunAzimuth, sunElevation]);
+
+    // Update shadow map size imperatively so changes apply in real-time
+    useEffect(() => {
+        const light = lightRef.current;
+        if (!light) return;
+        light.shadow.mapSize.width = shadowMapSize;
+        light.shadow.mapSize.height = shadowMapSize;
+        // Dispose old map so Three.js recreates it at the new size
+        if (light.shadow.map) {
+            light.shadow.map.dispose();
+            light.shadow.map = null as unknown as THREE.WebGLRenderTarget;
+        }
+        light.shadow.needsUpdate = true;
+    }, [shadowMapSize]);
+
+    useHelper(
+        lightRef as React.RefObject<THREE.DirectionalLight>,
+        DirectionalLightHelper,
+        5,
+        'cyan'
+    );
+
     return (
         <directionalLight
             ref={lightRef}
-            intensity={0.7}
+            position={sunPosition}
+            intensity={directionalLightIntensity}
+            color={sunColor}
             castShadow={true}
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
+            shadow-mapSize-width={shadowMapSize}
+            shadow-mapSize-height={shadowMapSize}
             shadow-camera-near={1}
-            shadow-camera-far={500}
-            shadow-camera-left={-50}
-            shadow-camera-right={50}
-            shadow-camera-top={50}
-            shadow-camera-bottom={-50}
+            shadow-camera-far={1000}
+            shadow-camera-left={-100}
+            shadow-camera-right={100}
+            shadow-camera-top={100}
+            shadow-camera-bottom={-100}
             shadow-bias={-0.0001}
             shadow-normalBias={0.02}
         />
@@ -110,9 +160,10 @@ const Model: React.FC<{ subPath: string }> = ({ subPath }) => {
 
 const Skybox: React.FC = () => {
     const { scene } = useThree();
+    const skybox = useSelector((state: RootState) => state.renderer.skybox);
     const texture = useLoader(
         THREE.TextureLoader,
-        import.meta.env.BASE_URL + '/skyboxes/PurplyBlueSky.png'
+        import.meta.env.BASE_URL + `/skyboxes/${skybox}`
     );
 
     useEffect(() => {
@@ -128,14 +179,24 @@ const Skybox: React.FC = () => {
     return null;
 };
 
-const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
-    lowPerformance = false,
-}) => {
+const WaterPlane: React.FC = () => {
     const waterRef = useRef<Water>(null);
+    const waterColor = useSelector(
+        (state: RootState) => state.renderer.waterColor
+    );
+    const waterReflectionSize = useSelector(
+        (state: RootState) => state.renderer.waterReflectionSize
+    );
+    const waterFogEnabled = useSelector(
+        (state: RootState) => state.renderer.waterFogEnabled
+    );
+    const sunColor = useSelector((state: RootState) => state.renderer.sunColor);
     const waterNormals = useLoader(
         THREE.TextureLoader,
         'https://threejs.org/examples/textures/waternormals.jpg'
     );
+
+    const isLowRes = waterReflectionSize <= 64;
 
     const waterPlane = useMemo(() => {
         waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
@@ -145,18 +206,18 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
             new THREE.PlaneGeometry(
                 1000,
                 1000,
-                lowPerformance ? 8 : 16,
-                lowPerformance ? 8 : 16
+                isLowRes ? 8 : 16,
+                isLowRes ? 8 : 16
             ),
             {
-                textureWidth: lowPerformance ? 64 : 128,
-                textureHeight: lowPerformance ? 64 : 128,
+                textureWidth: waterReflectionSize,
+                textureHeight: waterReflectionSize,
                 waterNormals: waterNormals,
                 sunDirection: new THREE.Vector3(),
-                sunColor: 0xffffff,
-                waterColor: 0x001e0f,
+                sunColor: new THREE.Color(sunColor).getHex(),
+                waterColor: new THREE.Color(waterColor).getHex(),
                 distortionScale: 3,
-                fog: !lowPerformance,
+                fog: waterFogEnabled,
             }
         );
 
@@ -164,7 +225,14 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
         water.material.needsUpdate = true;
 
         return water;
-    }, [waterNormals, lowPerformance]);
+    }, [
+        waterNormals,
+        isLowRes,
+        waterReflectionSize,
+        waterColor,
+        sunColor,
+        waterFogEnabled,
+    ]);
 
     useFrame((_, delta) => {
         if (waterRef.current && waterRef.current.material.uniforms['time']) {
@@ -178,7 +246,6 @@ const WaterPlane: React.FC<{ lowPerformance?: boolean }> = ({
             object={waterPlane}
             rotation={[-Math.PI / 2, 0, 0]}
             position={[0, -1.05, 0]}
-            // position={[0, 4.754, 0]}
         />
     );
 };
@@ -202,7 +269,7 @@ const SceneReady: React.FC<{ onReady: () => void }> = ({ onReady }) => {
 };
 
 const PerformanceMonitor: React.FC<{
-    onPerformanceChange: (isLowPerf: boolean) => void;
+    onPerformanceChange: () => void;
     disabled?: boolean;
 }> = ({ onPerformanceChange, disabled = false }) => {
     const lastTimeRef = useRef<number>(performance.now());
@@ -262,7 +329,7 @@ const PerformanceMonitor: React.FC<{
                 console.log(
                     `Low FPS detected: ${fps.toFixed(1)} FPS - Disabling heavy effects`
                 );
-                onPerformanceChange(true);
+                onPerformanceChange();
                 hasReportedRef.current = true;
             }
 
@@ -274,44 +341,128 @@ const PerformanceMonitor: React.FC<{
     return null;
 };
 
+const PostProcessingEffects: React.FC = () => {
+    const vignetteEnabled = useSelector(
+        (state: RootState) => state.renderer.vignetteEnabled
+    );
+    const vignetteOffset = useSelector(
+        (state: RootState) => state.renderer.vignetteOffset
+    );
+    const vignetteDarkness = useSelector(
+        (state: RootState) => state.renderer.vignetteDarkness
+    );
+    const depthOfFieldEnabled = useSelector(
+        (state: RootState) => state.renderer.depthOfFieldEnabled
+    );
+    const dofFocalLength = useSelector(
+        (state: RootState) => state.renderer.dofFocalLength
+    );
+    const dofBokehScale = useSelector(
+        (state: RootState) => state.renderer.dofBokehScale
+    );
+    const chromaticAberrationEnabled = useSelector(
+        (state: RootState) => state.renderer.chromaticAberrationEnabled
+    );
+    const chromaticAberrationOffsetX = useSelector(
+        (state: RootState) => state.renderer.chromaticAberrationOffsetX
+    );
+    const chromaticAberrationOffsetY = useSelector(
+        (state: RootState) => state.renderer.chromaticAberrationOffsetY
+    );
+
+    const caOffset = useMemo(
+        () =>
+            new Vector2(chromaticAberrationOffsetX, chromaticAberrationOffsetY),
+        [chromaticAberrationOffsetX, chromaticAberrationOffsetY]
+    );
+
+    const hasAnyEffect =
+        vignetteEnabled || depthOfFieldEnabled || chromaticAberrationEnabled;
+
+    if (!hasAnyEffect) return null;
+
+    // Build effect list dynamically to satisfy EffectComposer's children types
+    const effects: React.ReactElement[] = [];
+
+    if (vignetteEnabled) {
+        effects.push(
+            <Vignette
+                key="vig"
+                offset={vignetteOffset}
+                darkness={vignetteDarkness}
+            />
+        );
+    }
+
+    if (depthOfFieldEnabled) {
+        effects.push(
+            <DepthOfField
+                key="dof"
+                target={0}
+                focalLength={dofFocalLength}
+                bokehScale={dofBokehScale}
+            />
+        );
+    }
+
+    if (chromaticAberrationEnabled) {
+        effects.push(<ChromaticAberration key="ca" offset={caOffset} />);
+    }
+
+    return <EffectComposer multisampling={4}>{effects}</EffectComposer>;
+};
+
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
-    const [isLowPerformance, setIsLowPerformance] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+
+    const ambientLightIntensity = useSelector(
+        (state: RootState) => state.renderer.ambientLightIntensity
+    );
+    const autoRotate = useSelector(
+        (state: RootState) => state.renderer.autoRotate
+    );
+    const autoRotateSpeed = useSelector(
+        (state: RootState) => state.renderer.autoRotateSpeed
+    );
+    const shadowType = useSelector(
+        (state: RootState) => state.renderer.shadowType
+    );
+    const fogEnabled = useSelector(
+        (state: RootState) => state.renderer.fogEnabled
+    );
 
     const [canvasSpringStyles, canvasSpringApi] = useSpring(() => ({
         opacity: 0,
         config: config.slow,
     }));
 
-    // Show notification when low performance is detected
-    useEffect(() => {
-        if (isLowPerformance && !showNotification) {
-            setShowNotification(true);
+    // When PerformanceMonitor detects low FPS, downgrade settings via Redux
+    const handleLowPerformance = () => {
+        dispatch(updateDepthOfFieldEnabled(false));
+        dispatch(updateChromaticAberrationEnabled(false));
+        dispatch(updateVignetteEnabled(false));
+        dispatch(updateWaterReflectionSize(64));
 
-            // Trigger fade-in after mount
-            const mountTimer = setTimeout(() => {
-                setIsNotificationVisible(true);
-            }, 10);
+        // Show notification
+        setShowNotification(true);
+        const mountTimer = setTimeout(() => {
+            setIsNotificationVisible(true);
+        }, 10);
+        const fadeTimer = setTimeout(() => {
+            setIsNotificationVisible(false);
+        }, 4000);
+        const hideTimer = setTimeout(() => {
+            setShowNotification(false);
+        }, 5000);
 
-            // Start fade out after 4 seconds
-            const fadeTimer = setTimeout(() => {
-                setIsNotificationVisible(false);
-            }, 4000);
-
-            // Completely remove after fade-out transition completes
-            const hideTimer = setTimeout(() => {
-                setShowNotification(false);
-            }, 5000);
-
-            return () => {
-                clearTimeout(mountTimer);
-                clearTimeout(fadeTimer);
-                clearTimeout(hideTimer);
-            };
-        }
-    }, [isLowPerformance]);
+        return () => {
+            clearTimeout(mountTimer);
+            clearTimeout(fadeTimer);
+            clearTimeout(hideTimer);
+        };
+    };
 
     const handleSceneReady = () => {
         dispatch(updateSceneLoaded(true));
@@ -336,11 +487,10 @@ const RendererMain: React.FC = () => {
                         near: 1,
                         far: 1000,
                     }}
-                    shadows={isLowPerformance ? 'basic' : 'soft'}
-                    dpr={isLowPerformance ? [1, 1] : [1, 2]}
+                    shadows={shadowType}
+                    dpr={[1, 2]}
                     gl={{
                         antialias:
-                            !isLowPerformance &&
                             typeof window !== 'undefined' &&
                             window.innerWidth > 768,
                         powerPreference: 'high-performance',
@@ -354,43 +504,30 @@ const RendererMain: React.FC = () => {
                     }}
                 >
                     <Suspense fallback={null}>
-                        {!isLowPerformance && (
+                        {fogEnabled && (
                             <fog attach="fog" args={['#87ceeb', 50, 500]} />
                         )}
                         <Skybox />
-                        <ambientLight intensity={0.5} />
+                        <ambientLight intensity={ambientLightIntensity} />
                         <SceneDirectionalLight />
                         <Model subPath="japanese_town_street/scene.glb" />
                         {/* <Model subPath="forest_house/scene.glb" /> */}
-                        <WaterPlane lowPerformance={isLowPerformance} />
+                        <WaterPlane />
                         <SceneReady onReady={handleSceneReady} />
                         <PerformanceMonitor
-                            onPerformanceChange={setIsLowPerformance}
+                            onPerformanceChange={handleLowPerformance}
                             disabled={isMobile}
                         />
                         <OrbitControls
-                            autoRotate
-                            autoRotateSpeed={1}
+                            autoRotate={autoRotate}
+                            autoRotateSpeed={autoRotateSpeed}
                             enableZoom={true}
                             enablePan={true}
                             enableDamping
                             dampingFactor={0.05}
                             makeDefault
                         />
-                        {isLowPerformance ? (
-                            <EffectComposer multisampling={0}>
-                                <Vignette offset={0.4} darkness={0.5} />
-                            </EffectComposer>
-                        ) : (
-                            <EffectComposer multisampling={4}>
-                                <Vignette offset={0.4} darkness={0.5} />
-                                <DepthOfField
-                                    target={0}
-                                    focalLength={40}
-                                    bokehScale={1}
-                                />
-                            </EffectComposer>
-                        )}
+                        <PostProcessingEffects />
                     </Suspense>
                 </Canvas>
             </animated.div>
