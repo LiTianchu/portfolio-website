@@ -44,12 +44,14 @@ export interface Project {
     liveUrl?: string;
     features: string[];
 }
+
 // vite glob import for images
 const imageModules = import.meta.glob('@assets/images/**/*', {
     eager: true,
     query: '?url',
     import: 'default',
 });
+
 function ProjectPage() {
     const [projects, setProjects] = useState<Project[]>([]);
 

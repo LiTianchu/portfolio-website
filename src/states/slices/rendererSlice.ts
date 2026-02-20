@@ -84,7 +84,7 @@ const initialState: RendererState = {
     vignetteOffset: 0.4,
     vignetteDarkness: 0.5,
     depthOfFieldEnabled: true,
-    dofFocalLength: 40,
+    dofFocalLength: 90,
     dofBokehScale: 1,
     chromaticAberrationEnabled: false,
     chromaticAberrationOffsetX: 0.002,

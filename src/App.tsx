@@ -119,12 +119,13 @@ function App() {
                             {item === 2 && <ExperiencePage />}
                             {item === 3 && <ProjectPage />}
                             {item === 4 && <SkillPage />}
+                            {item === 5 && !isMobile && (
+                                <RendererControlPanel />
+                            )}
                         </Suspense>
                     </animated.div>
                 ))}
             </main>
-
-            <RendererControlPanel />
 
             {/* Global scan line effect */}
             <div

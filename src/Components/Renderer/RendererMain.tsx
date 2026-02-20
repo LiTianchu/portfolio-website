@@ -14,8 +14,8 @@ import {
     updateVignetteEnabled,
     updateWaterReflectionSize,
 } from '@states/slices/rendererSlice';
-import { useHelper } from '@react-three/drei';
-import { DirectionalLightHelper } from 'three';
+// import { useHelper } from '@react-three/drei';
+// import { DirectionalLightHelper } from 'three';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import {
     EffectComposer,
@@ -25,7 +25,7 @@ import {
 } from '@react-three/postprocessing';
 import { Vector2 } from 'three';
 
-// Preload the model
+// preload the model
 useGLTF.preload(
     import.meta.env.BASE_URL + '/models/japanese_town_street/scene.glb'
 );
@@ -51,20 +51,22 @@ const SceneDirectionalLight: React.FC = () => {
         const r = 100;
         const azRad = (sunAzimuth * Math.PI) / 180;
         const elRad = (sunElevation * Math.PI) / 180;
+
+        // spherical to cartesian conversion
         return [
-            r * Math.cos(elRad) * Math.cos(azRad),
-            r * Math.sin(elRad),
-            r * Math.cos(elRad) * Math.sin(azRad),
+            r * Math.cos(elRad) * Math.cos(azRad), // when elevation = 0, no horizontal component (e.g. cos(90) = 0)
+            r * Math.sin(elRad), // height scale with elevation (e.g. sin(90) = 1)
+            r * Math.cos(elRad) * Math.sin(azRad), // when elevation = 0, no horizontal component (e.g. cos(90) = 0)
         ] as [number, number, number];
     }, [sunAzimuth, sunElevation]);
 
-    // Update shadow map size imperatively so changes apply in real-time
+    // update shadow map size imperatively so changes apply in real-time (controlled component does not apply the changes in real-time)
     useEffect(() => {
         const light = lightRef.current;
         if (!light) return;
         light.shadow.mapSize.width = shadowMapSize;
         light.shadow.mapSize.height = shadowMapSize;
-        // Dispose old map so Three.js recreates it at the new size
+        // dispose old map so Three.js recreates it at the new size
         if (light.shadow.map) {
             light.shadow.map.dispose();
             light.shadow.map = null as unknown as THREE.WebGLRenderTarget;
@@ -72,12 +74,13 @@ const SceneDirectionalLight: React.FC = () => {
         light.shadow.needsUpdate = true;
     }, [shadowMapSize]);
 
-    useHelper(
-        lightRef as React.RefObject<THREE.DirectionalLight>,
-        DirectionalLightHelper,
-        5,
-        'cyan'
-    );
+    // directional light visualization helper
+    // useHelper(
+    //     lightRef as React.RefObject<THREE.DirectionalLight>,
+    //     DirectionalLightHelper,
+    //     5,
+    //     'cyan'
+    // );
 
     return (
         <directionalLight
@@ -438,14 +441,14 @@ const RendererMain: React.FC = () => {
         config: config.slow,
     }));
 
-    // When PerformanceMonitor detects low FPS, downgrade settings via Redux
+    // when PerformanceMonitor detects low FPS, downgrade settings automatically
     const handleLowPerformance = () => {
         dispatch(updateDepthOfFieldEnabled(false));
         dispatch(updateChromaticAberrationEnabled(false));
         dispatch(updateVignetteEnabled(false));
         dispatch(updateWaterReflectionSize(64));
 
-        // Show notification
+        // show notification when down grade setting
         setShowNotification(true);
         const mountTimer = setTimeout(() => {
             setIsNotificationVisible(true);
@@ -472,6 +475,7 @@ const RendererMain: React.FC = () => {
             config: config.gentle,
         });
     };
+
     const isMobile = useSelector((state: RootState) => state.app.isMobile);
 
     return (

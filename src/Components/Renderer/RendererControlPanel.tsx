@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BackButton from '@comp/Common/BackButton';
 import { ArrowLeft, ArrowRight } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '@states/store';
@@ -46,7 +47,7 @@ const controlPanelSettings = [
     'Environment',
 ];
 
-// ─── Settings panels ───────────────────────────────────────────────────────────
+// ==== settings panels ====
 
 const LightingSettings: React.FC = () => {
     const dispatch = useDispatch();
@@ -201,7 +202,7 @@ const PostProcessingSettings: React.FC = () => {
                         label="  Focal Length"
                         value={r.dofFocalLength}
                         min={1}
-                        max={20}
+                        max={150}
                         step={1}
                         onChange={(v) => dispatch(updateDofFocalLength(v))}
                     />
@@ -289,7 +290,7 @@ const EnvironmentSettings: React.FC = () => {
     );
 };
 
-// ─── Main control panel ────────────────────────────────────────────────────────
+// ==== main control panel ====
 
 function RendererControlPanel() {
     const [currentSetting, setCurrentSetting] = useState(0);
@@ -306,6 +307,10 @@ function RendererControlPanel() {
         );
     };
 
+    const updateCurrentSetting = (ind: number) => {
+        setCurrentSetting(ind);
+    };
+
     const settingPanels = [
         <LightingSettings key="lighting" />,
         <ShadowSettings key="shadow" />,
@@ -315,23 +320,44 @@ function RendererControlPanel() {
     ];
 
     return (
-        <div className="absolute flex flex-col justify-start bottom-0 left-0 right-0 h-1/4 max-h-80 text-center bg-linear-to-t from-game-bg-dark to-transparent z-50">
-            <div className="flex items-center justify-between gap-4 mb-4 max-w-3xl w-2/3 mx-auto">
-                <button onClick={handlePrevious}>
-                    <ArrowLeft size={36} />
-                </button>
-                <h3 className="text-3xl font-bold">
-                    {controlPanelSettings[currentSetting]}
-                </h3>
-                <button onClick={handleNext}>
-                    <ArrowRight size={36} />
-                </button>
+        <>
+            {/* Top gradient with back button */}
+            <div className="bottom-0 left-0 right-0 h-1/8 max-h-20 text-center bg-linear-to-b from-game-bg-dark to-transparent z-50">
+                <BackButton />
             </div>
+            <div className="absolute flex flex-col justify-start gap-2 bottom-0 left-0 right-0 h-1/4 max-h-80 text-center bg-linear-to-t from-game-bg-dark to-transparent z-50">
+                {/* Header and left/right arrow */}
+                <div className="flex items-center justify-between gap-4 max-w-3xl w-7/11 mx-auto">
+                    <button onClick={handlePrevious}>
+                        <ArrowLeft size={36} />
+                    </button>
+                    <h3 className="text-xl lg:text-2xl font-bold whitespace-nowrap">
+                        {controlPanelSettings[currentSetting]}
+                    </h3>
+                    <button onClick={handleNext}>
+                        <ArrowRight size={36} />
+                    </button>
+                </div>
 
-            <div className="max-w-3xl w-2/3 mx-auto overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 pr-1">
-                {settingPanels[currentSetting]}
+                {/*Dot indicator for the current setting panel*/}
+                <div className="flex justify-center items-center gap-3 mb-4">
+                    {controlPanelSettings.map((_, index) => {
+                        return (
+                            <button
+                                key={controlPanelSettings[index]}
+                                onClick={() => updateCurrentSetting(index)}
+                                className={`rounded-full h-2 transition-all duration-300 w-${index === currentSetting ? 6 + ' bg-game-primary' : 2 + ' bg-game-text-muted hover:bg-game-primary'} `}
+                            ></button>
+                        );
+                    })}
+                </div>
+
+                {/*Dynamically displayed setting panel*/}
+                <div className="max-w-3xl w-7/11 mx-auto overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 pr-2 pb-4 mb-4">
+                    {settingPanels[currentSetting]}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
