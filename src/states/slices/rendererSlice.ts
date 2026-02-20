@@ -72,7 +72,7 @@ const initialState: RendererState = {
     shadowMapSize: 2048,
 
     // Water
-    waterReflectionSize: 128,
+    waterReflectionSize: 512,
     waterColor: '#001e0f',
     waterFogEnabled: true,
 
