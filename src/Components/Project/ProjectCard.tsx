@@ -12,9 +12,9 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, onClick, style }: ProjectCardProps) {
-    const [hovered, setHovered] = useState(false);
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [imageError, setImageError] = useState(false);
+    const [hovered, setHovered] = useState<boolean>(false);
+    const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+    const [imageError, setImageError] = useState<boolean>(false);
 
     const hoverSpring = useSpring({
         scale: hovered ? 1.02 : 1,

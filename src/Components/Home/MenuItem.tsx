@@ -18,7 +18,7 @@ function MenuItem({
     delay,
     icon: Icon, // rename icon to Icon
 }: MenuItemProps) {
-    const [hovered, setHovered] = React.useState(false);
+    const [hovered, setHovered] = React.useState<boolean>(false);
 
     const springProps = useSpring({
         from: { opacity: 0, x: -50 },

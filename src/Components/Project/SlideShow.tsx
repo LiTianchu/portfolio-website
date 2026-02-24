@@ -8,7 +8,7 @@ interface SlideShowProps {
 }
 
 function SlideShow({ images, imagesFit = 'cover' }: SlideShowProps) {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
     const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
     const [direction, setDirection] = useState<'next' | 'prev'>('next');

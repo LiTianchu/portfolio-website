@@ -293,7 +293,7 @@ const EnvironmentSettings: React.FC = () => {
 // ==== main control panel ====
 
 function RendererControlPanel() {
-    const [currentSetting, setCurrentSetting] = useState(0);
+    const [currentSetting, setCurrentSetting] = useState<number>(0);
 
     const handlePrevious = () => {
         setCurrentSetting((prev) =>
