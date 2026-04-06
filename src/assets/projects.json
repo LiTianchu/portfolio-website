@@ -75,6 +75,23 @@
             ]
         },
         {
+            "title": "GPU Ray Tracing",
+            "description": "GPU distribution ray tracing implemented in GLSL.",
+            "longDescription": "GPU distribution ray tracing implemented in GLSL. Realized various graphic effects via distribution ray tracing techniques.",
+            "thumbnailFit": "cover",
+            "thumbnail": "raytracer/thumbnail.png",
+            "technologies": ["GLSL"],
+            "type": "Graphics",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": ["raytracer/1.png", "raytracer/2.png", "raytracer/3.png"],
+            "features": [
+                "Soft shadows with area light and multiple light samples",
+                "Blurred glossy reflection (on the small sphere) by perturbing reflection rays",
+                "Depth of field by simulating aperture and sending rays from different positions on the lens"
+            ]
+        },
+        {
             "title": "MiniRenderer",
             "description": "3D software(CPU) graphics rendering engine written in C++",
             "longDescription": "3D software(CPU) graphics rendering engine written in C++. Implemented the entire rendering pipeline, including 3D transformation, triangle rasterization, shading, texture mapping, normal mapping, shadow testing, and other advanced graphics techniques.",
