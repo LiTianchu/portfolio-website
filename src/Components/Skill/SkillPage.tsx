@@ -28,8 +28,11 @@ function SkillPage() {
     const [treeData] = useState<RawNodeDatum>(
         (skillsJSON as { skillTree: RawNodeDatum }).skillTree
     );
-    const [translate, setTranslate] = useState({ x: 0, y: 60 });
-    const [zoom, setZoom] = useState(0.7);
+    const [translate, setTranslate] = useState<{ x: number; y: number }>({
+        x: 0,
+        y: 60,
+    });
+    const [zoom, setZoom] = useState<number>(0.7);
     const treeContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

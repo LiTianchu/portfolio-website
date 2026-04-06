@@ -10,7 +10,7 @@ interface BackButtonProps {
 
 function BackButton({ className = '', variant = 'floating' }: BackButtonProps) {
     const dispatch = useAppDispatch();
-    const [hovered, setHovered] = React.useState(false);
+    const [hovered, setHovered] = React.useState<boolean>(false);
 
     const spring = useSpring({
         scale: hovered ? 1.1 : 1,

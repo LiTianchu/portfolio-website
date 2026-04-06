@@ -427,10 +427,11 @@ const PostProcessingEffects: React.FC = () => {
 
 const RendererMain: React.FC = () => {
     const dispatch = useDispatch();
-    const [showNotification, setShowNotification] = useState(false);
-    const [isNotificationVisible, setIsNotificationVisible] = useState(false);
-    const [degradationLevel, setDegradationLevel] = useState(0);
-    const [notificationMessage, setNotificationMessage] = useState('');
+    const [showNotification, setShowNotification] = useState<boolean>(false);
+    const [isNotificationVisible, setIsNotificationVisible] =
+        useState<boolean>(false);
+    const [degradationLevel, setDegradationLevel] = useState<number>(0);
+    const [notificationMessage, setNotificationMessage] = useState<string>('');
 
     const ambientLightIntensity = useSelector(
         (state: RootState) => state.renderer.ambientLightIntensity

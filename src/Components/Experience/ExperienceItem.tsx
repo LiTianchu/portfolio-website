@@ -34,8 +34,8 @@ function ExperienceItem({
     descPoints,
     achievements,
 }: ExperienceItemProps) {
-    const [expanded, setExpanded] = useState(false);
-    const [hovered, setHovered] = useState(false);
+    const [expanded, setExpanded] = useState<boolean | null>(false);
+    const [hovered, setHovered] = useState<boolean | null>(false);
 
     const formatDate = (dateStr: string) => {
         // Handle 'Forgot When' or other non-date strings
