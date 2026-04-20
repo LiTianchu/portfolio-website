@@ -14,9 +14,31 @@
             "features": ["Very funny"]
         },
         {
+            "title": "KanaVerse VR",
+            "description": "A VR educational game for learning Japanese Hiragana.",
+            "longDescription": "A VR educational game for learning Japanese Hiragana. Players can interact with Hiragana characters in a virtual environment and solve puzzles to recover the world while learning the Hiragana characters. This was a 6-people group project, and I was responsible for general programming and level design.",
+            "thumbnailFit": "cover",
+            "thumbnail": "vr_learn/thumbnail.png",
+            "technologies": ["Unity", "C#", "VRChat SDK"],
+            "type": "Game",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": [
+                "vr_learn/revealing.png",
+                "vr_learn/bedroom.png",
+                "vr_learn/livingroom.png",
+                "vr_learn/hotspring.png",
+                "vr_learn/picnic.png"
+            ],
+            "features": [
+                "High embodiment language learning experience in VR",
+                "Built on top of the VR Chat ecosystem for easy distribution and accessibility"
+            ]
+        },
+        {
             "title": "Story Mosaic",
             "description": "A collaborative storytelling platform that allows writers to create and share interactive Choose Your Own Adventure games.",
-            "longDescription": "A collaborative storytelling platform that allows writers to create and share interactive Choose Your Own Adventure games. It features real-time collaboration, a GUI flowchart story editor, and a user-friendly interface for both writers and readers.",
+            "longDescription": "A collaborative storytelling platform that allows writers to create and share interactive Choose Your Own Adventure games. It features real-time collaboration, a GUI flowchart story editor, and a user-friendly interface for both writers and readers. This was a 3-people group project, and I was responsible for full-stack development and UI design.",
             "thumbnailFit": "cover",
             "thumbnail": "story_mosaic/thumbnail.png",
             "technologies": [
@@ -49,7 +71,7 @@
         {
             "title": "ARvatar",
             "description": "An augmented reality messaging app with 3D avatar customization.",
-            "longDescription": "An augmented reality messaging app that allows users to create and customize 3D avatars, send real-time messages, and interact with their avatars in real-world environments using AR technology.",
+            "longDescription": "An augmented reality messaging app that allows users to create and customize 3D avatars, send real-time messages, and interact with their avatars in real-world environments using AR technology. This was a 9-people group project, and I was responsible for Unity client development, database development, and technical design.",
             "thumbnailFit": "cover",
             "thumbnail": "arvatar/logo.png",
             "technologies": [
@@ -120,6 +142,23 @@
             ]
         },
         {
+            "title": "Rigidbody - Character Simulation",
+            "description": "A 3D graphics project that implements rigidbody simulation, character animation, and their physics interactions.",
+            "longDescription": "A 3D graphics project that implements rigidbody simulation, character animation, and their physics interactions. It parses character data including skeleton, skinning weights and animation keyframes, and solves their interaction with rigidbodies in the scene using Implicit Euler Integrator. Code framework was provided by Prof. Wang Bohan from NUS CS5343 Advanced Computer Animation class.",
+            "thumbnailFit": "cover",
+            "thumbnail": "rigidbody/thumbnail.png",
+            "technologies": ["C++"],
+            "type": "Graphics",
+            "status": "Completed",
+            "imagesFit": "contain",
+            "images": ["rigidbody/demo.gif"],
+            "features": [
+                "Quaternion-based Bezier Spline interpolation for smooth keyframe inbetweening",
+                "Linear blend skinning for character skin deformation",
+                "Rigidbody simulation using Implicit Euler Integrator"
+            ]
+        },
+        {
             "title": "My OpenGL Rendering Engine",
             "description": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes.",
             "longDescription": "My custom GPU graphics rendering engine built with OpenGL. Used for learning purposes. Implemented various graphics techniques including Phong shading, cube mapping, skyboxes, normal vector visualization. Will work on it when I feel like it.",
@@ -162,7 +201,7 @@
         {
             "title": "3D Narrative Game Project",
             "description": "A 3D narrative-driven game developed in Unity, created for learning purposes.",
-            "longDescription": "A 3D narrative-driven game developed in Unity, created for learning purposes. Features stylized pixel art rendering, custom dialogue system, and branching storylines",
+            "longDescription": "A 3D narrative-driven game developed in Unity, created for learning purposes. Features stylized pixel art rendering, custom dialogue system, and branching storylines. This was a 4-people group project, and I was responsible for game design and gameplay programming.",
             "thumbnailFit": "cover",
             "thumbnail": "doctor/demo_render.png",
             "technologies": ["Unity", "C#"],
@@ -180,7 +219,7 @@
         {
             "title": "Definitely Not a Rip-off",
             "description": "Experimental narrative puzzle game based off game industry memes.",
-            "longDescription": "An experimental comedic narrative puzzle game based off game industry memes. Role in the team: Programmer, Designer and Writer",
+            "longDescription": "An experimental comedic narrative puzzle game based off game industry memes. This was a 2-people pair project, and I was responsible for programming, game design and story writing.",
             "thumbnailFit": "cover",
             "thumbnail": "dnar/title.png",
             "technologies": ["Unity", "C#"],
@@ -266,7 +305,7 @@
         {
             "title": "UI/UX Prototype for NTU Learn",
             "description": "A UI redesign for NTU Learn platform.",
-            "longDescription": "A UI redesign for NTU Learn platform. A 4-people group project submission for a Interface Design course in NTU. We focused on improving user experience, accessibility, and visual design to create a more intuitive and engaging learning environment for students.",
+            "longDescription": "A UI redesign for NTU Learn platform. A 4-people group project submission for a Interface Design course in NTU. We focused on improving user experience, accessibility, and visual design to create a more intuitive and engaging learning environment for students. This was a 4-people group project, and I was responsible for part of the UI design and prototyping.",
             "thumbnailFit": "cover",
             "thumbnail": "ntulearn/preview.png",
             "technologies": ["Figma"],
