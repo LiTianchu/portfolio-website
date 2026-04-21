@@ -6,19 +6,22 @@
  *   reduced quality and written back over the original. A ".bak" copy is kept.
  *   Skipped if a ".bak" already exists (unless --force is passed).
  *
- * Pass 2 – Mobile variant generation:
- *   PNG/JPG/WebP files exceeding MOBILE_THRESHOLD_KB get a "-mobile" sibling
- *   at a smaller resolution (max 800 px), keeping the same format.
- *   Skipped if the variant already exists (unless --force).
+ * Pass 2 – Tablet variant (-tablet):
+ *   Files exceeding TABLET_THRESHOLD_KB get a "-tablet" sibling at max
+ *   TABLET_MAX_DIM px (quality 72). Skipped if already exists (unless --force).
+ *
+ * Pass 3 – Mobile variant (-mobile):
+ *   Files exceeding MOBILE_THRESHOLD_KB get a "-mobile" sibling at max
+ *   MOBILE_MAX_DIM px (quality 70). Skipped if already exists (unless --force).
  *
  * Settings:
- *   - Mobile max dim  : 800 px (preserves aspect ratio)
- *   - JPEG quality    : 75 (original) / 70 (mobile)
- *   - PNG quality     : 75 (original) / 70 (mobile)
- *   - WebP quality    : 75 (original) / 70 (mobile)
+ *   - Original       : quality 75, no resize
+ *   - Tablet (-tablet): quality 72, max 1200 px
+ *   - Mobile (-mobile): quality 70, max 800 px
+ *   Formats: JPEG, PNG, WebP (animated WebP supported)
  *
  * Usage:
- *   node scripts/compress-images.mjs           # incremental – skips already-processed files
+ *   node scripts/compress-images.mjs           # incremental
  *   node scripts/compress-images.mjs --force   # reprocess everything
  */
 
@@ -34,15 +37,24 @@ const IMAGES_DIR = path.resolve(__dirname, '../src/assets/images');
 /** Originals larger than this are compressed in-place (original replaced). */
 const ORIGINAL_THRESHOLD_KB = 500;
 
-/** Files larger than this will also have a "-mobile" variant generated. */
+/** Files larger than this get a "-tablet" variant. */
+const TABLET_THRESHOLD_KB = 300;
+
+/** Files larger than this get a "-mobile" variant. */
 const MOBILE_THRESHOLD_KB = 200;
 
-/** Maximum dimension (width or height) for the mobile variant. */
+/** Maximum dimension for the tablet variant. */
+const TABLET_MAX_DIM = 1200;
+
+/** Maximum dimension for the mobile variant. */
 const MOBILE_MAX_DIM = 800;
 
 const JPEG_QUALITY_ORIGINAL = 75;
 const PNG_QUALITY_ORIGINAL = 75;
 const WEBP_QUALITY_ORIGINAL = 75;
+const JPEG_QUALITY_TABLET = 72;
+const PNG_QUALITY_TABLET = 72;
+const WEBP_QUALITY_TABLET = 72;
 const JPEG_QUALITY_MOBILE = 70;
 const PNG_QUALITY_MOBILE = 70;
 const WEBP_QUALITY_MOBILE = 70;
@@ -51,7 +63,7 @@ const WEBP_QUALITY_MOBILE = 70;
 const SUPPORTED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp']);
 const FORCE = process.argv.includes('--force');
 
-/** Recursively collect all image file paths that are NOT already mobile variants. */
+/** Recursively collect all image file paths that are NOT already variants. */
 function collectImages(dir) {
     const results = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -61,8 +73,8 @@ function collectImages(dir) {
         } else if (entry.isFile()) {
             const ext = path.extname(entry.name).toLowerCase();
             const base = path.basename(entry.name, ext);
-            // Skip files that are already mobile variants (including .webp siblings)
-            if (base.endsWith('-mobile')) continue;
+            // Skip files that are already generated variants
+            if (base.endsWith('-mobile') || base.endsWith('-tablet')) continue;
             if (SUPPORTED_EXTENSIONS.has(ext)) {
                 results.push(fullPath);
             }
@@ -71,12 +83,18 @@ function collectImages(dir) {
     return results;
 }
 
+/** Return the tablet variant path for a given source path. */
+function tabletPathFor(srcPath) {
+    const ext = path.extname(srcPath);
+    const base = path.basename(srcPath, ext);
+    return path.join(path.dirname(srcPath), `${base}-tablet${ext}`);
+}
+
 /** Return the mobile variant path for a given source path. */
 function mobilePathFor(srcPath) {
     const ext = path.extname(srcPath);
     const base = path.basename(srcPath, ext);
-    const dir = path.dirname(srcPath);
-    return path.join(dir, `${base}-mobile${ext}`);
+    return path.join(path.dirname(srcPath), `${base}-mobile${ext}`);
 }
 
 /** Format bytes as a human-readable string. */
@@ -215,10 +233,78 @@ async function generateMobileVariant(srcPath) {
     }
 }
 
+async function generateTabletVariant(srcPath) {
+    const stats = fs.statSync(srcPath);
+    const sizeKB = stats.size / 1024;
+    const tabletPath = tabletPathFor(srcPath);
+    const ext = path.extname(srcPath).toLowerCase();
+    const relSrc = path.relative(IMAGES_DIR, srcPath);
+
+    if (sizeKB <= TABLET_THRESHOLD_KB) {
+        console.log(
+            `  ⏭  ${relSrc} (${fmtBytes(stats.size)}) — below tablet threshold, skipped`
+        );
+        return;
+    }
+
+    if (!FORCE && fs.existsSync(tabletPath)) {
+        console.log(
+            `  ✅ ${relSrc} — tablet variant already exists, skipped (use --force to regenerate)`
+        );
+        return;
+    }
+
+    try {
+        const image = sharp(srcPath, { animated: ext === '.webp' });
+        const meta = await image.metadata();
+
+        const needsResize =
+            (meta.width && meta.width > TABLET_MAX_DIM) ||
+            (meta.height && meta.height > TABLET_MAX_DIM);
+
+        let pipeline = needsResize
+            ? image.resize({
+                  width: TABLET_MAX_DIM,
+                  height: TABLET_MAX_DIM,
+                  fit: 'inside',
+                  withoutEnlargement: true,
+              })
+            : image;
+
+        if (ext === '.jpg' || ext === '.jpeg') {
+            pipeline = pipeline.jpeg({
+                quality: JPEG_QUALITY_TABLET,
+                mozjpeg: true,
+            });
+        } else if (ext === '.png') {
+            pipeline = pipeline.png({
+                quality: PNG_QUALITY_TABLET,
+                compressionLevel: 9,
+            });
+        } else if (ext === '.webp') {
+            pipeline = pipeline.webp({
+                quality: WEBP_QUALITY_TABLET,
+                effort: 4,
+            });
+        }
+
+        await pipeline.toFile(tabletPath);
+        const tabletStats = fs.statSync(tabletPath);
+        console.log(
+            `  🖼  ${relSrc} → ${path.basename(tabletPath)} (${fmtBytes(tabletStats.size)})`
+        );
+    } catch (err) {
+        console.error(`  ❌ ${relSrc} — tablet variant failed: ${err.message}`);
+    }
+}
+
 async function main() {
     console.log(`\n📂 Scanning: ${IMAGES_DIR}`);
     console.log(
         `📏 Original threshold : ${ORIGINAL_THRESHOLD_KB} KB (compress in-place)`
+    );
+    console.log(
+        `🖥  Tablet threshold   : ${TABLET_THRESHOLD_KB} KB (generate -tablet variant, max ${TABLET_MAX_DIM}px)`
     );
     console.log(
         `📱 Mobile threshold   : ${MOBILE_THRESHOLD_KB} KB (generate -mobile variant, max ${MOBILE_MAX_DIM}px)`
@@ -236,9 +322,17 @@ async function main() {
         await compressOriginal(imgPath);
     }
 
-    // ── Pass 2: generate mobile variants ──────────────────────────────────
+    // ── Pass 2: generate tablet variants ──────────────────────────────────
     console.log(
-        '\n── Pass 2: mobile variant generation ────────────────────────'
+        '\n── Pass 2: tablet variant generation ────────────────────────'
+    );
+    for (const imgPath of images) {
+        await generateTabletVariant(imgPath);
+    }
+
+    // ── Pass 3: generate mobile variants ──────────────────────────────────
+    console.log(
+        '\n── Pass 3: mobile variant generation ────────────────────────'
     );
     for (const imgPath of images) {
         await generateMobileVariant(imgPath);

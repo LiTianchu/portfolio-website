@@ -21,11 +21,18 @@ export const statusColors: Record<string, string> = {
     Planned: 'text-game-text-muted',
 };
 
+export interface ImageSrcSet {
+    desktop: string;
+    tablet?: string;
+    mobile?: string;
+}
+
 export interface Project {
     id: string;
     title: string;
     description: string;
-    images?: string[];
+    /** Resolved after loading — each entry carries desktop/tablet/mobile URLs. */
+    images?: ImageSrcSet[];
     longDescription: string;
     thumbnail: string;
     thumbnailFit?: 'cover' | 'contain';
@@ -52,43 +59,47 @@ const imageModules = import.meta.glob('@assets/images/**/*', {
     import: 'default',
 });
 
-/** Return true when the current device is likely a mobile/touch device. */
+/** Return true when the screen width is in the mobile range (≤768px). */
 function detectMobile(): boolean {
     if (typeof window === 'undefined') return false;
-    const ua = navigator.userAgent.toLowerCase();
-    const mobileUA = [
-        'android',
-        'webos',
-        'iphone',
-        'ipad',
-        'ipod',
-        'blackberry',
-        'windows phone',
-    ].some((kw) => ua.includes(kw));
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    return mobileUA || (isTouch && window.innerWidth <= 768);
+    return window.innerWidth <= 768;
 }
 
 const IS_MOBILE = detectMobile();
+const IS_TABLET =
+    !IS_MOBILE && typeof window !== 'undefined' && window.innerWidth <= 1280;
 
 /**
- * Given a filename like "lie/desktop.png" return the full resolved URL.
- * On mobile, prefer the "-mobile" variant if it exists in the glob map.
- * GIF mobile variants are stored as "-mobile.png".
+ * Build an ImageSrcSet for a filename (e.g. "lie/desktop.png").
+ * All available variants are returned; the browser picks the right one
+ * via <picture> <source media="…"> in SlideShow.
+ */
+function getImageSrcSet(filename: string): ImageSrcSet {
+    const desktop = imageModules[`/src/assets/images/${filename}`] as string;
+    const ext = filename.slice(filename.lastIndexOf('.'));
+    const stem = filename.slice(0, filename.lastIndexOf('.'));
+    const tabletKey = `/src/assets/images/${stem}-tablet${ext}`;
+    const mobileKey = `/src/assets/images/${stem}-mobile${ext}`;
+    return {
+        desktop,
+        tablet: (imageModules[tabletKey] as string) ?? undefined,
+        mobile: (imageModules[mobileKey] as string) ?? undefined,
+    };
+}
+
+/**
+ * Return a single URL appropriate for the current device.
+ * Used for thumbnails in ProjectCard where srcset is not needed.
  */
 function getImageUrl(filename: string): string {
     const base = `/src/assets/images/${filename}`;
-
-    if (IS_MOBILE) {
+    if (IS_MOBILE || IS_TABLET) {
         const ext = filename.slice(filename.lastIndexOf('.'));
         const stem = filename.slice(0, filename.lastIndexOf('.'));
-        const mobileKey = `/src/assets/images/${stem}-mobile${ext}`;
-
-        if (imageModules[mobileKey]) {
-            return imageModules[mobileKey] as string;
-        }
+        const suffix = IS_MOBILE ? '-mobile' : '-tablet';
+        const variantKey = `/src/assets/images/${stem}${suffix}${ext}`;
+        if (imageModules[variantKey]) return imageModules[variantKey] as string;
     }
-
     return imageModules[base] as string;
 }
 
@@ -117,13 +128,17 @@ function ProjectPage() {
 
     // replace image urls
     useEffect(() => {
-        const projectsData = (projectsJSON as { projects: Project[] }).projects;
+        const projectsData = (
+            projectsJSON as unknown as { projects: Project[] }
+        ).projects;
         const projectsWithPathResolved = projectsData.map((project) => {
             if (project.images && project.images.length > 0) {
                 return {
                     ...project,
                     thumbnail: getImageUrl(project.thumbnail),
-                    images: project.images.map((img) => getImageUrl(img)),
+                    images: project.images.map((img) =>
+                        getImageSrcSet(img as unknown as string)
+                    ),
                 };
             }
             return project;

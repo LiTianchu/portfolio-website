@@ -9,7 +9,9 @@
         "lint": "eslint .",
         "preview": "vite preview",
         "compress-images": "node scripts/compress-images.mjs",
-        "compress-images:force": "node scripts/compress-images.mjs --force"
+        "compress-images:force": "node scripts/compress-images.mjs --force",
+        "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\""
     },
     "dependencies": {
         "@react-spring/web": "^10.0.3",
