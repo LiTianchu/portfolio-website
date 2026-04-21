@@ -225,22 +225,24 @@ function SlideShow({ images, imagesFit = 'cover' }: SlideShowProps) {
                     className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
                     onClick={closeLightbox}
                 >
+                    {/* Close button anchored to the overlay corner */}
+                    <button
+                        onClick={closeLightbox}
+                        aria-label="Close"
+                        className="absolute top-3 right-3 bg-game-primary/60 text-dark-ink rounded-full p-1.5 hover:bg-game-primary/90 transition-colors cursor-pointer z-10"
+                    >
+                        <X size={16} />
+                    </button>
                     <animated.div
                         style={{ transform: lightboxStyle.transform }}
-                        className="relative max-w-screen max-h-screen p-4"
+                        className="flex items-center justify-center w-full h-full p-8"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <button
-                            onClick={closeLightbox}
-                            aria-label="Close"
-                            className="absolute top-5 right-5 bg-dark-ink/60 text-light-ink rounded-full p-1.5 hover:bg-dark-ink/80 transition-colors cursor-pointer z-10"
-                        >
-                            <X size={16} />
-                        </button>
                         <img
                             src={images[currentIndex]?.desktop}
                             alt={`Slide ${currentIndex + 1} full size`}
-                            className="max-w-[90vw] max-h-[85vh] object-contain rounded"
+                            className="max-w-full max-h-full w-auto h-auto object-contain rounded"
+                            style={{ maxWidth: '100%', maxHeight: '100%' }}
                         />
                     </animated.div>
                 </animated.div>
