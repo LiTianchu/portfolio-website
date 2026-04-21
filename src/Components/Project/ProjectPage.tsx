@@ -82,12 +82,7 @@ function getImageUrl(filename: string): string {
     if (IS_MOBILE) {
         const ext = filename.slice(filename.lastIndexOf('.'));
         const stem = filename.slice(0, filename.lastIndexOf('.'));
-
-        // GIF mobile variants are animated WebP (much smaller, all modern mobile browsers support it)
-        const mobileKey =
-            ext === '.gif'
-                ? `/src/assets/images/${stem}-mobile.webp`
-                : `/src/assets/images/${stem}-mobile${ext}`;
+        const mobileKey = `/src/assets/images/${stem}-mobile${ext}`;
 
         if (imageModules[mobileKey]) {
             return imageModules[mobileKey] as string;

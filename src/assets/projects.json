@@ -151,7 +151,7 @@
             "type": "Graphics",
             "status": "Completed",
             "imagesFit": "contain",
-            "images": ["rigidbody/demo.gif"],
+            "images": ["rigidbody/demo.webp"],
             "features": [
                 "Quaternion-based Bezier Spline interpolation for smooth keyframe inbetweening",
                 "Linear blend skinning for character skin deformation",
@@ -188,8 +188,8 @@
             "githubUrl": "https://github.com/LiTianchu/SVG-Morph",
             "imagesFit": "contain",
             "images": [
-                "svg_morph/morphing_animal.gif",
-                "svg_morph/morphing_sun.gif",
+                "svg_morph/morphing_animal.webp",
+                "svg_morph/morphing_sun.webp",
                 "svg_morph/ui.jpg"
             ],
             "features": [

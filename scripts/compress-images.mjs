@@ -2,24 +2,20 @@
  * Image compression script using Sharp.
  *
  * Pass 1 – Original compression (in-place):
- *   PNG/JPG files exceeding ORIGINAL_THRESHOLD_KB are re-encoded at reduced
- *   quality and written back over the original. A ".bak" copy is kept.
- *   GIF files are never touched in this pass.
+ *   PNG/JPG/WebP files exceeding ORIGINAL_THRESHOLD_KB are re-encoded at
+ *   reduced quality and written back over the original. A ".bak" copy is kept.
  *   Skipped if a ".bak" already exists (unless --force is passed).
  *
  * Pass 2 – Mobile variant generation:
- *   PNG/JPG files exceeding MOBILE_THRESHOLD_KB get a "-mobile" sibling at a
- *   smaller resolution (max 800 px).
- *   GIF files exceeding MOBILE_THRESHOLD_KB are converted to an animated
- *   "-mobile.webp" — animated WebP is 50-80 % smaller than GIF and is
- *   supported by all modern mobile browsers.
+ *   PNG/JPG/WebP files exceeding MOBILE_THRESHOLD_KB get a "-mobile" sibling
+ *   at a smaller resolution (max 800 px), keeping the same format.
  *   Skipped if the variant already exists (unless --force).
  *
  * Settings:
- *   - Mobile max dim      : 800 px (preserves aspect ratio)
- *   - JPEG quality        : 75 (original) / 70 (mobile)
- *   - PNG quality         : 75 (original) / 70 (mobile)
- *   - WebP quality (GIF)  : 70 (mobile only, animated)
+ *   - Mobile max dim  : 800 px (preserves aspect ratio)
+ *   - JPEG quality    : 75 (original) / 70 (mobile)
+ *   - PNG quality     : 75 (original) / 70 (mobile)
+ *   - WebP quality    : 75 (original) / 70 (mobile)
  *
  * Usage:
  *   node scripts/compress-images.mjs           # incremental – skips already-processed files
@@ -46,12 +42,13 @@ const MOBILE_MAX_DIM = 800;
 
 const JPEG_QUALITY_ORIGINAL = 75;
 const PNG_QUALITY_ORIGINAL = 75;
+const WEBP_QUALITY_ORIGINAL = 75;
 const JPEG_QUALITY_MOBILE = 70;
 const PNG_QUALITY_MOBILE = 70;
-const WEBP_QUALITY_MOBILE = 70; // used for animated GIF → WebP conversion
+const WEBP_QUALITY_MOBILE = 70;
 // ─────────────────────────────────────────────────────────────────────────────
 
-const SUPPORTED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.gif']);
+const SUPPORTED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp']);
 const FORCE = process.argv.includes('--force');
 
 /** Recursively collect all image file paths that are NOT already mobile variants. */
@@ -98,9 +95,6 @@ async function compressOriginal(srcPath) {
 
     if (sizeKB <= ORIGINAL_THRESHOLD_KB) return; // handled silently; logged in main
 
-    // GIFs are never compressed in-place — handled separately in Pass 2
-    if (ext === '.gif') return;
-
     if (!FORCE && fs.existsSync(bakPath)) {
         console.log(`  ✅ ${relSrc} — already compressed in-place, skipped`);
         return;
@@ -110,7 +104,7 @@ async function compressOriginal(srcPath) {
         // Write compressed output to a temp file first, then atomically replace
         const tmpPath = `${srcPath}.tmp`;
 
-        const image = sharp(srcPath);
+        const image = sharp(srcPath, { animated: ext === '.webp' });
         let pipeline = image;
 
         if (ext === '.jpg' || ext === '.jpeg') {
@@ -122,6 +116,11 @@ async function compressOriginal(srcPath) {
             pipeline = pipeline.png({
                 quality: PNG_QUALITY_ORIGINAL,
                 compressionLevel: 9,
+            });
+        } else if (ext === '.webp') {
+            pipeline = pipeline.webp({
+                quality: WEBP_QUALITY_ORIGINAL,
+                effort: 4,
             });
         }
 
@@ -165,17 +164,7 @@ async function generateMobileVariant(srcPath) {
         return;
     }
 
-    // For GIFs the mobile variant is an animated WebP (same stem, -mobile.webp).
-    // Animated WebP is 50-80 % smaller than GIF and supported by all modern mobile browsers.
-    const gifVariant = ext === '.gif';
-    const mobileVariantPath = gifVariant
-        ? path.join(
-              path.dirname(srcPath),
-              `${path.basename(srcPath, '.gif')}-mobile.webp`
-          )
-        : mobilePath;
-
-    if (!FORCE && fs.existsSync(mobileVariantPath)) {
+    if (!FORCE && fs.existsSync(mobilePath)) {
         console.log(
             `  ✅ ${relSrc} — mobile variant already exists, skipped (use --force to regenerate)`
         );
@@ -183,25 +172,7 @@ async function generateMobileVariant(srcPath) {
     }
 
     try {
-        if (gifVariant) {
-            await sharp(srcPath, { animated: true })
-                .resize({
-                    width: MOBILE_MAX_DIM,
-                    height: MOBILE_MAX_DIM,
-                    fit: 'inside',
-                    withoutEnlargement: true,
-                })
-                .webp({ quality: WEBP_QUALITY_MOBILE, effort: 4 })
-                .toFile(mobileVariantPath);
-
-            const mobileStats = fs.statSync(mobileVariantPath);
-            console.log(
-                `  🖼  ${relSrc} → ${path.basename(mobileVariantPath)} (${fmtBytes(mobileStats.size)}) [animated WebP]`
-            );
-            return;
-        }
-
-        const image = sharp(srcPath);
+        const image = sharp(srcPath, { animated: ext === '.webp' });
         const meta = await image.metadata();
 
         const needsResize =
@@ -226,6 +197,11 @@ async function generateMobileVariant(srcPath) {
             pipeline = pipeline.png({
                 quality: PNG_QUALITY_MOBILE,
                 compressionLevel: 9,
+            });
+        } else if (ext === '.webp') {
+            pipeline = pipeline.webp({
+                quality: WEBP_QUALITY_MOBILE,
+                effort: 4,
             });
         }
 
