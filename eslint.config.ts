@@ -12,6 +12,13 @@ export default [
             globals: globals.browser,
         },
     },
+    {
+        // Node.js scripts live in /scripts — give them Node globals
+        files: ['scripts/**/*.{js,mjs,cjs}'],
+        languageOptions: {
+            globals: globals.node,
+        },
+    },
     js.configs.recommended,
     ...tseslint.configs.recommended,
     pluginReact.configs.flat.recommended,

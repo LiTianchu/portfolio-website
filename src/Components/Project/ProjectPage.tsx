@@ -45,12 +45,57 @@ export interface Project {
     features: string[];
 }
 
-// vite glob import for images
+// vite glob import for images — includes both originals and -mobile variants
 const imageModules = import.meta.glob('@assets/images/**/*', {
     eager: true,
     query: '?url',
     import: 'default',
 });
+
+/** Return true when the current device is likely a mobile/touch device. */
+function detectMobile(): boolean {
+    if (typeof window === 'undefined') return false;
+    const ua = navigator.userAgent.toLowerCase();
+    const mobileUA = [
+        'android',
+        'webos',
+        'iphone',
+        'ipad',
+        'ipod',
+        'blackberry',
+        'windows phone',
+    ].some((kw) => ua.includes(kw));
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    return mobileUA || (isTouch && window.innerWidth <= 768);
+}
+
+const IS_MOBILE = detectMobile();
+
+/**
+ * Given a filename like "lie/desktop.png" return the full resolved URL.
+ * On mobile, prefer the "-mobile" variant if it exists in the glob map.
+ * GIF mobile variants are stored as "-mobile.png".
+ */
+function getImageUrl(filename: string): string {
+    const base = `/src/assets/images/${filename}`;
+
+    if (IS_MOBILE) {
+        const ext = filename.slice(filename.lastIndexOf('.'));
+        const stem = filename.slice(0, filename.lastIndexOf('.'));
+
+        // GIF mobile variants are animated WebP (much smaller, all modern mobile browsers support it)
+        const mobileKey =
+            ext === '.gif'
+                ? `/src/assets/images/${stem}-mobile.webp`
+                : `/src/assets/images/${stem}-mobile${ext}`;
+
+        if (imageModules[mobileKey]) {
+            return imageModules[mobileKey] as string;
+        }
+    }
+
+    return imageModules[base] as string;
+}
 
 function ProjectPage() {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -58,11 +103,6 @@ function ProjectPage() {
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
-
-    const getImageUrl = (filename: string) => {
-        const path = `/src/assets/images/${filename}`;
-        return imageModules[path] as string;
-    };
 
     const headerSpring = useSpring({
         from: { opacity: 0, y: -20 },
