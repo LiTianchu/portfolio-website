@@ -21,8 +21,12 @@
  *   Formats: JPEG, PNG, WebP (animated WebP supported)
  *
  * Usage:
- *   node scripts/compress-images.mjs           # incremental
- *   node scripts/compress-images.mjs --force   # reprocess everything
+ *   node scripts/compress-images.mjs                        # incremental (all images)
+ *   node scripts/compress-images.mjs --force                # reprocess everything
+ *   node scripts/compress-images.mjs <file> [file2 ...]     # specific files only
+ *   node scripts/compress-images.mjs --force <file> [...]   # force-reprocess specific files
+ *   e.g. node scripts/compress-images.mjs --force src/assets/images/svg_morph/morphing_sun.webp
+ * <file> paths can be absolute or relative to the current working directory.
  */
 
 import sharp from 'sharp';
@@ -62,6 +66,12 @@ const WEBP_QUALITY_MOBILE = 70;
 
 const SUPPORTED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp']);
 const FORCE = process.argv.includes('--force');
+
+/** Specific files passed as CLI args (absolute paths). Empty = process all. */
+const TARGET_FILES = process.argv
+    .slice(2)
+    .filter((a) => !a.startsWith('--'))
+    .map((a) => path.resolve(process.cwd(), a));
 
 /** Recursively collect all image file paths that are NOT already variants. */
 function collectImages(dir) {
@@ -311,8 +321,32 @@ async function main() {
     );
     console.log(`🔁 Force              : ${FORCE}\n`);
 
-    const images = collectImages(IMAGES_DIR);
-    console.log(`Found ${images.length} source image(s).\n`);
+    let images;
+    if (TARGET_FILES.length > 0) {
+        // Validate each provided path
+        images = [];
+        for (const filePath of TARGET_FILES) {
+            if (!fs.existsSync(filePath)) {
+                console.warn(`  ⚠️  File not found, skipping: ${filePath}`);
+                continue;
+            }
+            const ext = path.extname(filePath).toLowerCase();
+            if (!SUPPORTED_EXTENSIONS.has(ext)) {
+                console.warn(`  ⚠️  Unsupported format, skipping: ${filePath}`);
+                continue;
+            }
+            const base = path.basename(filePath, ext);
+            if (base.endsWith('-mobile') || base.endsWith('-tablet')) {
+                console.warn(`  ⚠️  Skipping generated variant: ${filePath}`);
+                continue;
+            }
+            images.push(filePath);
+        }
+        console.log(`Targeting ${images.length} specific image(s).\n`);
+    } else {
+        images = collectImages(IMAGES_DIR);
+        console.log(`Found ${images.length} source image(s).\n`);
+    }
 
     // ── Pass 1: compress large originals in-place ──────────────────────────
     console.log(
